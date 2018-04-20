@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="5dp"
+    android:background="?attr/dif_item_bg"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_wifi"
+        android:src="@drawable/selector_wifi_state"
+        android:layout_marginRight="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_alignTop="@+id/iv_wifi"
+        android:layout_toRightOf="@+id/iv_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/dif_text_title_color"
+        android:textSize="15sp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_cla"
+        android:layout_toRightOf="@+id/iv_wifi"
+        android:layout_alignBottom="@+id/iv_wifi"
+        android:textSize="13sp"
+        android:textColor="?attr/dif_text_summary_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/tv_nothing"
+        android:text="nothing"
+        android:textSize="18sp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

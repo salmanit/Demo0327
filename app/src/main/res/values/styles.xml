@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="dif_text_title_color">@color/item_text_title_color_black</item>
+        <item name="dif_text_summary_color">@color/item_text_summary_color_blue</item>
+        <item name="dif_item_bg">@color/item_bg_white</item>
+        <item name="dif_item_nothing">@color/colorPrimary</item>
+    </style>
+    <style name="AppTheme2" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="dif_text_title_color">@color/item_text_title_color_white</item>
+        <item name="dif_text_summary_color">@color/item_text_summary_color_red</item>
+        <item name="dif_item_bg">@color/item_bg_black</item>
+        <item name="dif_item_nothing">@color/colorAccent</item>
+    </style>
+
+</resources>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Demo0327</string>
+
+    <string name="demo_access_server_name1">Demo 辅助功能测试</string>
+    <string name="demo_access_server_description1">Demo 辅助功能测试,主要测试点击事件以及模拟点击事件</string>
+
+
+    <!-- activity description-->
+    <string name="access_activity_des">辅助功能学习</string>
+    <string name="rx_learn_des">Rx学习</string>
+    <string name="kotlin_learn_des">kotlin学习</string>
+    <string name="widget_learn_des">自定义view的展示</string>
+    <string name="item_decoration">itemDecoration复习</string>
+
+
+
+
+
+
+
+
+    <string name="kotlin_use_show">方法以fun开始，返回类型写在括号后边，加冒号，另外无返回类型可以省略，也可以写Unit ，变量一般有val 和var.</string>
+    <string name="manifest_about">manifest数据的获取</string>
+
+</resources>

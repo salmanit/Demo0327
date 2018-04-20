@@ -1,0 +1,17 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/gradlew
+/gradlew.bat
+/.idea/
+/app/src/androidTest/
+/gradle.properties
+/gradle/
+/.gradle/
+/Demo0327.iml

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="dif_text_title_color" format="reference"/>
+    <attr name="dif_text_summary_color" format="reference"/>
+    <attr name="dif_item_bg" format="reference"/>
+    <attr name="dif_item_nothing" format="reference"/>
+</resources>
