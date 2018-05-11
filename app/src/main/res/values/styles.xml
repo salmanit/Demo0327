@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,7 +11,7 @@
         <item name="dif_item_bg">@color/item_bg_white</item>
         <item name="dif_item_nothing">@color/colorPrimary</item>
     </style>
-    <style name="AppTheme2" parent="Theme.AppCompat.DayNight">
+    <style name="AppTheme2" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -20,6 +20,10 @@
         <item name="dif_text_summary_color">@color/item_text_summary_color_red</item>
         <item name="dif_item_bg">@color/item_bg_black</item>
         <item name="dif_item_nothing">@color/colorAccent</item>
+    </style>
+    
+    <style name="customAl" parent="AlertDialog.AppCompat">
+        <item name="listItemLayout"></item>
     </style>
 
 </resources>

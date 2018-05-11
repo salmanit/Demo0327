@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp">
+
+    <com.charliesong.demo0327.widget.TextViewBg
+        android:id="@+id/tv_word"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:gravity="center"
+        app:sage_tv_stroke_color="#55000000"
+        app:sage_tv_stroke_width="1dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="TextView" />
+</LinearLayout>

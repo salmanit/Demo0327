@@ -23,6 +23,9 @@ import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import java.util.*
+import android.R.attr.name
+
+
 
 
 /**
@@ -38,28 +41,48 @@ open class  BaseActivity: AppCompatActivity() {
         }
         toast=Toast.makeText(this,msg+"",Toast.LENGTH_SHORT);
         toast?.show();
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        LayoutInflaterCompat.setFactory2(layoutInflater,object :LayoutInflater.Factory2{
-//            override fun onCreateView(parent: View?, name: String?, context: Context, attrs: AttributeSet): View? {
-//                var view=delegate.createView(parent,name,context,attrs);
-//                if(view!=null&&view is TextView){
+        LayoutInflaterCompat.setFactory2(layoutInflater,object :LayoutInflater.Factory2{
+            override fun onCreateView(parent: View?, name: String?, context: Context, attrs: AttributeSet): View? {
+                var view=delegate.createView(parent,name,context,attrs);
+                if(view!=null&&view is TextView){
 //                    view.setTextColor(Color.RED)
-//                }
-//                return  view
-//            }
+                }
+//                println("name==" + name + "===" + attrs.idAttribute + "==" + attrs.classAttribute)
+//                for (i in 0 until attrs.attributeCount) {
+//                    val key = attrs.getAttributeName(i)
 //
-//            override fun onCreateView(name: String?, context: Context?, attrs: AttributeSet?): View? {
-//                return  null
-//            }
-//        })
+//                    if ("id".equals(key, ignoreCase = true)) {
+//                        try {
+//                            val value = attrs.getAttributeValue(i)
+//                            println("id================$value")
+//                        } catch (e: Exception) {
+//
+//                            e.printStackTrace()
+//                        }
+//
+//                    } else {
+//
+//                        println("i=$i==name======$key")
+//                    }
+//                }
+                return  view
+            }
+
+            override fun onCreateView(name: String?, context: Context?, attrs: AttributeSet?): View? {
+                return  null
+            }
+        })
 
 //        LayoutInflaterCompat.setFactory(layoutInflater,object:LayoutInflaterFactory{
 //            override fun onCreateView(parent: View?, name: String?, context: Context?, attrs: AttributeSet?): View? {
 //            return  null
 //            }
 //        })
+
         super.onCreate(savedInstanceState)
 
     }

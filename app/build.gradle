@@ -47,6 +47,10 @@ dependencies {
     implementation files('libs/pinyin4j-2.5.0.jar')
 
     implementation 'jp.wasabeef:recyclerview-animators:2.2.6'
+
+    implementation 'com.zaaach:citypicker:2.0.1'
+
+    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 }
 configurations.all {
 

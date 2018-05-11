@@ -18,4 +18,16 @@
         android:hint="check if service open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <com.charliesong.demo0327.assitservice.ClickTextView
+        android:id="@+id/tv_click"
+        android:text="click"
+        android:gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

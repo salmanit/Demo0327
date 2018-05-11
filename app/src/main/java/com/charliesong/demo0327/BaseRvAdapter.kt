@@ -9,7 +9,7 @@ import android.view.ViewGroup
  */
 abstract class BaseRvAdapter<T> : RecyclerView.Adapter<BaseRvHolder>{
 
-    private var datas= arrayListOf<T>()
+    open  var datas= arrayListOf<T>()
 
     public constructor(datas: ArrayList<T>) : super() {
         this.datas = datas

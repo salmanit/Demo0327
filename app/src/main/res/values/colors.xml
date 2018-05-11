@@ -11,4 +11,6 @@
     <color name="item_text_summary_color_red">#ff0000</color>
 
     <color name="color_blue">#00ff00</color>
+
+    <color name="rx_button1_txt_color">#ffffff</color>
 </resources>

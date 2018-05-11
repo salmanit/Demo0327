@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import com.charliesong.demo0327.article.ArticleActivityDetail
 import com.charliesong.demo0327.util.UtilNormal
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,7 @@ import java.util.*
 class MainActivity : BaseActivity() {
 var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-4363-9d7f-ecd305b9722b.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(if(Random().nextInt(10)>5) R.style.AppTheme else R.style.AppTheme2 )
+//        setTheme(if(Random().nextInt(10)>5) R.style.AppTheme else R.style.AppTheme2 )
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -65,7 +66,8 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
     fun getActivitys(){
         Observable.create<List<ActivityInfo>> {
             var packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            var result=packageInfo.activities.filter { return@filter !TextUtils.equals(MainActivity::class.java.name,it.name) }
+            var result=packageInfo.activities.filter { return@filter !TextUtils.equals(MainActivity::class.java.name,it.name)
+            &&!TextUtils.equals(ArticleActivityDetail::class.java.name,it.name)}.reversed()
             it.onNext(result)}
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

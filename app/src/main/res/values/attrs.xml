@@ -4,4 +4,17 @@
     <attr name="dif_text_summary_color" format="reference"/>
     <attr name="dif_item_bg" format="reference"/>
     <attr name="dif_item_nothing" format="reference"/>
+
+
+
+
+
+
+
+    <declare-styleable name="TextViewBg">
+        <attr name="sage_tv_bg_color" format="color"/>
+        <attr name="sage_tv_radius" format="dimension"/>
+        <attr name="sage_tv_stroke_color" format="color"/>
+        <attr name="sage_tv_stroke_width" format="dimension"/>
+    </declare-styleable>
 </resources>

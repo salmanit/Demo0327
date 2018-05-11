@@ -1,14 +1,23 @@
 package com.charliesong.demo0327.contact
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.view.LayoutInflaterCompat
+import android.support.v4.view.LayoutInflaterFactory
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.AttributeSet
+import android.view.View
 import com.charliesong.demo0327.BaseActivity
 import com.charliesong.demo0327.BaseRvAdapter
 import com.charliesong.demo0327.BaseRvHolder
 import com.charliesong.demo0327.R
+import com.charliesong.demo0327.util.RippleAnimation
 import io.reactivex.Observable
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
@@ -29,11 +38,27 @@ class ActivityContact:BaseActivity(){
         initSearch()
         initData()
         initRecyclerView()
-
+        fab_mode.setOnClickListener {
+            RippleAnimation.create(it).setDuration(2000).startRipple()
+            changeMode()
+        }
     }
-
+    private fun changeMode(){
+      color=if(color==Color.WHITE) Color.BLUE else Color.WHITE
+        (rv_contact.getItemDecorationAt(0) as ItemDecorationContact).apply {
+            colorGroup=Color.parseColor("#215986")
+            colorGroupText=Color.parseColor("#ffffff")
+        }
+        rv_contact.adapter.notifyDataSetChanged()
+        supportActionBar?.run {
+            setTitle("change....")
+            setBackgroundDrawable(ColorDrawable(color))
+            titleColor=Color.YELLOW
+        }
+    }
+    var color= Color.WHITE
     private fun initRecyclerView() {
-        rv_contact.layoutManager=LinearLayoutManager(this)
+        rv_contact.layoutManager=LinearLayoutManager(this).apply { findFirstCompletelyVisibleItemPosition() }
         rv_contact.addItemDecoration(ItemDecorationContact().apply { datas=contactsFilter })
         rv_contact.adapter= SlideInRightAnimationAdapter(object:BaseRvAdapter<Contact>(contactsFilter){
             override fun getLayoutID(viewType: Int): Int {
@@ -42,6 +67,7 @@ class ActivityContact:BaseActivity(){
 
             override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
                 var contact=getItemData(position)
+                holder.itemView.setBackgroundColor(color)
                 holder.setText(R.id.tv_name,contact.name)
                 holder.setText(R.id.tv_phone,contact.phone+" ${contact.py}  ${contact.index}")
                 holder.setImageUrl(R.id.iv_head,contact.head)
@@ -50,7 +76,7 @@ class ActivityContact:BaseActivity(){
         }.apply {
 
         })
-        rv_contact.addOnItemTouchListener(ItemTouchListenerRV(this,rv_contact))
+        rv_contact.addOnItemTouchListener(ItemTouchListenerRV(rv_contact))
 
 //        rv_contact.itemAnimator=SlideInLeftAnimator()
 

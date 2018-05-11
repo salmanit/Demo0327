@@ -22,6 +22,8 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
             outRect.top=if(needDraw(i)) indexHeight else 0
 
     }
+    var colorGroup=Color.parseColor("#888888")
+    var colorGroupText=Color.RED
     var indexHeight=40;//索引布局的高度
     var paint=Paint()
     var textHeight=0;//测量的索引字母的高度
@@ -41,10 +43,10 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
             if(child!=null){
                 var position=parent.getChildAdapterPosition(child)
                 if(needDraw(position) ){
-                    paint.color=Color.parseColor("#888888")
+                    paint.color=colorGroup
                     c.drawRect(child.left.toFloat(), (child.top-indexHeight).toFloat(), child.right.toFloat(), child.top.toFloat(),paint)
                     var contact=datas.get(position)
-                    paint.color=Color.RED
+                    paint.color=colorGroupText
                     c.drawText(contact.index,0,1,child.left+10f,child.top-(indexHeight-textHeight)/2f,paint)
                 }
             }
@@ -77,7 +79,7 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
             }
         }
         floatRect.offset(0,moveY)
-        paint.color=Color.parseColor("#888888")
+        paint.color=colorGroup
         c.drawRect(floatRect,paint)
         paint.color=Color.RED
         c.drawText(contact.index,0,1,10f,floatRect.bottom-(indexHeight-textHeight)/2f,paint)

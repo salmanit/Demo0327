@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#1190df"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rela_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/layout_location_date"
+            android:layout_width="match_parent"
+            android:background="#1190df"
+            android:layout_height="100dp">
+            <LinearLayout
+                android:id="@+id/layout_location"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_above="@+id/layout_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:text="静安"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_date"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="4月27日，星期五 14：00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout_temperature"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/layout_location_date"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/adp_global_launcher_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="26℃"
+                android:textSize="35sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_weather"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/layout_temperature"
+            android:text="多云"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/layout_aqi"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_weather"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="AQI 103(轻度污染)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+<com.charliesong.demo0327.weather.WeatherScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sv"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:layout_marginTop="180dp"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="180dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layout222"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="every hour" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:src="@drawable/per_hour_temperature" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="every day" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_hidden"
+                android:layout_width="match_parent"
+                android:text="200dp是我"
+                android:layout_marginTop="-220dp"
+                android:textSize="33sp"
+                android:gravity="center"
+                android:layout_height="220dp"
+                android:background="@drawable/per_hour_temperature" />
+            <TextView
+                android:id="@+id/layout_show"
+                android:layout_width="match_parent"
+                android:text="100dp是我"
+                android:textSize="33sp"
+                android:gravity="center"
+                android:layout_height="100dp"
+                android:background="@drawable/day_weather" />
+        </LinearLayout>
+
+
+        <LinearLayout
+        android:id="@+id/layout444"
+       android:background="#440000ff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="layout4......." />
+            <ImageView
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:src="@drawable/today_intro" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="layout4 last" />
+    </LinearLayout>
+
+    </LinearLayout>
+</com.charliesong.demo0327.weather.WeatherScrollView>
+
+</FrameLayout>
