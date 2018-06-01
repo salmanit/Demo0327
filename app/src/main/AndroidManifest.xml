@@ -80,6 +80,8 @@
             android:label="flip board setting "/>
         <activity android:name=".layoutmanager.ActivitySimpleAnima"
             android:label="simple anima for rv"/>
+        <activity android:name=".select.ActivityTextSelect"
+            android:label="text select actionbar"/>
     </application>
 
 </manifest>

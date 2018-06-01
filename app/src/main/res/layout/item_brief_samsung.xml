@@ -36,6 +36,7 @@
         android:id="@+id/tv_placeholder"
         android:text="place holder"
         android:gravity="center"
+        android:textIsSelectable="true"
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="530dp" />
