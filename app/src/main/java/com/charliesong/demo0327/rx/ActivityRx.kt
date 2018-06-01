@@ -2,9 +2,9 @@ package com.charliesong.demo0327.rx
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
-import com.charliesong.demo0327.BaseActivity
+import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
-import com.charliesong.demo0327.showSnackBar
+import com.charliesong.demo0327.base.showSnackBar
 import kotlinx.android.synthetic.main.activity_rx.*
 
 /**
@@ -16,7 +16,7 @@ class ActivityRx: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rx)
         btn_ext.setOnClickListener {
-            showSnackBar("hello"){
+            showSnackBar("hello") {
                 showToast("my god")
                 println("length==========${size}")
             }

@@ -3,7 +3,7 @@ package com.charliesong.demo0327.city
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
-import com.charliesong.demo0327.BaseActivity
+import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
 import com.zaaach.citypicker.CityPicker
 import com.zaaach.citypicker.adapter.OnPickListener
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_city_pick.*
 /**
  * Created by charlie.song on 2018/5/2.
  */
-class ActivityCityPick:BaseActivity(){
+class ActivityCityPick: BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

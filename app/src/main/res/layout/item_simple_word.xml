@@ -3,16 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:clickable="true"
+    android:gravity="center"
     android:background="?attr/selectableItemBackground"
-    android:layout_width="wrap_content"
-    android:layout_height="50dp">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_girl"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content" />
     <com.charliesong.demo0327.widget.TextViewBg
         android:id="@+id/tv_word"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:textColor="#000"
-        android:textSize="16sp"
+        android:textSize="21sp"
         android:gravity="center"
         app:sage_tv_stroke_color="#55000000"
         app:sage_tv_stroke_width="1dp"

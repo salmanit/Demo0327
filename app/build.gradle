@@ -51,6 +51,10 @@ dependencies {
     implementation 'com.zaaach:citypicker:2.0.1'
 
     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+
+    compile 'com.github.renaudcerrato:DoorSignView:1.0.6'
+
+    implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
 }
 configurations.all {
 

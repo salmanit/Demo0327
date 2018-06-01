@@ -1,16 +1,14 @@
 package com.charliesong.demo0327.words
 
 import android.content.Context
-import android.support.v4.view.ViewCompat
 import android.support.v4.widget.ViewDragHelper
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.view.MotionEvent
 import android.view.View
-import com.charliesong.demo0327.BaseRvAdapter
+import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.R
-import kotlinx.android.synthetic.main.activity_words.*
 import java.util.*
 
 

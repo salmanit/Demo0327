@@ -12,14 +12,12 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Callable
-import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import android.content.DialogInterface
 import android.support.v4.app.DialogFragment
-import com.charliesong.demo0327.assitservice.AccessActivity.DeleteDialogFragment
-
-
+import com.charliesong.demo0327.base.*
+import com.charliesong.demo0327.util.UtilNormal
 
 
 /**
@@ -49,13 +47,13 @@ class AccessActivity : BaseActivity() {
         }
         rv_contact.apply {
             layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,true)
-            adapter=object :BaseRvAdapter<String>(){
+            adapter=object : BaseRvAdapter<String>(){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_simple_imageview
                 }
                 override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
                     var iv=holder.getView<ImageView>(R.id.iv_head)
-                    MyApplication.loadCircleImage(if(position%2==0) url1 else url2,iv)
+                    UtilNormal.loadCircleImage(if(position%2==0) url1 else url2,iv)
                     if(position>0){
                         var params=iv.layoutParams as RecyclerView.LayoutParams
                         params.rightMargin=-25

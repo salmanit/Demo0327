@@ -3,8 +3,7 @@ package com.charliesong.demo0327.manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import com.charliesong.demo0327.BaseActivity
+import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
 import java.lang.Exception
 

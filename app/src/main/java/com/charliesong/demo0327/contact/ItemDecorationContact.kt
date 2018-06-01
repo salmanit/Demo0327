@@ -18,6 +18,7 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
     var datas= ArrayList<Contact>()
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
+        println("getItemOffsets==============${datas.size}")
             var i=parent.getChildAdapterPosition(view)
             outRect.top=if(needDraw(i)) indexHeight else 0
 
@@ -30,6 +31,8 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
     var floatRect=Rect()//用来画索引的布局方位
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
+        println("onDraw==============${datas.size}")
+        if(datas.size==0){return}
         if(textHeight==0){
             paint.textSize=30f
             var bounds=Rect()
@@ -57,12 +60,16 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
         if(position==0){
             return true
         }
+        if(datas.size==0){
+            return false
+        }
         var contactPre=datas.get(position-1)
         var contact=datas.get(position)
         return !TextUtils.equals(contact.index.substring(0,1),contactPre.index.substring(0,1))
     }
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(c, parent, state)
+        if(datas.size==0){return}
         floatRect.set(0,0,parent.width,indexHeight)
         var layoutmanager=(parent.layoutManager as LinearLayoutManager)
         var first=layoutmanager.findFirstVisibleItemPosition()

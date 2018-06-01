@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:id="@+id/layout_top"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:src="@mipmap/pic11"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+    <View
+        android:id="@+id/view_mask"
+        android:alpha="0.5"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <CheckBox
+        android:id="@+id/cb"
+        android:clickable="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/tv_type"
+        android:text="type"
+        android:layout_centerInParent="true"
+        android:layout_width="60dp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:layout_height="25dp" />
+    <TextView
+        android:id="@+id/tv_expand"
+        android:text="expand"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_type"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/layout_expand"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="-50dp"
+        android:layout_height="50dp">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_sub_types"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+</LinearLayout>

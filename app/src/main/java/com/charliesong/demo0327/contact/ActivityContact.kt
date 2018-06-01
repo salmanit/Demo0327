@@ -1,28 +1,18 @@
 package com.charliesong.demo0327.contact
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.view.LayoutInflaterCompat
-import android.support.v4.view.LayoutInflaterFactory
-import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.AttributeSet
-import android.view.View
-import com.charliesong.demo0327.BaseActivity
-import com.charliesong.demo0327.BaseRvAdapter
-import com.charliesong.demo0327.BaseRvHolder
+import com.charliesong.demo0327.base.BaseActivity
+import com.charliesong.demo0327.base.BaseRvAdapter
+import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.util.RippleAnimation
-import io.reactivex.Observable
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.activity_contact.*
 import java.util.*
 import kotlin.Comparator
@@ -30,7 +20,7 @@ import kotlin.Comparator
 /**
  * Created by charlie.song on 2018/4/3.
  */
-class ActivityContact:BaseActivity(){
+class ActivityContact: BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +50,7 @@ class ActivityContact:BaseActivity(){
     private fun initRecyclerView() {
         rv_contact.layoutManager=LinearLayoutManager(this).apply { findFirstCompletelyVisibleItemPosition() }
         rv_contact.addItemDecoration(ItemDecorationContact().apply { datas=contactsFilter })
-        rv_contact.adapter= SlideInRightAnimationAdapter(object:BaseRvAdapter<Contact>(contactsFilter){
+        rv_contact.adapter= SlideInRightAnimationAdapter(object: BaseRvAdapter<Contact>(){
             override fun getLayoutID(viewType: Int): Int {
                 return R.layout.item_contact
             }
@@ -74,7 +64,7 @@ class ActivityContact:BaseActivity(){
 
             }
         }.apply {
-
+        setData(contactsFilter)
         })
         rv_contact.addOnItemTouchListener(ItemTouchListenerRV(rv_contact))
 
@@ -125,7 +115,8 @@ class ActivityContact:BaseActivity(){
                     contactsFilter.addAll(result)
                 }
 //                getAdapter().initData(contactsFilter)
-            rv_contact.adapter.notifyDataSetChanged()
+                println("search===================${contactsFilter.size}")
+                rv_contact.adapter.notifyDataSetChanged()
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {

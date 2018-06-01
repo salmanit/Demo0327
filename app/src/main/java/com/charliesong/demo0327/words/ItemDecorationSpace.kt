@@ -9,11 +9,9 @@ import android.view.View
  */
 class ItemDecorationSpace:RecyclerView.ItemDecoration{
     constructor() : super()
-
-
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect.left=5
         outRect.right=5
-        outRect.bottom=11
+        outRect.bottom=20
     }
 }

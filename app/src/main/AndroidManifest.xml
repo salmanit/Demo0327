@@ -12,10 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyApplication"
+        android:name=".base.MyApplication"
         android:theme="@style/AppTheme"
         android:resizeableActivity="true">
-        <activity android:name=".MainActivity"
+        <activity android:name=".base.MainActivity"
             android:allowEmbedded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +55,7 @@
         <activity android:name=".weather.ActivityWeather"
             android:label="weather"/>
         <activity android:name=".words.ActivityWords"
-            android:label="insert word to right position"/>
+            android:label="insert word to right position [not complete]"/>
         <activity android:name=".city.ActivityCityPick"
             android:theme="@style/DefaultCityPickerTheme"
             android:label="city picker lib use"/>
@@ -64,9 +64,22 @@
         <activity android:name=".layoutmanager.ActivityLayoutManagerCustom"
             android:label="custom layout manager"/>
         <activity android:name=".article.ArticleActivityList"
-            android:label="artile list"/>
+            android:label="artile list [not complete]"/>
         <activity android:name=".article.ArticleActivityDetail"
             android:label="detail"/>
+        <activity android:name=".third.ActivityDoorSign"
+            android:label="door sign view test"/>
+        <activity android:name=".classify.ActivityClassify"
+            android:windowSoftInputMode="stateHidden"
+            android:label="classify like launcher home app [not complete]"/>
+        <activity android:name=".linkage.ActivityLinkageRecyeclerViews"
+            android:label="linkage recyclerView [not complete]"/>
+        <activity android:name=".brief.ActivityBriefSamsung"
+            android:label="brief report like samsung app"/>
+        <activity android:name=".brief.ActivityFlipBoardSetting"
+            android:label="flip board setting "/>
+        <activity android:name=".layoutmanager.ActivitySimpleAnima"
+            android:label="simple anima for rv"/>
     </application>
 
 </manifest>

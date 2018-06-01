@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:padding="5dp"
-    android:background="?attr/dif_item_bg"
+    android:background="?attr/selectableItemBackground"
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/iv_wifi"
@@ -31,10 +31,13 @@
         android:text="TextView" />
     <TextView
         android:id="@+id/tv_nothing"
-        android:text="nothing"
-        android:textSize="18sp"
+        android:text="22"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:textColor="#0000ff"
+        android:background="@drawable/shape_circle_stroke"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="44dp"
+        android:layout_height="44dp" />
 </RelativeLayout>

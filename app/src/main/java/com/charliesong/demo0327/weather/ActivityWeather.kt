@@ -1,13 +1,12 @@
 package com.charliesong.demo0327.weather
 
-import com.charliesong.demo0327.BaseActivity
+import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
 
 import android.os.Bundle
-import android.support.v4.view.ViewCompat
-import android.view.MotionEvent
-import android.view.View
 import kotlinx.android.synthetic.main.activity_weather2.*
+import java.util.concurrent.Callable
+import java.util.concurrent.FutureTask
 
 class ActivityWeather : BaseActivity() {
     var dp180=180f
@@ -39,8 +38,30 @@ class ActivityWeather : BaseActivity() {
 
             }
         }
-
+//     backRun()
     }
 
-
+    private fun backRun(){
+        println("45==================${Thread.currentThread().name}==${Thread.currentThread().id}")
+        Thread(object:Runnable{
+            override fun run() {
+                testCallBack()
+            }
+        }).start()
+    }
+    private fun testCallBack(){
+        val cb=object:Callable<String>{
+            override fun call(): String {
+                    Thread.sleep(3333)
+                println("task complet===============${Thread.currentThread().name}==${Thread.currentThread().id}")
+                return "return result=================48"
+            }
+        }
+        val futureTask=FutureTask(cb)
+        println("53==================start")
+        Thread(futureTask).start()
+        println("55=====================start2====${Thread.currentThread().name}==${Thread.currentThread().id}")
+        val result=futureTask.get()
+        println("58=====get result=============$result")
+    }
 }

@@ -9,4 +9,16 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="range debug" />
+    <Button
+        android:id="@+id/btn_action"
+        android:text="run ,let ,apply,also"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_foreach"
+        android:text="foreach test"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

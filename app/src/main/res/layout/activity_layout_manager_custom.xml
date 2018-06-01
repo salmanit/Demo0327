@@ -1,53 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_root"
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/btn_linealayout"
-        android:text="linear layout"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="linear layout" />
+    <Button
+        android:id="@+id/btn_fragment"
+        android:text="go fragment"
+        android:layout_below="@+id/btn_linealayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn_flowlayout"
-        android:text="flow layout"
-        android:layout_toRightOf="@+id/btn_linealayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btn_linealayout"
+        android:text="flow layout" />
+
     <Button
         android:id="@+id/btn_overlaylayout"
-        android:text="overlay layout"
-        android:layout_toRightOf="@+id/btn_flowlayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btn_flowlayout"
+        android:text="overlay layout" />
+
     <Button
         android:id="@+id/btn_move"
-        android:text="move right"
-        android:layout_toRightOf="@+id/btn_overlaylayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btn_overlaylayout"
+        android:text="remove index4" />
+
     <Button
         android:id="@+id/btn_flow_gravity"
-        android:text="flow gravity"
-        android:textAllCaps="false"
-        android:layout_toRightOf="@+id/btn_move"
         android:layout_width="wrap_content"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:layout_toRightOf="@+id/btn_move"
+        android:text="flow gravity"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_grid_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@+id/btn_flow_gravity"
+        android:text="grid layout"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_stagger_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@+id/btn_grid_layout"
+        android:text="stagger grid layout"
+        android:textAllCaps="false" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_test"
-        android:layout_marginLeft="1dp"
-        android:layout_below="@+id/btn_linealayout"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_fragment"
+        android:layout_marginLeft="1dp"
         android:background="#33000000"
-        android:layout_height="match_parent"/>
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pic"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/btn_linealayout"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_fragment"
         android:background="#33000000"
-        android:layout_height="match_parent"/>
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 </RelativeLayout>

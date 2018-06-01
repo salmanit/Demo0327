@@ -1,26 +1,19 @@
 package com.charliesong.demo0327.words
 
 import android.app.Service
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Vibrator
-import android.support.v4.view.ViewCompat
-import android.support.v4.widget.ViewDragHelper
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.charliesong.demo0327.BaseActivity
-import com.charliesong.demo0327.BaseRvAdapter
-import com.charliesong.demo0327.BaseRvHolder
+import com.charliesong.demo0327.base.BaseActivity
+import com.charliesong.demo0327.base.BaseRvAdapter
+import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
 import kotlinx.android.synthetic.main.activity_words.*
 import java.util.*
@@ -28,7 +21,7 @@ import java.util.*
 /**
  * Created by charlie.song on 2018/4/28.
  */
-class ActivityWords:BaseActivity(){
+class ActivityWords: BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +36,7 @@ class ActivityWords:BaseActivity(){
         rv_words.apply {
             layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             addItemDecoration(ItemDecorationSpace())
-            adapter=object :BaseRvAdapter<WordBean>(wordsOriginal){
+            adapter=object : BaseRvAdapter<WordBean>(wordsOriginal){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_simple_word
                 }

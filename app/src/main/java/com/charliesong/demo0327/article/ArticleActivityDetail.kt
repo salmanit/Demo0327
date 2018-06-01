@@ -6,10 +6,9 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MenuItem
 import android.view.View
 import android.widget.ScrollView
-import android.widget.TextView
-import com.charliesong.demo0327.BaseActivity
-import com.charliesong.demo0327.BaseRvAdapter
-import com.charliesong.demo0327.BaseRvHolder
+import com.charliesong.demo0327.base.BaseActivity
+import com.charliesong.demo0327.base.BaseRvAdapter
+import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
 import kotlinx.android.synthetic.main.activity_article_detail.*
 
@@ -38,7 +37,7 @@ class ArticleActivityDetail : BaseActivity() {
         }
         rv_detail.apply {
             layoutManager = UpLoadLayoutManager()
-            adapter=object :BaseRvAdapter<String>(articles){
+            adapter=object : BaseRvAdapter<String>(articles){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_article_detail
                 }

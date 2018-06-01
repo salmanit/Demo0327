@@ -7,12 +7,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.charliesong.demo0327.*
+import com.charliesong.demo0327.base.BaseActivity
+import com.charliesong.demo0327.base.BaseRvAdapter
+import com.charliesong.demo0327.base.BaseRvHolder
+import com.charliesong.demo0327.base.RvItemTouchListener
 import kotlinx.android.synthetic.main.activity_article_detail.*
 
 /**
  * Created by charlie.song on 2018/5/11.
  */
-class ArticleActivityList:BaseActivity(){
+class ArticleActivityList: BaseActivity(){
 
     var articles= arrayListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +34,7 @@ class ArticleActivityList:BaseActivity(){
         rv_detail.apply {
             layoutManager=LinearLayoutManager(this@ArticleActivityList)
 
-            adapter=object :BaseRvAdapter<String>(articles){
+            adapter=object : BaseRvAdapter<String>(articles){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_article_title
                 }
@@ -43,7 +47,7 @@ class ArticleActivityList:BaseActivity(){
             }
             itemAnimator=DefaultItemAnimator()
             addOnItemTouchListener(RvItemTouchListener(rv_detail).apply {
-                listener=object :RvItemTouchListener.RvItemClickListener{
+                listener=object : RvItemTouchListener.RvItemClickListener{
                     override fun singleTab(position: Int, viewHolder: RecyclerView.ViewHolder) {
                         startActivity(Intent(this@ArticleActivityList,ArticleActivityDetail::class.java)
                                 .putExtra("index",position)
