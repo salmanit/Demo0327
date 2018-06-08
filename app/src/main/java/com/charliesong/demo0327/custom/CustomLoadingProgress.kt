@@ -21,10 +21,10 @@ class CustomLoadingProgress:View{
 
     }
     fun doSomething() {
-        setLayerType(LAYER_TYPE_SOFTWARE,null)
+//        setLayerType(LAYER_TYPE_SOFTWARE,null)
         paint.color=Color.parseColor("#55888888")
         paint.style=Paint.Style.FILL
-        println("===============do some ")
+        paint2.setXfermode(PorterDuffXfermode(PorterDuff.Mode.CLEAR))
 //        paint2.style=Paint.Style.FILL
     }
     var paint=Paint()
@@ -43,14 +43,18 @@ class CustomLoadingProgress:View{
         super.onDraw(canvas)
         canvas.save()
         canvas.translate((width/2).toFloat(), (height/2).toFloat())
-        //画圆角背景
-        canvas.drawRoundRect(rectF,11f,11f,paint)
-        //扣除中心圆
-        paint2.setXfermode(PorterDuffXfermode(PorterDuff.Mode.CLEAR))
-        canvas.drawCircle(0f,0f,radius*0.7f,paint2)
-        paint2.setXfermode(null)
+//        //画圆角背景
+//        canvas.drawRoundRect(rectF,11f,11f,paint)
+//        //扣除中心圆
+//        canvas.drawCircle(0f,0f,radius*0.7f,paint2)
         //画进度
+
         canvas.drawArc(rectFSmall2,270f,-270f,true,paint)
+
+        canvas.clipPath(Path().apply {
+            addCircle(0f,0f,radius*0.7f,Path.Direction.CW)
+        },Region.Op.DIFFERENCE)
+        canvas.drawRoundRect(rectF,11f,11f,paint)
         canvas.restore()
     }
 }

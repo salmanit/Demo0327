@@ -1,36 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<include layout="@layout/include_toolbar"/>
     <TextView
-        android:id="@+id/tv_1"
-        android:text="测试"
-        android:layout_marginTop="80dp"
-        android:gravity="center"
-        android:clickable="true"
-        android:background="@android:drawable/btn_default"
+        android:text="haha dd "
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/et_1"
-        android:text="default data"
-        android:layout_below="@+id/tv_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btn_format"
-        android:text="测试"
-        android:layout_below="@+id/et_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-<View
-    android:layout_below="@+id/btn_format"
-    android:background="#ff0000"
-    android:layout_width="match_parent"
-    android:layout_height="1dp"/>
     <!--<com.willy.ratingbar.ScaleRatingBar-->
         <!--android:layout_below="@+id/btn_format"-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
@@ -54,14 +29,13 @@
 
     <com.charliesong.demo0327.widget.copy.ScaleRatingBar
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/btn_format"
+        android:layout_marginTop="120dp"
         android:id="@+id/simpleRatingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srb_numStars="5"
         app:srb_minimumStars="1"
-        app:srb_rating="3"
+        app:srb_rating="2"
         app:srb_starWidth="30dp"
         app:srb_starHeight="30dp"
         app:srb_starPadding="15dp"
@@ -72,15 +46,4 @@
         app:srb_clearRatingEnabled="true"
         app:srb_drawableEmpty="@drawable/empty"
         app:srb_drawableFilled="@drawable/filled"/>
-
-    <SeekBar
-        android:id="@+id/sb_test"
-        android:layout_below="@+id/simpleRatingBar2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/lv_test"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</RelativeLayout>
+</LinearLayout>

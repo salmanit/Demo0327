@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@drawable/shape_space10" android:duration="300"/>
+<item android:drawable="@drawable/adp_global_launcher_icon" android:duration="300"/>
+<item android:drawable="@drawable/adp_navigationactivity_squarecurrentlocation_nogps_0" android:duration="300"/>
+<item android:drawable="@drawable/adp_navigationactivity_squarecurrentlocation_nogps_1" android:duration="300"/>
+<item android:drawable="@drawable/adp_navigationactivity_squarecurrentlocation_nogps_2" android:duration="300"/>
+<item android:drawable="@drawable/adp_navigationactivity_squarecurrentlocation_nogps_3" android:duration="300"/>
+</animation-list>

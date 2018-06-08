@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragmentHome">
+    <action
+        android:id="@+id/go_StepOne"
+        app:destination="@id/fragmentStepOne" />
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.charliesong.demo0327.navigation.FragmentHome"
+        android:label="FragmentHome"
+        tools:layout="@layout/nav_fragment_home">
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentStepOne"
+        android:name="com.charliesong.demo0327.navigation.FragmentStepOne"
+        android:label="FragmentStepOne"
+        tools:layout="@layout/nav_fragment_step_one">
+        <argument
+            android:name="title"
+            android:defaultValue="just test" />
+        <argument
+            android:name="title2"
+            android:defaultValue="just test2" />
+        <action
+            android:id="@+id/fragmentStepOne1"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/fragmentStepOne1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentStepOne1"
+        android:name="com.charliesong.demo0327.navigation.FragmentStepOne1"
+        android:label="FragmentStepOne"
+        tools:layout="@layout/nav_fragment_step_one">
+        <action
+            android:id="@+id/go_StepTwo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/fragmentStepTwo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentStepTwo"
+        android:name="com.charliesong.demo0327.navigation.FragmentStepTwo"
+        android:label="FragmentStepTwo"
+        tools:layout="@layout/nav_fragment_step_two">
+        <action
+            android:id="@+id/go_StepOne"
+            app:destination="@id/fragmentStepOne" />
+        <action
+            android:id="@+id/go_home"
+            app:popUpTo="@id/fragmentHome"/>
+    </fragment>
+
+
+</navigation>

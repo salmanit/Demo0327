@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'//kapt3插件
+
+//apply plugin: 'androidx.navigation.safeargs'
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.charliesong.demo0327"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 27
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,11 +50,14 @@ dependencies {
 
     implementation 'com.zaaach:citypicker:2.0.1'
 
-    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+    implementation 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 
-    compile 'com.github.renaudcerrato:DoorSignView:1.0.6'
+    implementation 'com.github.renaudcerrato:DoorSignView:1.0.6'
 
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+
+    implementation 'com.github.ome450901:SimpleRatingBar:1.4.1'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha01'
 }
 configurations.all {
 

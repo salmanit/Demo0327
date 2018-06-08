@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.charliesong.demo0327.custom.CustomLoadingProgress
-        android:id="@+id/cs_pb"
+        android:id="@+id/cus_pg"
         android:layout_width="230dp"
         android:layout_height="230dp" />
-</LinearLayout>
+    <com.charliesong.demo0327.custom.LoadingView
+        android:layout_below="@+id/cus_pg"
+        android:background="@mipmap/pic11"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/iv_call"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:src="@mipmap/adp_placeinfoactivity_call_bton"
+        android:layout_toRightOf="@+id/cus_pg"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+    <ImageView
+        android:id="@+id/iv_down"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:src="@mipmap/adp_placeinfoactivity_save_bton"
+        android:layout_toRightOf="@+id/iv_call"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+</RelativeLayout>

@@ -14,7 +14,9 @@ import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
+import android.support.v7.widget.AppCompatTextView
 import android.view.MenuItem
+import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 
@@ -44,34 +46,20 @@ open class  BaseActivity: AppCompatActivity() {
         when(item.itemId){
             android.R.id.home->{
                 onBackPressed()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         LayoutInflaterCompat.setFactory2(layoutInflater,object :LayoutInflater.Factory2{
             override fun onCreateView(parent: View?, name: String?, context: Context, attrs: AttributeSet): View? {
                 var view=delegate.createView(parent,name,context,attrs);
-                if(view!=null&&view is TextView){
-//                    view.setTextColor(Color.RED)
-                }
-//                println("name==" + name + "===" + attrs.idAttribute + "==" + attrs.classAttribute)
-//                for (i in 0 until attrs.attributeCount) {
-//                    val key = attrs.getAttributeName(i)
-//
-//                    if ("id".equals(key, ignoreCase = true)) {
-//                        try {
-//                            val value = attrs.getAttributeValue(i)
-//                            println("id================$value")
-//                        } catch (e: Exception) {
-//
-//                            e.printStackTrace()
-//                        }
-//
-//                    } else {
-//
-//                        println("i=$i==name======$key")
-//                    }
+//                println("onCreateView56=====$name===========${view}")
+//                (0 until attrs.attributeCount).forEach {
+//                    println("${name}=====$it==========${attrs.getAttributeName(it)}")
 //                }
                 return  view
             }
@@ -80,15 +68,7 @@ open class  BaseActivity: AppCompatActivity() {
                 return  null
             }
         })
-
-//        LayoutInflaterCompat.setFactory(layoutInflater,object:LayoutInflaterFactory{
-//            override fun onCreateView(parent: View?, name: String?, context: Context?, attrs: AttributeSet?): View? {
-//            return  null
-//            }
-//        })
-
         super.onCreate(savedInstanceState)
-
     }
 
 

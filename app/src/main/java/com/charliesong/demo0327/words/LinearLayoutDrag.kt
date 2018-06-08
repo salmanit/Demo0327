@@ -50,11 +50,11 @@ class LinearLayoutDrag:LinearLayout{
                 return false
             }
             //返回值用来限制控件可以移动的范围的
-            override fun clampViewPositionHorizontal(child: View?, left: Int, dx: Int): Int {
-                return  left
+            override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int {
+                return left
             }
 
-            override fun clampViewPositionVertical(child: View?, top: Int, dy: Int): Int {
+            override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
                 return top
             }
             override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
@@ -93,7 +93,7 @@ class LinearLayoutDrag:LinearLayout{
                 //现在碰到问题解决不了先放弃。。也就是rv_word  notify的时候，布局会刷新，这个类重新走了onlayout方法，完事我们拖动的控件又回到原始位置去了。
             }
 
-            override fun onViewReleased(releasedChild: View?, xvel: Float, yvel: Float) {
+            override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
                 super.onViewReleased(releasedChild, xvel, yvel)
                 println("release=   $xvel   $yvel  $oldLeft -- $oldTop")
                 //这是就是反弹回初始位置
