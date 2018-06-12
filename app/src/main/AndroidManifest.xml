@@ -93,7 +93,8 @@
         <activity android:name=".work.ActivityWorkManage"
             android:label="work manage learn"/>
 
-
+    <activity android:name=".page.ActivityPaging"
+        android:label="paging recyclerview lib learn"/>
 
 
 

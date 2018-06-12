@@ -2,6 +2,13 @@ package com.charliesong.demo0327;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.arch.paging.PagedListAdapter;
+import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
+import android.view.ViewGroup;
+
+import com.charliesong.demo0327.base.BaseRvHolder;
+import com.charliesong.demo0327.kt.Student;
 
 /**
  * Created by charlie.song on 2018/5/29.
@@ -27,4 +34,22 @@ public class aaaaaaaa {
 
         int a=(2222*33333)>>8;
     }
+
+    class daa<T> extends PagedListAdapter<T,BaseRvHolder>{
+        daa(DiffUtil.ItemCallback<T> diffCallback){
+            super(diffCallback);
+        }
+        @NonNull
+        @Override
+        public BaseRvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull BaseRvHolder holder, int position) {
+        test();
+        }
+    }
+
+
 }
