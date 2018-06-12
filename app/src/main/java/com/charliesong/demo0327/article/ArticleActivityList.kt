@@ -28,7 +28,7 @@ class ArticleActivityList: BaseActivity(){
             setDisplayHomeAsUpEnabled(true)
         }
         setTitle("article")
-        for(i in 0 until 140){
+        for(i in 0 until 50){
             articles.add("article $i")
         }
         rv_detail.apply {

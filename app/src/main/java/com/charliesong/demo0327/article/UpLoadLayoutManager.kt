@@ -26,21 +26,17 @@ class UpLoadLayoutManager:RecyclerView.LayoutManager{
         }
         detachAndScrapAttachedViews(recycler)
 
-        var child=recycler.getViewForPosition(0)
+        var top=0
+        repeat(Math.min(itemCount,3)){
+            var child=recycler.getViewForPosition(it)
+            child.translationY=0f
             addView(child)
             measureChildWithMargins(child,0,0)
-                var height0=getDecoratedMeasuredHeight(child)
-            layoutDecoratedWithMargins(child,0,0,width,height0)
-        var scrollView: ScrollView = child as ScrollView
-        println("29=============${child.findViewById<TextView>(R.id.tv_detail).text}===bottom=$height0====scroll=${scrollView.scrollY}")
-        if(itemCount>1){
-            var child=recycler.getViewForPosition(1)
-            addView(child)
-            measureChildWithMargins(child,0,0)
-            layoutDecoratedWithMargins(child,0,height0,width,height0+getDecoratedMeasuredHeight(child))
-            println("38=============${child.findViewById<TextView>(R.id.tv_detail).text}====height=${getDecoratedMeasuredHeight(child)}====scroll=${scrollView.scrollY}")
+            var height0=getDecoratedMeasuredHeight(child)
+            layoutDecoratedWithMargins(child,0,top,width,top+height0)
+            top+=height0
+            println("51====${it}=========${child.findViewById<TextView>(R.id.tv_detail).text}===bottom=$height0====scroll=${(child).scrollY}")
         }
-
     }
 
 }

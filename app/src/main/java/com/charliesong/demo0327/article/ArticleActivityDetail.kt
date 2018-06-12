@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.activity_article_detail.*
 
 /**
  * Created by charlie.song on 2018/5/11.
- * //没有完工，layoutmanager有问题，滑动过后数据不对头。。。
+*简单实现上滑切换下一个，不过效率不太好,另外切换页面的时候会看到闪动的白线，
+ * 应该是下个item移动的时候有时间差，和上一个item有了间隔，所以可以动态的修改背景颜色为这两个item中的某一个一样，就应该看不出了
+ *
  */
 class ArticleActivityDetail : BaseActivity() {
 
@@ -47,7 +49,7 @@ class ArticleActivityDetail : BaseActivity() {
                     holder.setText(R.id.tv_detail,s)
                     val originalPosition= s.substring("article ".length).toInt()
                     holder.getView<View>(R.id.layout_bg).setBackgroundColor(Color.parseColor(if(originalPosition%2==0) "#215980" else "#684592"))
-                    (holder.itemView as ScrollView).scrollY=0
+                    holder.itemView.scrollY=0
                     println("onBindViewHolder====================$position====$s===size=${datas.size}")
                 }
 
@@ -57,18 +59,6 @@ class ArticleActivityDetail : BaseActivity() {
         ItemTouchHelper(UploadCallback(articles)).attachToRecyclerView(rv_detail)
     }
 
-    private fun setToolbarTitle(title: String) {
-        supportActionBar?.run {
-            setTitle(title)
-        }
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 }

@@ -1,10 +1,15 @@
 package com.charliesong.demo0327.navigation
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.transition.AutoTransition
 import android.support.transition.Explode
 import android.support.transition.TransitionManager
 import android.support.transition.TransitionSet
+import android.support.v4.app.NotificationCompat
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.util.TypedValue
 import android.view.View
@@ -35,6 +40,27 @@ class FragmentHome:BaseFragment(){
                     .build()
             Navigation.findNavController(it).navigate(R.id.go_StepOne,null,options)
 
+        }
+        btn2.setOnClickListener {
+            val args = Bundle()
+            args.putString("myarg", "test argument")
+            val deeplink = Navigation.findNavController(view!!).createDeepLink()
+                    .setDestination(R.id.fragmentHome)
+                    .setArguments(args)
+                    .createPendingIntent()
+            val notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationManager.createNotificationChannel(NotificationChannel(
+                        "deeplink", "Deep Links", NotificationManager.IMPORTANCE_HIGH))
+            }
+            val builder = NotificationCompat.Builder(
+                    context!!, "deeplink")
+                    .setContentTitle("Navigation")
+                    .setContentText("Deep link to Android")
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentIntent(deeplink)
+                    .setAutoCancel(true)
+            notificationManager.notify(0, builder.build())
         }
     }
 }

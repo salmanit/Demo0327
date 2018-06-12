@@ -2,10 +2,13 @@ package com.charliesong.demo0327.layoutmanager
 
 import android.animation.*
 import android.graphics.Color
+import android.graphics.Path
 import android.graphics.PorterDuff
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.RequiresApi
 import android.support.v4.util.Pools
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +16,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.charliesong.demo0327.R
@@ -20,6 +24,7 @@ import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
 import kotlinx.android.synthetic.main.activity_simple_anima.*
+import java.util.*
 
 /**
  * Created by charlie.song on 2018/5/24.
@@ -62,6 +67,8 @@ class ActivitySimpleAnima:BaseActivity(){
         startSimulateRefresh()
 
         useTransition()
+
+        wxytest()
     }
     lateinit var adapterRV:BaseRvAdapter<String>
     var messages= arrayListOf<String>()
@@ -118,6 +125,7 @@ class ActivitySimpleAnima:BaseActivity(){
     }
 
     private fun useTransition(){
+
         //初始化add动画,拉伸动画，从小到大
         var scaleAnimaX=PropertyValuesHolder.ofFloat("scaleX",0f,1f)
         var scaleAnimaY=PropertyValuesHolder.ofFloat("scaleY",0f,1f)
@@ -168,5 +176,33 @@ class ActivitySimpleAnima:BaseActivity(){
             pivotX=0f
         }
         return view
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun wxytest(){
+        var path=Path()
+        path.moveTo(0f,50f)
+        path.lineTo(50f,0f)
+        path.lineTo(0f,-50f)
+        path.lineTo(-50f,0f)
+        path.close()
+       ObjectAnimator.ofMultiFloat(wxy,"XandY",path).setDuration(5000)
+               .apply {
+                   addUpdateListener(object :ValueAnimator.AnimatorUpdateListener{
+                       override fun onAnimationUpdate(animation: ValueAnimator) {
+                           var valuesHolder=animation.animatedValue as FloatArray
+                            println("===========${Arrays.toString(valuesHolder)}")
+                       }
+                   })
+                   repeatCount=10
+                   interpolator=LinearInterpolator()
+               }
+               .start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        wxy.animation?.cancel()
     }
 }

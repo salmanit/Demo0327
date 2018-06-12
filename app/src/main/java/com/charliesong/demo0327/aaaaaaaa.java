@@ -24,5 +24,7 @@ public class aaaaaaaa {
 //        ObjectAnimator defaultChangeIn = ObjectAnimator.ofPropertyValuesHolder((Object) null,
 //                pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScrollX, pvhScrollY);
         ObjectAnimator.ofFloat(null, "alpha", 0f, 1f);
+
+        int a=(2222*33333)>>8;
     }
 }

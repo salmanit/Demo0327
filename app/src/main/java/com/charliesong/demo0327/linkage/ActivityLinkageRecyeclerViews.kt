@@ -3,6 +3,7 @@ package com.charliesong.demo0327.linkage
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
@@ -21,7 +22,17 @@ import kotlinx.android.synthetic.main.activity_linkage_recyclerviews.*
 class ActivityLinkageRecyeclerViews : BaseActivity() {
     var fromTop=-1;
     var testDatas = arrayListOf<Int>()
-    var screenWidth = 1
+    var smallWidth = 1
+    var screenWidth=1;
+
+    var canScroll1=true
+    var canScroll2=true
+    var scrollx=0
+    private fun resetD(){
+        canScroll1=true
+         canScroll2=true
+         scrollx=0
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_linkage_recyclerviews)
@@ -30,7 +41,8 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
         testDatas.add(Color.GREEN)
 //        testDatas.add(Color.YELLOW)
 //        testDatas.add(Color.LTGRAY)
-        screenWidth = windowManager.defaultDisplay.width - 80
+        screenWidth=windowManager.defaultDisplay.width
+        smallWidth = screenWidth - 80
         rv1.apply {
             layoutManager = LinearLayoutManager(this@ActivityLinkageRecyeclerViews, LinearLayoutManager.HORIZONTAL, false)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -56,7 +68,7 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
                 override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
                     holder.setText(R.id.tv_num, "$position")
                     var params = holder.itemView.layoutParams
-                    params.width = screenWidth
+                    params.width = smallWidth
                     params.height = 120
                     holder.itemView.setBackgroundColor(testDatas[position])
                 }
@@ -86,6 +98,7 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
 
       var help1=  PagerSnapHelper().apply {  attachToRecyclerView(rv1)}
        var help2 =PagerSnapHelper().apply {  attachToRecyclerView(rv2)}
+
 
         rv1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -120,6 +133,12 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
                 if(dx==0){
                     fromTop=-1
                 }
+
+                if(!canScroll2){
+                    return
+                }
+                canScroll1=false
+
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
@@ -133,13 +152,6 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
             }
         })
 
-
-//        rv2.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                rv1.scrollBy(dx,dy)
-//            }
-//        })
 
 
 
@@ -209,8 +221,16 @@ class ActivityLinkageRecyeclerViews : BaseActivity() {
                 }
             }
         }
-
     }
 
 
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+//        println("dispatchTouchEvent==============${MotionEventCompat.getActionMasked(ev)}===${(ev.action )}==${ev.action and MotionEvent.ACTION_MASK}")
+        if((ev.action and MotionEvent.ACTION_MASK)==MotionEvent.ACTION_POINTER_DOWN){
+            return true
+        }
+//        var index=(ev.action and MotionEvent.ACTION_POINTER_INDEX_MASK) shr MotionEvent.ACTION_POINTER_INDEX_SHIFT//右移8位,获取index
+        return super.dispatchTouchEvent(ev)
+    }
 }

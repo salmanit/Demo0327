@@ -58,6 +58,19 @@ dependencies {
 
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.1'
     implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha01'
+
+    implementation "android.arch.work:work-runtime-ktx:$work_version"
+//    implementation "android.arch.work:work-firebase:$work_version"
+
+    def paging_version = "2.0.0-alpha1"
+//
+//    implementation "androidx.paging:paging-runtime:$paging_version"
+//
+//    // alternatively - without Android dependencies for testing
+//    testImplementation "androidx.paging:paging-common:$paging_version"
+//
+//    // optional - RxJava support
+//    implementation "androidx.paging:paging-rxjava2:$paging_version"
 }
 configurations.all {
 

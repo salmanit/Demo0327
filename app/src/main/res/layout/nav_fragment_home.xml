@@ -10,7 +10,7 @@
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn2"
-        android:text="go step2"
+        android:text="app widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

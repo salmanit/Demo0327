@@ -21,6 +21,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
         </activity>
 
         <service android:name=".assitservice.AssistService"
@@ -59,7 +62,7 @@
             android:theme="@style/DefaultCityPickerTheme"
             android:label="city picker lib use"/>
         <activity android:name=".pathanim.ActivityPathAnim"
-            android:label="path anim"/>
+            android:label="path anim[nothing]"/>
         <activity android:name=".layoutmanager.ActivityLayoutManagerCustom"
             android:label="custom layout manager"/>
         <activity android:name=".article.ArticleActivityList"
@@ -87,6 +90,25 @@
             android:label="动画的种类"/>
         <activity android:name=".navigation.ActivityNavigationTest"
             android:label="navigation learn"/>
+        <activity android:name=".work.ActivityWorkManage"
+            android:label="work manage learn"/>
+
+
+
+
+
+
+
+        <receiver android:name=".navigation.DeepLinkAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/deep_link_appwidget_info" />
+        </receiver>
+
     </application>
 
 </manifest>
