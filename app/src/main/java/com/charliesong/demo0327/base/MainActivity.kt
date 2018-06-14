@@ -30,11 +30,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-4363-9d7f-ecd305b9722b.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"
-    val h=Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
 //        setTheme(if(Random().nextInt(10)>5) R.style.AppTheme else R.style.AppTheme2 )
         super.onCreate(savedInstanceState)
-        println("21==============${ h.looper.thread.name}")
         setContentView(R.layout.activity_main)
         rv.layoutManager = LinearLayoutManager(this)
         rv.addItemDecoration(object :RecyclerView.ItemDecoration(){
@@ -48,7 +46,6 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
                 if(width==0){
                     paint.color=Color.LTGRAY
                     width=rv.measuredWidth
-                    println("46==============$width")
                 }
                 var childCount=parent.childCount
                 for(i in 0 until childCount){

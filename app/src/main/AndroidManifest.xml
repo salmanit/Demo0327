@@ -95,6 +95,8 @@
 
     <activity android:name=".page.ActivityPaging"
         android:label="paging recyclerview lib learn"/>
+    <activity android:name=".page.ActivityPagingFragments"
+        android:label="paging recyclerview lib learn2"/>
 
 
 

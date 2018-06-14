@@ -37,6 +37,10 @@ class ActivityWorkManage : BaseActivity() {
         btn_get_repeat.setOnClickListener {
             getRepeatWorkStatus()
         }
+
+        btn_cancel_repeat.setOnClickListener {
+            cancelRepeatWork()
+        }
     }
 
     fun startWork() {
@@ -92,9 +96,18 @@ class ActivityWorkManage : BaseActivity() {
         WorkManager.getInstance().getStatusById(UUID.fromString(str))?.apply {
             this.removeObserver(observerOnly)
             this.observeForever(observerOnly)
+
         }
     }
+    fun cancelRepeatWork(){
+        var str=UtilNormal.getUUID(this)
+        if(TextUtils.isEmpty(str)){
+            return
+        }
+        WorkManager.getInstance().cancelWorkById(UUID.fromString(str))
+//        WorkManager.getInstance().cancelAllWorkByTag("hello")
 
+    }
     val observerOnly=object:Observer<WorkStatus>{
         override fun onChanged(t: WorkStatus?) {
             t?.apply {

@@ -26,4 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="get repeat" />
+    <Button
+        android:id="@+id/btn_cancel_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cancel repeat" />
 </LinearLayout>
