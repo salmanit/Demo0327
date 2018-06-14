@@ -6,7 +6,8 @@ import android.util.Size
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseFragment
 /**
- * PageKeyedDataSource分析说明，它的数据只会加载一次，来回滑动的话不会再次加载。
+ * PageKeyedDataSource分析说明
+ * 首次加载肯定是走loadInitial方法了。
  * 我们平时如果分页用的是pageNum和pageSize的话用这个比较合适
  * */
 class FragmentPageKeyedDS:FragmentPageBase(){
@@ -14,8 +15,8 @@ class FragmentPageKeyedDS:FragmentPageBase(){
         return object :PageKeyedDataSource<Int,Student>(){
             override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Student>) {
                 println("loadInitial size ===: ${params.requestedLoadSize} ")
-                getDataBackground(5,params.requestedLoadSize).apply {
-                    callback.onResult(this,4,6)
+                getDataBackground(0,params.requestedLoadSize).apply {
+                    callback.onResult(this,null,1)
                     //这里的previousPageKey，和nextPageKey决定了前后是否有数据，如果你传个null，那么就表示前边或者手边没有数据了。也就是下边的loadBefore或者LoadAfter不会执行了
                 }
             }
@@ -39,7 +40,7 @@ class FragmentPageKeyedDS:FragmentPageBase(){
         }
     }
     fun getDataBackground(page:Int,size :Int): List<Student>{
-        println("FragmentPageKeyedDS  getData=====================${Thread.currentThread().name}") //打印的结果是2个线程来回切换pool-4-thread-1，pool-4-thread-2
+//        println("FragmentPageKeyedDS  getData=====================${Thread.currentThread().name}") //打印的结果是2个线程来回切换pool-4-thread-1，pool-4-thread-2
         var lists= arrayListOf<Student>()
         var startPosition=page*size
         repeat(size){

@@ -1,6 +1,6 @@
 package com.charliesong.demo0327.page
 
-import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.*
 import android.graphics.Canvas
@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.NonNull
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -26,7 +27,7 @@ class ActivityPaging:BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paging)
         defaultSetTitle("page")
-        makePageList()
+
         rv_paging.apply {
             layoutManager=LinearLayoutManager(this@ActivityPaging)
             addItemDecoration(object :RecyclerView.ItemDecoration(){
@@ -48,23 +49,19 @@ class ActivityPaging:BaseActivity(){
                     }
                 }
             })
-            adapter=MyPagingAdapter(callback).apply {
-//                submitList(mPagedList)
-            }
+            adapter=MyPagingAdapter(callback)
 //            addOnScrollListener(object :RecyclerView.OnScrollListener(){
-//                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//                }
-//
 //                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
 //                    super.onScrollStateChanged(recyclerView, newState)
-//                    var lastPos = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition();
-//                    mPagedList.loadAround(lastPos);//触发Android Paging的加载事务逻辑。
+//                    var last=adapter.itemCount
+//                    mPagedList.loadAround(last)
 //
 //                }
 //            })
 
         }
+        makePageList()
+
 
     }
 
@@ -75,12 +72,16 @@ class ActivityPaging:BaseActivity(){
     }
     private fun makePageList() {
         val mPagedListConfig = PagedList.Config.Builder()
-                .setPageSize(6) //分页数据的数量。在后面的DataSource之loadRange中，count即为每次加载的这个设定值。
-                .setPrefetchDistance(6) //初始化时候，预取数据数量。
-                .setInitialLoadSizeHint(12)
+                .setPageSize(10) //分页数据的数量。在后面的DataSource之loadRange中，count即为每次加载的这个设定值。
+                .setPrefetchDistance(10) //初始化时候，预取数据数量。
+                .setInitialLoadSizeHint(10)
                 .setEnablePlaceholders(false)
                 .build()
-        mPagedList = PagedList.Builder(MyDataSource(),mPagedListConfig)
+        mPagedList = PagedList.Builder(MyDataSource().apply {
+            addInvalidatedCallback {
+                println("80--------------=================invalidated")
+            }
+        },mPagedListConfig)
                 .setNotifyExecutor {
                 println("setNotifyExecutor=============1=====${Thread.currentThread().name}")
                 }
@@ -88,68 +89,97 @@ class ActivityPaging:BaseActivity(){
                     println("setFetchExecutor=========1=========${Thread.currentThread().name}")
                 }
                 .build()
+        mPagedList.addWeakCallback(null,object :PagedList.Callback(){
+            override fun onChanged(position: Int, count: Int) {
 
-        val data = LivePagedListBuilder(MyDataSourceFactory(), PagedList.Config.Builder()
-                .setPageSize(10)
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(10)
-                .build()).build()
+            }
 
-        data.observe(this, Observer {
-            println("98==================observer====${it?.size}")
-            getAdapter().submitList(it)
+            override fun onInserted(position: Int, count: Int) {
+
+            }
+
+            override fun onRemoved(position: Int, count: Int) {
+
+            }
         })
+        getAdapter().submitList(mPagedList)
+//     var liveData=   LivePagedListBuilder(object :DataSource.Factory<Int,Student>(){
+//            override fun create(): DataSource<Int, Student> {
+//                return MyDataSource()
+//            }
+//        }, mPagedListConfig).build()
+//              liveData  .observe(this, Observer {
+//            println("base 34==================observer====${it?.size}")
+//            getAdapter().submitList(it)
+//        })
     }
 
-    inner class MyDataSourceFactory:DataSource.Factory<Int,Student>(){
-        override fun create(): DataSource<Int, Student> {
-            return  MyDataSource()
+inner  class MyDataSource2:PositionalDataSource<Student>(){
+
+     fun loadRange(startPosition: Int, count: Int): List<Student>?{
+         if(startPosition>50){
+             return null
+         }
+         var list= arrayListOf<Student>()
+
+         repeat(count){
+             list.add(Student(startPosition+it+1,"stu ${startPosition+it+1}"))
+         }
+         return list
+     }
+
+
+
+    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Student>) {
+        val list = loadRange(params.startPosition, params.loadSize)
+        if (list != null) {
+            callback.onResult(list)
+        } else {
+            invalidate()
         }
     }
-    class aaa:PageKeyedDataSource<Int,Student>(){
-        override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Student>) {
 
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+     fun countItems(): Int{
+         return 1110
+     }
+
+    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Student>) {
+        val totalCount = countItems()
+        if (totalCount == 0) {
+            callback.onResult(emptyList<Student>(), 0, 0)
+            return
         }
 
-        override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Student>) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        // bound the size requested, based on known count
+        val firstLoadPosition = PositionalDataSource.computeInitialLoadPosition(params, totalCount)
+        val firstLoadSize = PositionalDataSource.computeInitialLoadSize(params, firstLoadPosition, totalCount)
 
-        override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Student>) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
-
-    class bbb:ItemKeyedDataSource<Student,Student>(){
-        override fun loadInitial(params: LoadInitialParams<Student>, callback: LoadInitialCallback<Student>) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-        }
-
-        override fun loadAfter(params: LoadParams<Student>, callback: LoadCallback<Student>) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun loadBefore(params: LoadParams<Student>, callback: LoadCallback<Student>) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun getKey(item: Student): Student {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // convert from legacy behavior
+        val list = loadRange(firstLoadPosition, firstLoadSize)
+        if (list != null && list.size == firstLoadSize) {
+            callback.onResult(list, firstLoadPosition, totalCount)
+        } else {
+            // null list, or size doesn't match request
+            // The size check is a WAR for Room 1.0, subsequent versions do the check in Room
+            invalidate()
         }
     }
+
+
+}
     inner  class MyDataSource: PositionalDataSource<Student>(){
         private fun computeCount(): Int {
             // actual count code here
             return 3000
         }
 
-        private fun loadRangeInternal(startPosition: Int, loadCount: Int): List<Student> {
+        private fun loadRangeInternal(startPosition: Int, loadCount: Int): List<Student>? {
             // actual load code here
-
+            if(startPosition>50){
+                return null
+            }
             var list= arrayListOf<Student>()
-            if(startPosition<50)
+
             repeat(loadCount){
                 list.add(Student(startPosition+it+1,"stu ${startPosition+it+1}"))
             }
@@ -158,22 +188,24 @@ class ActivityPaging:BaseActivity(){
 
         override fun loadInitial(@NonNull params: PositionalDataSource.LoadInitialParams,
                         @NonNull callback: PositionalDataSource.LoadInitialCallback<Student>) {
-
+            //加载数据这里可以自己根据实际需求来处理
             val totalCount = computeCount()
             val position = PositionalDataSource.computeInitialLoadPosition(params, totalCount)
             val loadSize = PositionalDataSource.computeInitialLoadSize(params, position, totalCount)
-            println("79=====loadInitial $position==$loadSize===${Thread.currentThread().name}")
-            callback.onResult(loadRangeInternal(position, loadSize), position, totalCount)
+            println("122=====loadInitial $position==$loadSize===${Thread.currentThread().name}")
+            loadRangeInternal(position, loadSize)?.apply {
+                callback.onResult(this, position,totalCount)
+
+            }
+
         }
 
         override fun loadRange(@NonNull params: PositionalDataSource.LoadRangeParams,
                       @NonNull callback: PositionalDataSource.LoadRangeCallback<Student>) {
-            println("99=====load range  ${params.startPosition}==${params.loadSize}===${Thread.currentThread().name}")
-            loadRangeInternal(params.startPosition, params.loadSize).apply {
-                if(this.size>0){
-                    callback.onResult(this)
-                }
-                println("size===========${this.size}")
+            //加载数据这里可以自己根据实际需求来处理
+            println("132=====load range  ${params.startPosition}==${params.loadSize}===${Thread.currentThread().name}")
+            loadRangeInternal(params.startPosition, params.loadSize)?.apply {
+                callback.onResult(this)
             }
 
         }

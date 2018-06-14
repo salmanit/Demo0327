@@ -38,7 +38,7 @@ class FragmentItemKeyedDS:FragmentPageBase(){
         }
     }
     fun getDataBackgroundAfter(startPosition:Int,size :Int): List<Student>?{
-        println("FragmentItemKeyedDS  getData=====================${Thread.currentThread().name}")
+//        println("FragmentItemKeyedDS  getData=====================${Thread.currentThread().name}")
         var lists= arrayListOf<Student>()
         if(startPosition>50){
             return null
@@ -49,7 +49,7 @@ class FragmentItemKeyedDS:FragmentPageBase(){
         return lists
     }
     fun getDataBackgroundBefore(startPosition:Int,size :Int): List<Student>?{
-        println("FragmentItemKeyedDS  getData=====================${Thread.currentThread().name}")
+//        println("FragmentItemKeyedDS  getData=====================${Thread.currentThread().name}")
         var lists= arrayListOf<Student>()
         if(startPosition<-50){//我们初始化的数据就是1到8，第一条的key就是1，这里我不需要在1之前还有数据，所以就return了，根据实际情况来处理
             return null

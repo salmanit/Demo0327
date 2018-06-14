@@ -34,7 +34,6 @@ open abstract class FragmentPageBase:BaseFragment(){
             println("base 34==================observer====${it?.size}")
             getAdapter().submitList(it)
         })
-
     }
     inner class MyDataSourceFactory:DataSource.Factory<Int,Student>(){
         override fun create(): DataSource<Int, Student> {
@@ -59,6 +58,7 @@ open abstract class FragmentPageBase:BaseFragment(){
         countDownLatch?.countDown()
         rv_default.apply {
             layoutManager= LinearLayoutManager(activity)
+            //弄一条灰色的间隔线
             addItemDecoration(object : RecyclerView.ItemDecoration(){
                 var paint= Paint()
                 override fun getItemOffsets(outRect: Rect, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
@@ -81,6 +81,15 @@ open abstract class FragmentPageBase:BaseFragment(){
             adapter=MyPagingAdapter(callback)
 
         }
+
+        srf.apply {
+            setOnRefreshListener{
+                getAdapter().submitList(null)
+                makePageList()
+                isRefreshing=false
+            }
+
+        }
     }
     fun loadDataNow(){
         Thread{
@@ -99,13 +108,8 @@ open abstract class FragmentPageBase:BaseFragment(){
             }
         }
     }
-    override fun onHiddenChanged(hidden: Boolean) {
-        println("onHiddenChanged=================$hidden")
-        super.onHiddenChanged(hidden)
-    }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        println("${javaClass.name} setUserVisibleHint=============$isVisibleToUser")
         if(isVisibleToUser){
             countDownLatch?.countDown()
         }
@@ -124,7 +128,7 @@ open abstract class FragmentPageBase:BaseFragment(){
                 holder.setText(R.id.tv_name,name)
                 holder.setText(R.id.tv_age,"${age}")
             }
-            println("onBindViewHolder=============$position//${itemCount} ===${getItem(position)}")
+//            println("onBindViewHolder=============$position//${itemCount} ===${getItem(position)}")
         }
 
     }
