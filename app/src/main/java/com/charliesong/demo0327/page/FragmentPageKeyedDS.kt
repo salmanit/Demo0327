@@ -30,11 +30,9 @@ class FragmentPageKeyedDS:FragmentPageBase(){
 
             override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Student>) {
                 println("loadBefore size====: ${params.requestedLoadSize}  page:${params.key}")
-                if(params.key<0){
-                    return
-                }
+
                 getDataBackground(params.key,params.requestedLoadSize).let {
-                    callback.onResult(it,params.key-1)
+                    callback.onResult(it,if(params.key<0) null else params.key-1)
                 }
             }
         }
@@ -43,6 +41,7 @@ class FragmentPageKeyedDS:FragmentPageBase(){
 //        println("FragmentPageKeyedDS  getData=====================${Thread.currentThread().name}") //打印的结果是2个线程来回切换pool-4-thread-1，pool-4-thread-2
         var lists= arrayListOf<Student>()
         var startPosition=page*size
+        if(page<4)
         repeat(size){
             lists.add(Student(startPosition+it+1,"stu ${startPosition+it+1}"))
         }

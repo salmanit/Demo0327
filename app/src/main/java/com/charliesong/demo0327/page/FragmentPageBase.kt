@@ -30,8 +30,25 @@ open abstract class FragmentPageBase:BaseFragment(){
     }
     private fun makePageList() {
         if(isAdded)
-        LivePagedListBuilder(MyDataSourceFactory(), getPageConfig()).build().observe(this, Observer {
-            println("base 34==================observer====${it?.size}")
+        LivePagedListBuilder(MyDataSourceFactory(), getPageConfig())
+                .setBoundaryCallback(object :PagedList.BoundaryCallback<Student>(){
+                    override fun onZeroItemsLoaded() {
+                        super.onZeroItemsLoaded()
+                        println("=====================onZeroItemsLoaded")
+                    }
+
+                    override fun onItemAtEndLoaded(itemAtEnd: Student) {
+                        super.onItemAtEndLoaded(itemAtEnd)
+                        println("=================onItemAtEndLoaded====${itemAtEnd}")
+                    }
+
+                    override fun onItemAtFrontLoaded(itemAtFront: Student) {
+                        super.onItemAtFrontLoaded(itemAtFront)
+                        println("================onItemAtFrontLoaded=====${itemAtFront}")
+                    }
+                })
+                .build()
+                .observe(this, Observer {
             getAdapter().submitList(it)
         })
     }
