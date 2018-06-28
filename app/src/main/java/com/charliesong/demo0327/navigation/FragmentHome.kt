@@ -111,7 +111,8 @@ class FragmentStepOne1:BaseFragment(){
 
     val listener=object :View.OnClickListener{
         override fun onClick(v: View) {
-        TransitionManager.beginDelayedTransition(layout_test,AutoTransition().addTransition(Explode()))
+//        TransitionManager.beginDelayedTransition(layout_test,AutoTransition().addTransition(Explode()))
+        TransitionManager.beginDelayedTransition(layout_test,Explode())
             changeSize(v)
             changeVisibility(v)
         }

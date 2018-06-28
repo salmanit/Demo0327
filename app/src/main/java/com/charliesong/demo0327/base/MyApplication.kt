@@ -12,6 +12,7 @@ class  MyApplication :Application(){
         super.onCreate()
         myApplication =this
         initLeakCanary()
+
     }
 
     fun initLeakCanary(){

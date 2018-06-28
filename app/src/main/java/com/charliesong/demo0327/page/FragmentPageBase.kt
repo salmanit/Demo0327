@@ -49,7 +49,7 @@ open abstract class FragmentPageBase:BaseFragment(){
                 })
                 .build()
                 .observe(this, Observer {
-            getAdapter().submitList(it)
+                            getAdapter().submitList(it)
         })
     }
     inner class MyDataSourceFactory:DataSource.Factory<Int,Student>(){
@@ -60,7 +60,7 @@ open abstract class FragmentPageBase:BaseFragment(){
     public fun getPageConfig():PagedList.Config{
         return PagedList.Config.Builder()
                 .setPageSize(8) //分页数据的数量。在后面的DataSource之loadRange中，count即为每次加载的这个设定值。
-                .setPrefetchDistance(8) //初始化时候，预取数据数量。
+                .setPrefetchDistance(2) //提前多少数据开始继续加载数据。如果是上滑的话对应的就是离最后个item还有2个位置的时候开始记载更多数据。下拉一样的道理
                 .setInitialLoadSizeHint(8)
                 .setEnablePlaceholders(false)
                 .build()

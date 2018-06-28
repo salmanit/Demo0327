@@ -17,6 +17,7 @@ import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.support.v7.widget.AppCompatTextView
 import android.view.MenuItem
 import android.widget.LinearLayout
+import com.charliesong.demo0327.util.UtilNormal
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 
@@ -69,6 +70,7 @@ open class  BaseActivity: AppCompatActivity() {
             }
         })
         super.onCreate(savedInstanceState)
+        UtilNormal.setCustomDensity(this,MyApplication.getInstance())
     }
 
 

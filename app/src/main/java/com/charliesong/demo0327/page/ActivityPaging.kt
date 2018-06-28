@@ -70,7 +70,7 @@ class ActivityPaging : BaseActivity() {
     private fun makePageList() {
         val mPagedListConfig = PagedList.Config.Builder()
                 .setPageSize(10) //分页数据的数量。在后面的DataSource之loadRange中，count即为每次加载的这个设定值。
-                .setPrefetchDistance(10) //初始化时候，预取数据数量。
+                .setPrefetchDistance(5)
                 .setInitialLoadSizeHint(10)
                 .setEnablePlaceholders(false)
                 .build()

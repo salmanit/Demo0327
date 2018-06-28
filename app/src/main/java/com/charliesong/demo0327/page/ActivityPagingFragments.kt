@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_paging_fragments.*
@@ -16,6 +17,7 @@ class ActivityPagingFragments:BaseActivity(){
         defaultSetTitle("page 3 data source")
         vp_page.adapter=MyVpAdapter(supportFragmentManager)
         tab_page.setupWithViewPager(vp_page)
+
     }
 
     var titles= arrayOf("PageKeyed","ItemKeyed","Positional")
