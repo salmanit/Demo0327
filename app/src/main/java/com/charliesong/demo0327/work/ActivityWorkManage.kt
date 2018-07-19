@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.work.*
-import androidx.work.impl.WorkManagerInitializer
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.util.UtilNormal

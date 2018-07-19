@@ -83,7 +83,7 @@ class ActivityPaging : BaseActivity() {
                 }
                 .setFetchExecutor {
                     println("setFetchExecutor=========1=========${Thread.currentThread().name}") //这里进来的是main线程，因为你要加载数据，所以切换线程
-                    Executors.newFixedThreadPool(2).execute(it) //这里不应该每次都new一个，因改写个全局变量
+                    Executors.newFixedThreadPool(2).execute(it) //这里不应该每次都new一个，应该写个全局变量
                 }
                 .setBoundaryCallback(object :PagedList.BoundaryCallback<Student>(){
                     override fun onZeroItemsLoaded() {

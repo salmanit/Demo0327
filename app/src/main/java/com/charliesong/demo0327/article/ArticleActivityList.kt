@@ -22,11 +22,7 @@ class ArticleActivityList: BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article_detail)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.run {
-            setDisplayHomeAsUpEnabled(true)
-        }
+        defaultSetTitle("article")
         setTitle("article")
         for(i in 0 until 50){
             articles.add("article $i")

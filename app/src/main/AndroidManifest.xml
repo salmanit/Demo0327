@@ -1,114 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.charliesong.demo0327">
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".base.MyApplication"
-        android:theme="@style/AppTheme"
-        android:resizeableActivity="true">
-        <activity android:name=".base.MainActivity"
-            android:allowEmbedded="true">
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".base.MainActivity"
+            android:allowEmbedded="true"
+            android:label="xxxx">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <service android:name=".assitservice.AssistService"
-            android:label="@string/demo_access_server_name1"
+        <service
+            android:name=".assitservice.AssistService"
             android:exported="true"
+            android:label="@string/demo_access_server_name1"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_config"/>
+                android:resource="@xml/accessibility_config" />
         </service>
 
-        <activity android:name=".assitservice.AccessActivity"
+        <activity
+            android:name=".assitservice.AccessActivity"
             android:description="@string/app_name"
-            android:label="@string/access_activity_des"/>
-        <activity android:name=".rx.ActivityRx"
-            android:label="@string/rx_learn_des"/>
-        <activity android:name=".kt.ActivityKotlinGrammar"
-            android:label="@string/kotlin_learn_des"/>
-        <activity android:name=".custom.ActivityCustom"
-            android:label="@string/widget_learn_des"/>
-        <activity android:name=".contact.ActivityContact"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/item_decoration"/>
-        <activity android:name=".manifest.ActivityManifestData"
-            android:label="@string/manifest_about"/>
-        <activity android:name=".design.ActivityScorllTest"
-            android:label="design test"/>
-        <activity android:name=".weather.ActivityWeather"
-            android:label="weather"/>
-        <activity android:name=".words.ActivityWords"
-            android:label="insert word to right position [not complete]"/>
-        <activity android:name=".city.ActivityCityPick"
-            android:theme="@style/DefaultCityPickerTheme"
-            android:label="city picker lib use"/>
-        <activity android:name=".pathanim.ActivityPathAnim"
-            android:label="path anim[nothing]"/>
-        <activity android:name=".layoutmanager.ActivityLayoutManagerCustom"
-            android:label="custom layout manager"/>
-        <activity android:name=".article.ArticleActivityList"
-            android:label="artile list [not complete]"/>
-        <activity android:name=".article.ArticleActivityDetail"
-            android:label="detail"/>
-        <activity android:name=".third.ActivityDoorSign"
-            android:label="door sign view test"/>
-        <activity android:name=".classify.ActivityClassify"
-            android:windowSoftInputMode="stateHidden"
-            android:label="classify like launcher home app [not complete]"/>
-        <activity android:name=".linkage.ActivityLinkageRecyeclerViews"
-            android:label="linkage recyclerView [not complete]"/>
-        <activity android:name=".brief.ActivityBriefSamsung"
-            android:label="brief report like samsung app"/>
-        <activity android:name=".brief.ActivityFlipBoardSetting"
-            android:label="flip board setting "/>
-        <activity android:name=".layoutmanager.ActivitySimpleAnima"
-            android:label="simple anima for rv"/>
-        <activity android:name=".select.ActivityTextSelect"
-            android:windowSoftInputMode="stateHidden"
-            android:label="text select actionbar"/>
-
-        <activity android:name=".anim.ActivityAnims"
-            android:label="动画的种类"/>
-        <activity android:name=".navigation.ActivityNavigationTest"
-            android:label="navigation learn"/>
-        <activity android:name=".work.ActivityWorkManage"
-            android:label="work manage learn"/>
-
-    <activity android:name=".page.ActivityPaging"
-        android:label="paging recyclerview lib learn"/>
-    <activity android:name=".page.ActivityPagingFragments"
-        android:label="paging recyclerview lib learn2"/>
-    <activity android:name=".room.ActivityRoomLearn"
-        android:windowSoftInputMode="stateHidden"
-        android:label="room component learn"/>
-    <activity android:name=".livedata.ActivityLiveDataLearn"
-        android:label="livedata learn"/>
-    <activity android:name=".login.ActivityLogin"
-        android:windowSoftInputMode="stateHidden|adjustResize"
-        android:label="login anima"/>
-
+            android:label="@string/access_activity_des" />
+        <activity
+            android:name=".rx.ActivityRx"
+            android:label="@string/rx_learn_des" />
+        <activity
+            android:name=".kt.ActivityKotlinGrammar"
+            android:label="@string/kotlin_learn_des" />
+        <activity
+            android:name=".custom.ActivityCustom"
+            android:label="@string/widget_learn_des" />
+        <activity
+            android:name=".contact.ActivityContact"
+            android:label="@string/item_decoration"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".manifest.ActivityManifestData"
+            android:label="@string/manifest_about" />
+        <activity
+            android:name=".design.ActivityScorllTest"
+            android:label="design库复习" />
+        <activity
+            android:name=".weather.ActivityWeather"
+            android:label="仿三星天气" />
+        <activity
+            android:name=".words.ActivityWords"
+            android:label="选择题 [not complete]" />
+        <activity
+            android:name=".city.ActivityCityPick"
+            android:label="城市选择库"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:theme="@style/DefaultCityPickerTheme" />
+        <activity
+            android:name=".pathanim.ActivityPathAnim"
+            android:label="path动画[没写]" />
+        <activity
+            android:name=".layoutmanager.ActivityLayoutManagerCustom"
+            android:label="自定义layoutManager" />
+        <activity
+            android:name=".article.ArticleActivityList"
+            android:label="底部上拉进入下一页layoutManager自定义 [not complete]" />
+        <activity
+            android:name=".article.ArticleActivityDetail"
+            android:label="xxxx" />
+        <activity
+            android:name=".third.ActivityDoorSign"
+            android:label="商店门口挂牌库" />
+        <activity
+            android:name=".classify.ActivityClassify"
+            android:label="recyclerview居中显示库，以及自定义[not complete]"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".linkage.ActivityLinkageRecyeclerViews"
+            android:label="2个recyclerview联动滚动[not complete]" />
+        <activity
+            android:name=".brief.ActivityBriefSamsung"
+            android:label="仿三星简报首页" />
+        <activity
+            android:name=".brief.ActivityFlipBoardSetting"
+            android:label="仿三星简报设置页flip board" />
+        <activity
+            android:name=".layoutmanager.ActivitySimpleAnima"
+            android:label="多个item首个消失，最后位置添加动画效果" />
+        <activity
+            android:name=".select.ActivityTextSelect"
+            android:label="文本选择弹框自定义"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".anim.ActivityAnims"
+            android:label="动画的种类，简单的" />
+        <activity
+            android:name=".navigation.ActivityNavigationTest"
+            android:label="navigation学习" />
+        <activity
+            android:name=".work.ActivityWorkManage"
+            android:label="work manage学习" />
+        <activity
+            android:name=".page.ActivityPaging"
+            android:label="paging分页组件学习" />
+        <activity
+            android:name=".page.ActivityPagingFragments"
+            android:label="paging分页组件，3种datasource学习" />
+        <activity
+            android:name=".room.ActivityRoomLearn"
+            android:label="room组件学习【库加载失败，暂不研究】"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".livedata.ActivityLiveDataLearn"
+            android:label="livedata简单测试，pw,webview缓存测试" />
+        <activity
+            android:name=".login.ActivityLLLL"
+            android:label="登陆输入法改变做出的布局动画java写的"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".login.ActivityLogin2"
+            android:label="登陆输入法改变做出的布局动画"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".behavior.ActivityBehaviorCustom"
+            android:label="behavior自定义" />
 
         <receiver android:name=".navigation.DeepLinkAppWidgetProvider">
             <intent-filter>
@@ -120,6 +159,14 @@
                 android:resource="@xml/deep_link_appwidget_info" />
         </receiver>
 
+        <activity
+            android:name=".bottom.ActivityBottomSheet"
+            android:label="bottom sheet 底部弹出学习" />
+        <activity
+            android:name=".draghelper.ActivityDragHelper"
+            android:label="viewdraghelper 学习" />
+        <activity android:name=".java.JavaKnowledgeActivity"
+            android:label="notify学习"/>
     </application>
 
 </manifest>

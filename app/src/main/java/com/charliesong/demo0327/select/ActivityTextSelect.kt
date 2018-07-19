@@ -3,6 +3,7 @@ package com.charliesong.demo0327.select
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -78,6 +79,15 @@ class ActivityTextSelect : BaseActivity() {
 //        Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
     }
 
+//        tv_bottom.viewTreeObserver.addOnGlobalLayoutListener {
+//            var rect=Rect()
+//            tv_bottom.getWindowVisibleDisplayFrame(rect)
+//            println("bottom==1========${rect.toShortString()}")
+//            btn_format.getWindowVisibleDisplayFrame(rect)
+//            println("bottom===2=======${rect.toShortString()}")
+//            rv_layout.getWindowVisibleDisplayFrame(rect)
+//            println("bottom====3======${rect.toShortString()}")
+//        }
 
     }
 

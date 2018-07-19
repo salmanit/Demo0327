@@ -20,6 +20,7 @@ class ActivityNavigationTest : BaseActivity() {
 
         findNavController(my_nav_host_fragment).apply {
             addOnNavigatedListener(listener)
+
         }
 
         nav_bottom.setOnNavigationItemSelectedListener(object : BottomNavigationView.OnNavigationItemSelectedListener {
@@ -31,10 +32,14 @@ class ActivityNavigationTest : BaseActivity() {
                     R.id.second_fragment -> {
                         showToast("url")
                     }
+                    R.id.third_fragment->{
+                        showToast("third")
+                    }
                 }
                 return true
             }
         })
+
     }
 
     override fun onSupportNavigateUp(): Boolean = findNavController(my_nav_host_fragment).navigateUp()

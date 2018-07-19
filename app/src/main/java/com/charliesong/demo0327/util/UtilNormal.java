@@ -5,11 +5,13 @@ import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
@@ -117,5 +119,33 @@ public class UtilNormal  {
         activityDisplayMetrics.scaledDensity=targetScaledDensity;
         activityDisplayMetrics.densityDpi=targetDensityDpi;
 
+    }
+
+
+
+    public static CountDownTimer startCountDown(final TextView tv, long time){
+        final String originalTxt=tv.getText().toString();
+        tv.setEnabled(false);
+        CountDownTimer countDownTimer=new CountDownTimer(time,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                System.out.println("==========onTick========="+millisUntilFinished);
+                tv.setText("("+millisUntilFinished/1000+")");
+            }
+
+            @Override
+            public void onFinish() {
+                tv.setEnabled(true);
+                tv.setText(originalTxt);
+            }
+        };
+        countDownTimer.start();
+        return countDownTimer;
+    }
+
+    public static int dp2px(Activity context,int dp){
+        DisplayMetrics metrics=new DisplayMetrics();
+         context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+         return (int) (metrics.density*dp);
     }
 }

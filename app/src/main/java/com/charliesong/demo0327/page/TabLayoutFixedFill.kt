@@ -28,6 +28,7 @@ class TabLayoutFixedFill : TabLayout {
         paintLine.color = a.getColor(R.styleable.TabLayout_tabIndicatorColor, 0)
         a.recycle()
         setSelectedTabIndicatorColor(Color.TRANSPARENT)
+
     }
 
     var factor = 1f//线条的长度和文字宽度的比例，因为有的需求是比文字稍微长点。所以这里可以修改

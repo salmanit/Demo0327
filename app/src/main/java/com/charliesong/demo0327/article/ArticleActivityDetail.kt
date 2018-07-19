@@ -25,15 +25,9 @@ class ArticleActivityDetail : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article_detail)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.run {
-            setDisplayHomeAsUpEnabled(true)
-        }
         index = intent.getIntExtra("index", 0)
         articles = intent.getStringArrayListExtra("lists")
-        setTitle("${articles.get(index)}")
-
+        defaultSetTitle(articles.get(index))
         for(i in 0 until index){
             articles.add(articles.removeAt(0))
         }
@@ -45,7 +39,7 @@ class ArticleActivityDetail : BaseActivity() {
                 }
 
                 override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
-                    var s=getItemData(position)
+                    val s=getItemData(position)
                     holder.setText(R.id.tv_detail,s)
                     val originalPosition= s.substring("article ".length).toInt()
                     holder.getView<View>(R.id.layout_bg).setBackgroundColor(Color.parseColor(if(originalPosition%2==0) "#215980" else "#684592"))

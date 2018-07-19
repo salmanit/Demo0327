@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".java.JavaKnowledgeActivity">
+
+    <include
+        layout="@layout/include_toolbar" />
+
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/btn_start_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start thread"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_notify" />
+
+    <Button
+        android:id="@+id/btn_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="notify"
+        android:textAllCaps="false"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_start_thread"
+        app:layout_constraintEnd_toStartOf="@+id/btn_start_thread"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_notify_all" />
+
+    <Button
+        android:id="@+id/btn_notify_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="notify all"
+        android:textAllCaps="false"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_start_thread"
+        app:layout_constraintEnd_toStartOf="@+id/btn_notify"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_notify_all" />
+</android.support.constraint.ConstraintLayout>

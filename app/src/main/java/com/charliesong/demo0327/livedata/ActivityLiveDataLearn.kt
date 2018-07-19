@@ -24,6 +24,7 @@ import android.net.wifi.WifiManager
 import android.os.Parcelable
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Build
 import android.support.transition.AutoTransition
 import android.transition.Transition

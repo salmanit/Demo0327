@@ -34,6 +34,9 @@ class WidgetXy :View{
             paint.color=Color.RED
             canvas.drawCircle(pX,pY,5f,paint)
         }
+        paint.color=Color.BLUE
+        paint.textAlign=Paint.Align.CENTER
+        canvas.drawText(">API21",0f,0f,paint)
         canvas.restore()
     }
 }

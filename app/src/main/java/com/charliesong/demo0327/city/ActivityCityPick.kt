@@ -2,6 +2,7 @@ package com.charliesong.demo0327.city
 
 import android.os.Bundle
 import android.os.Handler
+import android.widget.EditText
 import android.widget.Toast
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
@@ -21,12 +22,14 @@ class ActivityCityPick: BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_pick)
-
+        defaultSetTitle("城市选择")
         btn_go.setOnClickListener {
                 showCityChoose()
         }
     //
 
+        var ed:EditText=EditText(this)
+        ed.setSingleLine()
     }
 
     private fun showCityChoose(){
@@ -45,7 +48,7 @@ class ActivityCityPick: BaseActivity(){
                 .setHotCities(hotCities)  //指定热门城市
                 .setOnPickListener(object : OnPickListener {
                     override fun onPick(position:Int, data:City?) {
-                        Toast.makeText(getApplicationContext(), data?.getName()?:"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "$position ${data?.name}", Toast.LENGTH_SHORT).show();
                     }
 
                     override fun onLocate() {
@@ -53,7 +56,6 @@ class ActivityCityPick: BaseActivity(){
                         println("==============start location")
                          Handler().postDelayed(object :Runnable {
                              override fun run() {
-                                println("==============start location end")
                                 //定位完成之后更新数据
                                 CityPicker.getInstance()
                                         .locateComplete( LocatedCity("深圳", "广东", "101280601"), LocateState.SUCCESS);

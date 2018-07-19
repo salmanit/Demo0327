@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coslayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bottom.ActivityBottomSheet">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/pic11" />
+
+    <View
+        android:id="@+id/view_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#fff"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:background="#decece"
+        android:gravity="center"
+        android:text="title" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cstLayout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:tag="bottomSheet"
+        android:layout_marginTop="0dp"
+        app:behavior_peekHeight="130dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:background="#ffff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<Chronometer-->
+            <!--android:id="@+id/chronometer"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <FrameLayout
+            android:id="@+id/layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_bottom" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

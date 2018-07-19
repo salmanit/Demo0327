@@ -13,12 +13,6 @@
     <string name="item_decoration">itemDecoration复习</string>
 
 
-
-
-
-
-
-
     <string name="kotlin_use_show">方法以fun开始，返回类型写在括号后边，加冒号，另外无返回类型可以省略，也可以写Unit ，变量一般有val 和var.</string>
     <string name="manifest_about">manifest数据的获取</string>
 

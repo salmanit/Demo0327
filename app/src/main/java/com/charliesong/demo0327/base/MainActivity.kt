@@ -100,12 +100,14 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
     fun getActivitys(){
         Observable.create<List<ActivityInfo>> {
             var packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            var result=packageInfo.activities.filter { return@filter !TextUtils.equals(MainActivity::class.java.name,it.name)
-            &&!TextUtils.equals(ArticleActivityDetail::class.java.name,it.name)}.reversed()
+            var result=packageInfo.activities.filter {
+                return@filter !TextUtils.equals("xxxx",it.nonLocalizedLabel)}.reversed()
             it.onNext(result)}
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { getAdapter().initData(it) }
+                .subscribe ({ getAdapter().initData(it) },{
+
+                })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

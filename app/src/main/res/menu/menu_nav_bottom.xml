@@ -8,4 +8,8 @@
         android:id="@+id/second_fragment"
         android:icon="@drawable/i_settings_wifi_0"
         android:title="url" />
+    <item
+        android:id="@+id/third_fragment"
+        android:icon="@drawable/i_settings_wifi_3"
+        android:title="third" />
 </menu>

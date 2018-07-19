@@ -1,5 +1,8 @@
 package com.charliesong.demo0327.design
 
+import android.animation.LayoutTransition
+import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
@@ -18,11 +21,13 @@ class ActivityScorllTest: BaseActivity(){
         supportActionBar?.run {
             setTitle("game")
             setDisplayHomeAsUpEnabled(true)
+
         }
         vp.adapter=FragmentAdapter(supportFragmentManager)
 
         tab_layout.setupWithViewPager(vp)
-
+//        collaps_toolbar.setContentScrimColor(Color.RED)
+//        collaps_toolbar.setStatusBarScrimColor(Color.YELLOW)
     }
 
 
