@@ -1,83 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_root"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_linealayout"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="linear layout" />
-    <Button
-        android:id="@+id/btn_fragment"
-        android:text="go fragment"
-        android:layout_below="@+id/btn_linealayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/btn_flowlayout"
-        android:layout_width="wrap_content"
+    <include layout="@layout/include_toolbar" />
+
+    <GridLayout
+        android:id="@+id/gl"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btn_linealayout"
-        android:text="flow layout" />
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_overlaylayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btn_flowlayout"
-        android:text="overlay layout" />
+        <Button
+            android:id="@+id/btn_linealayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="linear layout" />
 
-    <Button
-        android:id="@+id/btn_move"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btn_overlaylayout"
-        android:text="remove index4" />
+        <Button
+            android:id="@+id/btn_flowlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_linealayout"
+            android:text="flow layout" />
 
-    <Button
-        android:id="@+id/btn_flow_gravity"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_toRightOf="@+id/btn_move"
-        android:text="flow gravity"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_overlaylayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_flowlayout"
+            android:text="overlay layout" />
 
-    <Button
-        android:id="@+id/btn_grid_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_toRightOf="@+id/btn_flow_gravity"
-        android:text="grid layout"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_move"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_overlaylayout"
+            android:text="remove index4" />
 
-    <Button
-        android:id="@+id/btn_stagger_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_toRightOf="@+id/btn_grid_layout"
-        android:text="stagger grid layout"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_flow_gravity"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/btn_move"
+            android:text="flow gravity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_grid_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/btn_flow_gravity"
+            android:text="grid layout"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_stagger_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/btn_grid_layout"
+            android:text="stagger grid layout"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_linealayout"
+            android:text="go fragment" />
+    </GridLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_test"
         android:layout_width="400dp"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btn_fragment"
-        android:layout_marginLeft="1dp"
+        android:layout_height="0dp"
         android:background="#33000000"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pic"
         android:layout_width="400dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/btn_fragment"
+        android:layout_height="0dp"
         android:background="#33000000"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
-</RelativeLayout>
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl" />
+</android.support.constraint.ConstraintLayout>

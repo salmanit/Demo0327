@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.ReplacementTransformationMethod
 import android.text.method.TransformationMethod
@@ -21,6 +22,7 @@ import android.widget.LinearLayout
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login2.*
+import java.util.regex.Pattern
 
 class ActivityLogin2 : BaseActivity() {
 
@@ -50,16 +52,32 @@ class ActivityLogin2 : BaseActivity() {
         et_phone2.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 et_phone2.removeTextChangedListener(this)
+                val pattern = Pattern.compile("(\\d{3})(\\d{0,4})(\\d{0,4})")
+                val str=s.toString().trim().replace("-","")
+                val m = pattern.matcher(str)
+                if (m.matches()) {
+                    var changed=m.group(1)
+                    (2 .. 3).forEach {
+                        val end=m.group(it)
+                        if(!TextUtils.isEmpty(end)){
+                            changed="$changed-$end"
+                        }
+                    }
 
+                    et_phone2.setText(changed)
+                    et_phone2.setSelection(changed.length)
+                }else{
+                    et_phone2.setText(str)
+                    et_phone2.setSelection(str.length)
+                }
                 et_phone2.addTextChangedListener(this)
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                println("beforeTextChanged==========$s==$start==$count==$after")
+                println("beforeTextChanged==========$s==$start==$count==$after")
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                println("onTextChanged==========$s==$start==$count==$before")
+                println("onTextChanged==========$s==$start==$count==$before")
             }
         })
 
@@ -92,7 +110,7 @@ class ActivityLogin2 : BaseActivity() {
                     "${rect.toShortString()}==$screenHeight")
                 if (!softInputShow&&rect.bottom < screenHeight) {
                     //高度变小说明键盘弹出来了
-                    println("===============键盘弹出来了")
+                    println("===============键盘弹出来了==${findViewById<View>(R.id.action_mode_bar_stub)}")
                     softInputShow=true
 
                     startUIAnimator(true)

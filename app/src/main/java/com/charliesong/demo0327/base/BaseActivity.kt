@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.view.*
 import android.widget.FrameLayout
+import com.charliesong.demo0327.R
 import com.charliesong.demo0327.util.UtilNormal
 import kotlinx.android.synthetic.main.include_toolbar.*
 
@@ -25,19 +26,23 @@ import kotlinx.android.synthetic.main.include_toolbar.*
  */
 open class BaseActivity : AppCompatActivity() {
 
-    var supportLeftEdge = true
+    open var supportLeftEdge = true
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
 //        findViewById<View>(android.R.id.content)?.fitsSystemWindows=true
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = Color.TRANSPARENT
         }
+        if(!supportLeftEdge){
+            return
+        }
         (window.decorView as FrameLayout).apply {
             var originalView = this.getChildAt(0)
-            println("getbg===========${originalView.background}")
             originalView.setBackgroundColor(Color.WHITE)
             this.removeView(originalView)
             var addView = com.charliesong.demo0327.draghelper.LeftEdgeTouchCloseLayout(this@BaseActivity)
+            addView.id= R.id.edgetouchid
+
             addView.addView(originalView, originalView.layoutParams)
             this.addView(addView,
                     android.widget.FrameLayout.LayoutParams.MATCH_PARENT, android.widget.FrameLayout.LayoutParams.MATCH_PARENT)

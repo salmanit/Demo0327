@@ -11,7 +11,7 @@ class SwipCardLayoutManger:RecyclerView.LayoutManager(){
         return RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-    var  MaxShow=5;//做多展示几个item
+    var  MaxShow=5;//最多展示几个item
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State?) {
         detachAndScrapAttachedViews(recycler)
         if(itemCount==0){

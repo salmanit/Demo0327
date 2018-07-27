@@ -18,7 +18,7 @@ class ItemTouchListenerRV:RecyclerView.OnItemTouchListener,GestureDetector.Simpl
         if(child!=null){
             var adapterPosition=rv.getChildAdapterPosition(child)
             var layoutPosition=rv.getChildLayoutPosition(child)
-
+            rv.adapter.notifyItemChanged(adapterPosition,"$adapterPosition/$layoutPosition")
             return true
         }
         return false

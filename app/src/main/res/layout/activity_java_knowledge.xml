@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".java.JavaKnowledgeActivity">
 
-    <include
-        layout="@layout/include_toolbar" />
+
+
+    <include layout="@layout/include_toolbar" />
 
     <Button
         android:layout_marginTop="100dp"
@@ -54,4 +59,64 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_notify_all" />
+
+    <Button
+        android:id="@+id/btn_pattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="以空格分开split"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_pattern" />
+    <Button
+        android:id="@+id/btn_test"
+        android:text="点我我就跑"
+        app:layout_constraintCircle="@id/btn_pattern"
+        app:layout_constraintCircleRadius="100dp"
+        app:layout_constraintCircleAngle="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_pattern"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="空格分开结果"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pattern" />
+
+    <EditText
+        android:id="@+id/et_pattern"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="输入正则字符串后边处理"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_result" />
+    <TextView
+        android:textIsSelectable="true"
+        android:text="hello"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"/>
 </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

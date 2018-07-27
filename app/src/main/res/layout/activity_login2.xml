@@ -70,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:maxLength="13"
+                android:inputType="number"
+                android:digits="0123456789"
                 android:hint="125-2254-1452" />
 
             <EditText

@@ -13,7 +13,7 @@ abstract class BaseRvAdapter<T> : RecyclerView.Adapter<BaseRvHolder>{
 
     public constructor(data: ArrayList<T>?) : super() {
         data?.run {
-            datas.addAll(data)
+            datas=data
         }
     }
 

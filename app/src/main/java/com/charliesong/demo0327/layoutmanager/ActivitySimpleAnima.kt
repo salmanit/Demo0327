@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v4.util.Pools
+import android.support.v7.widget.FitWindowsLinearLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -112,10 +113,32 @@ class ActivitySimpleAnima : BaseActivity() {
     }
 
     var index = 0;
-
+    //在左边界触摸开始滑动删除的时候禁止刷新ui，否则touch事件就出问题了。
+    private fun isEdgeTouch():Boolean{
+        val p1=findViewById<View>(android.R.id.content).parent as ViewGroup
+        val p2=p1.parent as ViewGroup
+        val p3=p2.parent as ViewGroup
+        println("left======0=====${p1}==========${p1.childCount}")
+        println("left======1=====${p2}==========${p2.childCount}")
+        println("left======2=====${p3}==========${p3.childCount}")
+        val p4=p3.parent as ViewGroup?
+        println("left======3=====${p4}=========")
+        return findViewById<ViewGroup>(R.id.edgetouchid).getChildAt(0).left>0
+    }
+    //onViewCaptured================android.widget.LinearLayout{9559ca9 V.E...... .......D 0,0-1024,768}======0
+    //left======0=====android.support.v7.widget.FitWindowsLinearLayout{1c0de56 V.E...... ......ID 0,0-1024,768 #7f08000d app:id/action_bar_root}==========2
+    //left======1=====android.widget.FrameLayout{2616f00 V.E...... ......ID 0,0-1024,768}==========1
+    //left======2=====android.widget.LinearLayout{d4e7339 V.E...... ......ID 0,0-1024,768}==========2
+    //left======3=====com.charliesong.demo0327.draghelper.LeftEdgeTouchCloseLayout{8989d7e V.E...... ......ID 0,0-1024,768 #7f080089 app:id/edgetouchid}=========
+    //com.android.internal.policy.PhoneWindow$DecorView{d4e7339 V.E...... R.....I. 0,0-0,0}
     val viewRunnble = object : Runnable {
         override fun run() {
+            if(isEdgeTouch()){
+                handler.postDelayed(this, 1000)
+                return
+            }
             adapterRV.apply {
+
                 if (adapterRV.itemCount < 4) {
                     this.datas.add(messages[index % messages.size])//最后一个位置添加数据并notify
                     index++
@@ -154,6 +177,10 @@ class ActivitySimpleAnima : BaseActivity() {
     var i = 0;
     var addViewRunnable = object : Runnable {
         override fun run() {
+            if(isEdgeTouch()){
+                handler.postDelayed(this, 1000)
+                return
+            }
             if (layout_container.childCount >= 4) {//控件已经有4的话，执行remove操作
                 var tv = layout_container.getChildAt(0) as TextView
                 pools.release(tv) //回收的控件留着复用，存起来

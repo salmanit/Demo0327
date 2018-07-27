@@ -9,11 +9,11 @@ import android.support.v4.app.FragmentPagerAdapter
  */
 class FragmentAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
-    var titles= arrayOf("detail","comment")
+    var titles= arrayOf("comment","detail")
     override fun getItem(position: Int): Fragment {
         when(position){
-            0->return FragmentDetail()
-            1->return FragmentComment()
+            1->return FragmentDetail()
+            0->return FragmentComment()
             else ->return Fragment()
         }
     }

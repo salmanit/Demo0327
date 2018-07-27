@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".nofity.ActivityNofity8">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/include_toolbar" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="?attr/actionBarSize" />
+
+    <Button
+        android:id="@+id/btn_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="写日志"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_read"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_toolbar" />
+
+    <Button
+        android:id="@+id/btn_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="读日志"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_write"
+        app:layout_constraintTop_toTopOf="@+id/btn_write" />
+
+    <Button
+        android:id="@+id/btn_ad_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="ad推广"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/btn_ad_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_write" />
+
+    <Button
+        android:id="@+id/btn_ad_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ad游戏"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/btn_chat_1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_ad_1"
+        app:layout_constraintTop_toTopOf="@+id/btn_ad_1" />
+
+    <Button
+        android:id="@+id/btn_chat_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chat聊天"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/btn_chat_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_ad_2"
+        app:layout_constraintTop_toTopOf="@+id/btn_ad_2" />
+
+    <Button
+        android:id="@+id/btn_chat_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="chat好友申请"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/include2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_chat_1"
+        app:layout_constraintTop_toTopOf="@+id/btn_chat_1" />
+<Button
+    android:id="@+id/btn_delete5"
+    android:text="删除更新通知"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/btn_ad_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+<Button
+    android:id="@+id/btn_delete_group1"
+    android:text="删除group ad"
+    app:layout_constraintLeft_toRightOf="@+id/btn_delete5"
+    app:layout_constraintTop_toBottomOf="@+id/btn_ad_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_show_float"
+        android:text="显示悬浮窗"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</android.support.constraint.ConstraintLayout>

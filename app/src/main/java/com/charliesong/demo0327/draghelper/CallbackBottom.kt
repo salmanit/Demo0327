@@ -1,31 +1,34 @@
 package com.charliesong.demo0327.draghelper
 
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.view.NestedScrollingChild
 import android.support.v4.widget.ViewDragHelper
-import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 
 class CallbackBottom:ViewDragHelper.Callback{
 
     var viewGroup:ViewGroup
-    var childTop:View
-    constructor(viewGroup: ViewGroup) : super() {
+    var dragHelper:ViewDragHelper
+    constructor(viewGroup: ViewGroup,dragHelper: ViewDragHelper) : super() {
         this.viewGroup = viewGroup
-        childTop=viewGroup.getChildAt(0)
+        this.dragHelper=dragHelper
+        this.dragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT)
     }
 
     override fun tryCaptureView(child: View, pointerId: Int): Boolean {
-
         println("tryCaptureView======$child======$pointerId")
-        return TextUtils.equals("bottom_scale",child.getTag() as CharSequence?)
+        return false
     }
 
     override fun onViewDragStateChanged(state: Int) {
         super.onViewDragStateChanged(state)
         println("onViewDragStateChanged=========$state") //STATE_IDLE STATE_DRAGGING STATE_SETTLING
+        if(state==ViewDragHelper.STATE_IDLE){
+            if(viewGroup.childCount>0){
+                if(viewGroup.getChildAt(0).left>0){
+                    //关闭页面
+                }
+            }
+        }
     }
 
     override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
@@ -41,11 +44,20 @@ class CallbackBottom:ViewDragHelper.Callback{
     override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
         super.onViewReleased(releasedChild, xvel, yvel)
         println("onViewReleased============$xvel==$yvel")
+        if(xvel>500|| releasedChild.left>viewGroup.width/2){
+            dragHelper.settleCapturedViewAt(viewGroup.width,releasedChild.top)
+        }else{
+            dragHelper.settleCapturedViewAt(0,releasedChild.top)
+        }
+        viewGroup.postInvalidate()
     }
 
     override fun onEdgeTouched(edgeFlags: Int, pointerId: Int) {
         super.onEdgeTouched(edgeFlags, pointerId)// 4 2 8
         println("onEdgeTouched====================$edgeFlags========$pointerId")
+        if(edgeFlags==ViewDragHelper.EDGE_LEFT&&viewGroup.childCount>0){
+            dragHelper.captureChildView(viewGroup.getChildAt(0),pointerId)
+        }
     }
 
     override fun onEdgeLock(edgeFlags: Int): Boolean {
@@ -65,33 +77,22 @@ class CallbackBottom:ViewDragHelper.Callback{
 
     override fun getViewVerticalDragRange(child: View): Int {
         println("getViewVerticalDragRange=========$child=======${child.top}")
-        return if(child.top>400 || child.top<200) 0 else 10
+        return 0
     }
 
     override fun getViewHorizontalDragRange(child: View): Int {
         println("getViewHorizontalDragRange=========${child.left}")
-        return 33
+        return 0
     }
 
     override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int {
         println("clampViewPositionHorizontal============left/dx====$left/$dx")
-        return super.clampViewPositionHorizontal(child, left, dx)
+        return if(left+dx<0) 0 else left+dx
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
         println("clampViewPositionVertical==============top/dy=$top=$dy")
-        var result=top+dy
-            if(result<0){
-                result=0
-            }
-        if(child.canScrollVertically(dy)){
-            if(child is NestedScrollingChild){
-                child.dispatchNestedScroll(0,0,0,dy, IntArray(2))
-            }
-            return top
-        }
 
-        return result
+        return 0
     }
 }

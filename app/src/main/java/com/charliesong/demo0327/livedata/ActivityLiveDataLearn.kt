@@ -25,11 +25,13 @@ import android.os.Parcelable
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Build
 import android.support.transition.AutoTransition
 import android.transition.Transition
 import android.util.Log
 import android.view.Gravity
+import java.util.*
 
 
 class ActivityLiveDataLearn : BaseActivity() {
@@ -179,14 +181,29 @@ class ActivityLiveDataLearn : BaseActivity() {
 
     fun showPW(v: View) {
         var view = LayoutInflater.from(this).inflate(R.layout.pw_simple_text, null)
-        var pw = PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        var pw = PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, 500)
         pw.isOutsideTouchable = true
         pw.setBackgroundDrawable(ColorDrawable())
         pw.isFocusable = true
         if(Build.VERSION.SDK_INT>=23){
             pw.enterTransition=android.transition.AutoTransition()
         }
-        pw.showAsDropDown(v)
+        pw.showAtLocation(v,Gravity.CENTER  ,0,0)
+
+//        testSomething(btn_bottom)
+
+    }
+
+
+    private fun testSomething(v:View){
+        var mDrawingLocation=IntArray(2)
+        v.getLocationInWindow(mDrawingLocation);
+        println("111=============${Arrays.toString(mDrawingLocation)}")
+        var r=Rect(10,10,110,100)
+        var result=v.requestRectangleOnScreen(r, true); //这个作用是啥查一下
+
+        v.getLocationInWindow(mDrawingLocation);
+        println("222======${result}=======${Arrays.toString(mDrawingLocation)}")
     }
 }
 

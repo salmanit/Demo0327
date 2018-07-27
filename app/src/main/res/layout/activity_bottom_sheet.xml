@@ -39,7 +39,8 @@
         android:tag="bottomSheet"
         android:layout_marginTop="0dp"
         app:behavior_peekHeight="130dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:layout_behavior="com.charliesong.demo0327.bottom.BottomSheetBehavior2"
+        tools:ignore="MissingPrefix">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_bottom"

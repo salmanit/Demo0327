@@ -18,7 +18,7 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
     var datas= ArrayList<Contact>()
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-        println("getItemOffsets==============${datas.size}")
+//        println("getItemOffsets==============${datas.size}")
             var i=parent.getChildAdapterPosition(view)
             outRect.top=if(needDraw(i)) indexHeight else 0
 
@@ -31,7 +31,7 @@ class ItemDecorationContact:RecyclerView.ItemDecoration(){
     var floatRect=Rect()//用来画索引的布局方位
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
-        println("onDraw==============${datas.size}")
+//        println("onDraw==============${datas.size}")
         if(datas.size==0){return}
         if(textHeight==0){
             paint.textSize=30f

@@ -39,6 +39,7 @@ class ActivityFlipBoardSetting:BaseActivity(){
         initRvDatas()
         initRv()
     }
+
     var screenWidht=0
     var datas= arrayListOf<FlipSettingBean>()
     var subTypes= arrayListOf<String>("头条","图片","社会","国际","国内")
@@ -96,10 +97,10 @@ class ActivityFlipBoardSetting:BaseActivity(){
                             text=if(data.expanded) "collpse" else "expand"
                             //底部的通过动画来修改bottomMargin实现动态展开的效果
                             holder.getView<View>(R.id.layout_expand).apply {
-                                var anim=ValueAnimator.ofInt(0,-50)
+                                var anim=ValueAnimator.ofInt(0,-this.height)
 
                                 if(data.expanded){
-                                    anim=ValueAnimator.ofInt(-50,0)
+                                    anim=ValueAnimator.ofInt(-this.height,0)
                                     visibility=View.VISIBLE
                                 }
                                 anim.setDuration(200)
@@ -121,7 +122,7 @@ class ActivityFlipBoardSetting:BaseActivity(){
                         //展开的子类布局收缩
                         holder.getView<View>(R.id.layout_expand).apply {
                             var params=layoutParams as LinearLayout.LayoutParams
-                            params.bottomMargin=-50
+                            params.bottomMargin=-this.height
                             layoutParams=params
                         }
                         //文字修改

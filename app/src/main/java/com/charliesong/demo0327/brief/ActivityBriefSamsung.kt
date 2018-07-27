@@ -11,6 +11,7 @@ import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
+import com.charliesong.demo0327.util.UtilNormal
 import kotlinx.android.synthetic.main.activity_brief_samsung.*
 
 /**
@@ -29,6 +30,11 @@ class ActivityBriefSamsung:BaseActivity(){
     var originalHeigth=300//默认显示的底图的高度，也是recyclerview第一个item的itemDecoration的top的高度
     var datas= arrayListOf<BriefBean>()
     private fun initRv(){
+        minHeight=UtilNormal.dp2px(this,50)
+        maxHeigth=3*minHeight
+        originalHeigth=minHeight*6-getStatusHeight(this)
+        view_state.layoutParams.height=getStatusHeight(this)
+        println("min h=====$minHeight=========${resources.displayMetrics.density}")
         datas.add(BriefBean("商业",8,"place holder business",Color.BLACK))
         datas.add(BriefBean("新闻",2,"place holder news",Color.RED))
         datas.add(BriefBean("科技",3,"place holder technology",Color.GREEN))
@@ -62,59 +68,66 @@ class ActivityBriefSamsung:BaseActivity(){
 
             }
         }
-        rv_brief.addOnScrollListener(object :RecyclerView.OnScrollListener(){
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-
-            }
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                 var manager=recyclerView.layoutManager as LinearLayoutManager
-                var first=manager.findFirstVisibleItemPosition();
-                var holder=recyclerView.findViewHolderForAdapterPosition(first)
-                var firstTop=holder.itemView.top
-                var firstBottom=holder.itemView.bottom
-                var layoutParams1=layout_float_top1.layoutParams
-                var data=datas[first]
-
-
-                if(first==0){
-                    if(firstTop>=minHeight){
-                        layoutParams1.height=minHeight
-                        layout_float_top1.setBackgroundColor(Color.TRANSPARENT)
-                        var alpha=1-(firstTop-minHeight)*1f/(originalHeigth-minHeight)
-                        tv_float_title1.alpha=alpha
-                        view_mask.alpha=alpha
-                        view_mask.y=firstTop-originalHeigth*1f
-                        iv_top_.scrollTo(0,-(firstTop-originalHeigth)/2)
-                    }else{
-                        view_mask.y=-originalHeigth*1f
-                        layout_float_top1.setBackgroundColor(data.color)
-                    }
-                    tv_float_title1.setTextSize(TypedValue.COMPLEX_UNIT_SP,26f)
-                    tv_float_sub_title1.setText("")
-                }else{
-
-                    var changeHeight=maxHeigth+firstTop
-                    layoutParams1.height=Math.max(changeHeight,minHeight)
-                    //字体大小从18sp到15sp变化，而悬浮窗高度从maxheight到minHeight变化
-                    tv_float_title1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15f+3f*(layoutParams1.height-minHeight)/(maxHeigth-minHeight))
-                    layout_float_top1.setBackgroundColor(data.color)
-                    tv_float_sub_title1.setText("${data.newArticle} new articles")
-                    tv_float_sub_title1.alpha=Math.max(0f,1-(maxHeigth-layoutParams1.height)/40f)//滑动个40dp就让子标题不可见
-                }
-                tv_float_title1.setText(data.title)
-                if(firstBottom<=minHeight){
-                    layout_float_top1.y=firstBottom-minHeight*1f
-                    layoutParams1.height=minHeight
-                }else{
-                    layout_float_top1.y=0f
-                }
-                layout_float_top1.layoutParams=layoutParams1
-                println("position========$first=====top==  $firstTop bottom= $firstBottom==========alpha= ${tv_float_title1.alpha}")
-            }
-        })
+        rv_brief.addOnScrollListener(listener)
 
     }
 
+    val listener=object :RecyclerView.OnScrollListener(){
+        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            println("state change========$newState")
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            var manager=recyclerView.layoutManager as LinearLayoutManager
+            var first=manager.findFirstVisibleItemPosition();
+            var holder=recyclerView.findViewHolderForAdapterPosition(first)
+            var firstTop=holder.itemView.top
+            var firstBottom=holder.itemView.bottom
+            var layoutParams1=layout_float_top1.layoutParams
+            var data=datas[first]
+
+            if(firstTop==originalHeigth){
+                return
+            }
+            if(first==0){
+                if(firstTop>=minHeight){
+                    layoutParams1.height=minHeight
+                    layout_float_top1.setBackgroundColor(Color.TRANSPARENT)
+                    view_state.setBackgroundColor(Color.TRANSPARENT)
+                    var alpha=1-(firstTop-minHeight)*1f/(originalHeigth-minHeight)
+                    tv_float_title1.alpha=alpha
+                    view_mask.alpha=alpha
+                    view_mask.y=(firstTop-originalHeigth)/2f
+                    iv_top_.scrollTo(0,-(firstTop-originalHeigth)/2)
+                }else{
+//                        view_mask.y=-originalHeigth*1f
+                    layout_float_top1.setBackgroundColor(data.color)
+                    view_state.setBackgroundColor(data.color)
+                }
+                tv_float_title1.setTextSize(TypedValue.COMPLEX_UNIT_SP,26f)
+                tv_float_sub_title1.setText("")
+            }else{
+                view_mask.alpha=0f
+                var changeHeight=maxHeigth+firstTop
+                layoutParams1.height=Math.max(changeHeight,minHeight)
+                //字体大小从18sp到15sp变化，而悬浮窗高度从maxheight到minHeight变化
+                tv_float_title1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15f+3f*(layoutParams1.height-minHeight)/(maxHeigth-minHeight))
+                layout_float_top1.setBackgroundColor(data.color)
+                view_state.setBackgroundColor(data.color)
+                tv_float_sub_title1.setText("${data.newArticle} new articles")
+                tv_float_sub_title1.alpha=Math.max(0f,1-(maxHeigth-layoutParams1.height)/40f)//滑动个40dp就让子标题不可见
+            }
+            tv_float_title1.setText(data.title)
+            if(firstBottom<=minHeight){
+                layout_float_top1.y=firstBottom-minHeight*1f
+                layoutParams1.height=minHeight
+            }else{
+                layout_float_top1.y=0f
+            }
+            layout_float_top1.layoutParams=layoutParams1
+            println("position========$first=====top==$firstTop bottom= $firstBottom=========dx/dy==$dx/$dy")
+        }
+    }
 }

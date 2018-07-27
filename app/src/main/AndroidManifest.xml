@@ -8,7 +8,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
@@ -78,8 +82,8 @@
         <activity
             android:name=".city.ActivityCityPick"
             android:label="城市选择库"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:theme="@style/DefaultCityPickerTheme" />
+            android:theme="@style/DefaultCityPickerTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".pathanim.ActivityPathAnim"
             android:label="path动画[没写]" />
@@ -161,12 +165,30 @@
 
         <activity
             android:name=".bottom.ActivityBottomSheet"
+            android:windowSoftInputMode="stateHidden"
             android:label="bottom sheet 底部弹出学习" />
         <activity
             android:name=".draghelper.ActivityDragHelper"
             android:label="viewdraghelper 学习" />
-        <activity android:name=".java.JavaKnowledgeActivity"
-            android:label="notify学习"/>
+        <activity
+            android:name=".java.JavaKnowledgeActivity"
+            android:label="notify学习"
+            android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name=".base.FileProviderDif"
+            android:authorities="com.charlie.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".nofity.ActivityNofity8"
+            android:launchMode="singleTask"
+            android:label="通知适配8.0" />
     </application>
 
 </manifest>

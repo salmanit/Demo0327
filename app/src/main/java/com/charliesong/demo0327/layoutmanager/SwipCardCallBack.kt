@@ -7,9 +7,9 @@ import android.support.v7.widget.helper.ItemTouchHelper
 /**
  * Created by charlie.song on 2018/5/10.
  */
-class SwipCardCallBack:ItemTouchHelper.SimpleCallback{
-    var datas= arrayListOf<String>()
-    constructor(dragDirs: Int, swipeDirs: Int,data:ArrayList<String>) : super(dragDirs, swipeDirs){
+class SwipCardCallBack<T>:ItemTouchHelper.SimpleCallback{
+    var datas= arrayListOf<T>()
+    constructor(dragDirs: Int, swipeDirs: Int,data:ArrayList<T>) : super(dragDirs, swipeDirs){
         datas=data
     }
 
@@ -19,8 +19,10 @@ class SwipCardCallBack:ItemTouchHelper.SimpleCallback{
     var rv:RecyclerView?=null;
     //拖动结束以后会走这里
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        datas.add(datas.removeAt(0))//这里数据不删除，就是把滑动的数据再放到最后。有具体需求再改
+        val data=datas.removeAt(0)
+        datas.add(data)//这里数据不删除，就是把滑动的数据再放到最后。有具体需求再改
         rv?.adapter?.notifyDataSetChanged()
+        println("========onSwiped===$direction====${datas[0]}")
     }
 
     override fun onChildDraw(c: Canvas?, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {

@@ -12,7 +12,6 @@ import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.util.RippleAnimation
-import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter
 import kotlinx.android.synthetic.main.activity_contact.*
 import java.util.*
 import kotlin.Comparator
@@ -50,7 +49,7 @@ class ActivityContact: BaseActivity(){
     private fun initRecyclerView() {
         rv_contact.layoutManager=LinearLayoutManager(this).apply { findFirstCompletelyVisibleItemPosition() }
         rv_contact.addItemDecoration(ItemDecorationContact().apply { datas=contactsFilter })
-        rv_contact.adapter= SlideInRightAnimationAdapter(object: BaseRvAdapter<Contact>(){
+        rv_contact.adapter= object: BaseRvAdapter<Contact>(){
             override fun getLayoutID(viewType: Int): Int {
                 return R.layout.item_contact
             }
@@ -61,11 +60,18 @@ class ActivityContact: BaseActivity(){
                 holder.setText(R.id.tv_name,contact.name)
                 holder.setText(R.id.tv_phone,contact.phone+" ${contact.py}  ${contact.index}")
                 holder.setImageUrl(R.id.iv_head,contact.head)
+            }
 
+            override fun onBindViewHolder(holder: BaseRvHolder, position: Int, payloads: MutableList<Any>) {
+                if(payloads.isEmpty()){
+                    super.onBindViewHolder(holder, position, payloads)
+                }else{
+                    holder.setText(R.id.tv_test,"${payloads[0]}")
+                }
             }
         }.apply {
         setData(contactsFilter)
-        })
+        }
         rv_contact.addOnItemTouchListener(ItemTouchListenerRV(rv_contact))
 
 //        rv_contact.itemAnimator=SlideInLeftAnimator()

@@ -21,6 +21,8 @@ class ActivityLayoutManagerCustom: BaseActivity(){
     var urls= arrayListOf<String>()
     var pics= intArrayOf(R.mipmap.pic11,R.mipmap.sjzg)
     var itemDecoration:ItemDecorationSpace?=null;
+     data class DP(var name:String,var url: String)
+    var dps= arrayListOf<DP>()
     var i=1;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,21 +71,26 @@ class ActivityLayoutManagerCustom: BaseActivity(){
             })
         }
 
+
         rv_pic.apply {
             layoutManager=SwipCardLayoutManger()
-            adapter=object : BaseRvAdapter<String>(datas){
+            adapter=object : BaseRvAdapter<DP>(dps){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_simple_pic
                 }
                 override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
-
-                    holder.setText(R.id.tv_word,getItemData(position)+position)
-                    holder.setImageRes(R.id.iv_bg,pics[getItemData(position).length%pics.size])
+                    val data=getItemData(position)
+                    holder.apply {
+                        setText(R.id.tv_word,data.name)
+                        setImageUrl(R.id.iv_bg,data.url)
+                    }
                 }
             }
         }
         ItemTouchHelper(SwipCardCallBack(0,ItemTouchHelper.UP or ItemTouchHelper.DOWN
-         or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,datas)).attachToRecyclerView(rv_pic)
+         or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,dps)).attachToRecyclerView(rv_pic)
+
+
 
         btn_flowlayout.setOnClickListener {
             rv_test.layoutManager= FlowLayoutManager()
@@ -203,5 +210,10 @@ class ActivityLayoutManagerCustom: BaseActivity(){
         datas.add("到底水电费")
         datas.add("到底请稍等")
         datas.add("到底进入")
+
+
+        (0 until datas.size).forEach {
+            dps.add(DP(datas[it],urls[it%urls.size]))
+        }
     }
 }
