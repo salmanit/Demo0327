@@ -3,9 +3,7 @@ package com.charliesong.demo0327.article
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
@@ -50,7 +48,7 @@ class ArticleActivityDetail : BaseActivity() {
             }
 
         }
-        ItemTouchHelper(UploadCallback(articles)).attachToRecyclerView(rv_detail)
+        ItemTouchHelper(UpFlingCallback(articles)).attachToRecyclerView(rv_detail)
     }
 
 

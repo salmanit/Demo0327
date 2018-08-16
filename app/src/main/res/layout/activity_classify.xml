@@ -3,21 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <include layout="@layout/include_toolbar" />
-    <com.charliesong.demo0327.classify.RelativeClipCircle
-        android:id="@+id/rv_clip"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
-        <TextView
-            android:layout_centerInParent="true"
-            android:text="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </com.charliesong.demo0327.classify.RelativeClipCircle>
-    <com.charliesong.demo0327.classify.ClipView
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

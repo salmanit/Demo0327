@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -77,16 +77,19 @@
                         android:layout_gravity="center_vertical|right"
                         android:src="@mipmap/ic_launcher_round" />
                 </android.support.v7.widget.Toolbar>
+
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nsv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:id="@+id/ll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -97,6 +100,7 @@
                     android:layout_height="500dp"
                     android:background="#77321234"
                     android:gravity="center"
+                    android:tag="0"
                     android:text="place holder1" />
 
                 <TextView
@@ -105,7 +109,24 @@
                     android:layout_height="500dp"
                     android:background="#33321234"
                     android:gravity="center"
+                    android:tag="1"
                     android:text="place holder2" />
+                <TextView
+                    android:id="@+id/rv_place3"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:background="#321234"
+                    android:gravity="center"
+                    android:tag="2"
+                    android:text="place holder3" />
+                <TextView
+                    android:id="@+id/rv_place4"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:background="#33321234"
+                    android:gravity="center"
+                    android:tag="3"
+                    android:text="place holder4" />
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
@@ -118,4 +139,13 @@
             android:layout_margin="10dp"
             android:src="@drawable/adp_global_launcher_icon" />
     </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_items"
+        android:visibility="invisible"
+        android:background="#fff"
+        app:tabTextColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+</FrameLayout>

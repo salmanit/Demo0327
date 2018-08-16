@@ -11,9 +11,11 @@ import com.charliesong.demo0327.R
  */
 class UpLoadLayoutManager:RecyclerView.LayoutManager{
     constructor() : super(){
-        isAutoMeasureEnabled=true
     }
 
+    override fun isAutoMeasureEnabled(): Boolean {
+        return true
+    }
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
         return RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
     }

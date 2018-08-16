@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.FrameLayout
 import com.charliesong.demo0327.*
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
@@ -30,7 +33,18 @@ class ArticleActivityList: BaseActivity(){
         for(i in 0 until 50){
             articles.add("article $i")
         }
-
+        val btn=Button(this)
+        btn.text="add"
+        btn.layoutParams=FrameLayout.LayoutParams(100,100).apply {
+            gravity=Gravity.RIGHT or Gravity.BOTTOM
+        }
+        btn.setOnClickListener {
+            articles.add(0,"article "+articles.size)
+            (rv_detail.adapter as HFAdapter).apply {
+                notifyItemInserted(this.heads.size)
+            }
+        }
+        (window.decorView as FrameLayout).addView(btn)
         rv_detail.apply {
             layoutManager=LinearLayoutManager(this@ArticleActivityList)
 //            addItemDecoration(object :RecyclerView.ItemDecoration(){
@@ -58,14 +72,14 @@ class ArticleActivityList: BaseActivity(){
                 }
 
             }
+
             adapter=HFAdapter(ad as RecyclerView.Adapter<RecyclerView.ViewHolder>).apply {
-//                val inflater=LayoutInflater.from(this@ArticleActivityList)
-//                addHeader(inflater.inflate(R.layout.item_classify,rv_detail,false))
-//                addHeader(inflater.inflate(R.layout.item_contact,rv_detail,false))
-//                addFooter(inflater.inflate(R.layout.item_contact,rv_detail,false))
-//                addFooter(inflater.inflate(R.layout.item_classify,rv_detail,false))
+                val inflater=LayoutInflater.from(this@ArticleActivityList)
+                addHeader(inflater.inflate(R.layout.item_classify,rv_detail,false))
+                addHeader(inflater.inflate(R.layout.item_contact,rv_detail,false))
+                addFooter(inflater.inflate(R.layout.item_contact,rv_detail,false))
+                addFooter(inflater.inflate(R.layout.item_classify,rv_detail,false))
             }
-            itemAnimator=DefaultItemAnimator()
         }
     }
 }

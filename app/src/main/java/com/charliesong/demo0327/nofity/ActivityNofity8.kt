@@ -13,6 +13,8 @@ import android.graphics.BitmapFactory
 import android.content.Context
 import android.content.Intent
 import android.os.UserManager
+import android.widget.Button
+import android.widget.TextView
 import com.charliesong.demo0327.widget.ShowFloatingWindow
 import kotlinx.android.synthetic.main.activity_nofity8.*
 
@@ -25,7 +27,7 @@ class ActivityNofity8 : BaseActivity() {
         defaultSetTitle("notify")
         notifyHandle()
         floatingWindowHandle()
-
+        var he=findViewById(R.id.btn_write) as Button
 
 //        println("=====${intent?.extras}====${intent?.getStringExtra("title")}")
     }
@@ -37,7 +39,7 @@ class ActivityNofity8 : BaseActivity() {
 
     private fun floatingWindowHandle(){
         btn_show_float.setOnClickListener {
-            ShowFloatingWindow(this@ActivityNofity8).showView()
+            ShowFloatingWindow().showView()
         }
     }
 
@@ -78,6 +80,8 @@ class ActivityNofity8 : BaseActivity() {
                     channelName, NotificationManager.IMPORTANCE_DEFAULT)
             //补充channel的含义（可选）
             adChannel.description = channelDes
+            adChannel.setShowBadge(true)//默认是true，在app的logo右上角有个圆点，而且长按logo还能看到最新一条通知
+
             //将渠道添加进组（先创建组才能添加）
             groupID?.apply {
                 //分组（可选）
@@ -95,6 +99,7 @@ class ActivityNofity8 : BaseActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //创建通知时，标记你的渠道id
             builder = Notification.Builder(this, channelID)
+            builder.setTimeoutAfter(1*60*1000)//1分钟后自动消失
         }
         val bundle=Bundle()
         bundle.putString("title","title...........")
@@ -105,6 +110,7 @@ class ActivityNofity8 : BaseActivity() {
                 .setContentText("content:$content")
                 .setContentIntent(intent)
                 .setAutoCancel(true)
+                .setNumber(1)
                 .build()
         notificationManager.notify(id, notification)
     }

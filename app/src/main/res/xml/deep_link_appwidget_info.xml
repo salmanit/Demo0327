@@ -10,9 +10,12 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
+  updatePeriodMillis =0表示没有更新周期
   -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="110dp"
-    android:minHeight="40dp"
+    android:minWidth="100dp"
+    android:minHeight="50dp"
+    android:previewImage="@mipmap/pic11"
     android:updatePeriodMillis="0"
+    android:resizeMode="horizontal|vertical"
     android:initialLayout="@layout/deep_link_appwidget"/>

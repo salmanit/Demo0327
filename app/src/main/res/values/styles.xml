@@ -10,8 +10,9 @@
         <item name="dif_text_summary_color">@color/item_text_summary_color_blue</item>
         <item name="dif_item_bg">@color/item_bg_white</item>
         <item name="dif_item_nothing">@color/colorPrimary</item>
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
 
+
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <!--<item name="android:windowSwipeToDismiss" tools:targetApi="kitkat_watch">true</item>-->
@@ -26,10 +27,19 @@
         <item name="dif_text_summary_color">@color/item_text_summary_color_red</item>
         <item name="dif_item_bg">@color/item_bg_black</item>
         <item name="dif_item_nothing">@color/colorAccent</item>
+
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     
     <style name="customAl" parent="AlertDialog.AppCompat">
         <!--<item name="listItemLayout"></item>-->
     </style>
 
+    <style name="AppTheme.DialogActivity">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
 </resources>

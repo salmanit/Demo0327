@@ -5,6 +5,9 @@
 <TextView
     android:id="@+id/tv_bottom"
     android:gravity="center"
+    android:textColor="#fff"
+    android:layout_gravity="center"
+    android:textSize="25sp"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:layout_width="match_parent"

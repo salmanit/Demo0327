@@ -65,4 +65,9 @@ class ActivityCityPick: BaseActivity(){
                 })
                 .show();
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CityPicker.getInstance().setOnPickListener(null)
+    }
 }

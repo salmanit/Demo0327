@@ -1,6 +1,5 @@
 package com.charliesong.demo0327.base;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -51,8 +50,7 @@ public class RvItemTouchListener extends RecyclerView.SimpleOnItemTouchListener 
     public RvItemClickListener listener;
 
     public interface RvItemClickListener {
-        abstract void singleTab(int position, RecyclerView.ViewHolder viewHolder);
-
-        abstract void longPress(int position);
+         void singleTab(int position, RecyclerView.ViewHolder viewHolder);
+         void longPress(int position);
     }
 }

@@ -108,7 +108,7 @@ class ActivityPaging : BaseActivity() {
 
         //如果懒得自己处理setNotifyExecutor和setFetchExecutor，建议用下边的，系统都有默认值，省事
 //         LivePagedListBuilder(object : DataSource.Factory<Int, Student>() {
-//            override fun create(): DataSource<Int, Student> {
+//            override fun anchor(): DataSource<Int, Student> {
 //                return MyDataSource() //DataSource有3种，这里就简单随便写了个，自己看需求写
 //            }
 //        }, mPagedListConfig)

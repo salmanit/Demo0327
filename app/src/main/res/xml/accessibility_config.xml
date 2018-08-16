@@ -4,5 +4,5 @@
     android:accessibilityFeedbackType="feedbackGeneric"
     android:canRetrieveWindowContent="true"
     android:description="@string/demo_access_server_description1"
-    android:packageNames="com.charlie.demo0108,com.magellangps.SmartGPS"
+    android:packageNames="com.charlie.demo0108,com.charliesong.wanandroid"
     android:notificationTimeout="100" />

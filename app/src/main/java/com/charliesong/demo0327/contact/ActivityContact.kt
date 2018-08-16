@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
+import com.charliesong.demo0327.base.RvItemTouchListener
 import com.charliesong.demo0327.util.RippleAnimation
 import kotlinx.android.synthetic.main.activity_contact.*
 import java.util.*
@@ -24,31 +26,32 @@ class ActivityContact: BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
+        defaultSetTitle("contacts")
         initSearch()
         initData()
         initRecyclerView()
         fab_mode.setOnClickListener {
-            RippleAnimation.create(it).setDuration(2000).startRipple()
+            RippleAnimation.anchor(it).setDuration(2000).startRipple()
             changeMode()
         }
+
     }
+    var color= Color.RED
     private fun changeMode(){
-      color=if(color==Color.WHITE) Color.BLUE else Color.WHITE
-        (rv_contact.getItemDecorationAt(0) as ItemDecorationContact).apply {
-            colorGroup=Color.parseColor("#215986")
-            colorGroupText=Color.parseColor("#ffffff")
+      color=if(color==Color.RED) Color.BLUE else Color.RED
+        (rv_contact.getItemDecorationAt(0) as ItemDecorationC).apply {
+            paintFloatBgText.color=color
         }
         rv_contact.adapter.notifyDataSetChanged()
         supportActionBar?.run {
-            setTitle("change....")
-            setBackgroundDrawable(ColorDrawable(color))
-            titleColor=Color.YELLOW
+            setTitle("change..$color")
+            this.setBackgroundDrawable(ColorDrawable(color))
         }
     }
-    var color= Color.WHITE
+
     private fun initRecyclerView() {
         rv_contact.layoutManager=LinearLayoutManager(this).apply { findFirstCompletelyVisibleItemPosition() }
-        rv_contact.addItemDecoration(ItemDecorationContact().apply { datas=contactsFilter })
+        rv_contact.addItemDecoration(ItemDecorationC().apply { datas=contactsFilter })
         rv_contact.adapter= object: BaseRvAdapter<Contact>(){
             override fun getLayoutID(viewType: Int): Int {
                 return R.layout.item_contact
@@ -56,7 +59,6 @@ class ActivityContact: BaseActivity(){
 
             override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
                 var contact=getItemData(position)
-                holder.itemView.setBackgroundColor(color)
                 holder.setText(R.id.tv_name,contact.name)
                 holder.setText(R.id.tv_phone,contact.phone+" ${contact.py}  ${contact.index}")
                 holder.setImageUrl(R.id.iv_head,contact.head)
@@ -72,9 +74,18 @@ class ActivityContact: BaseActivity(){
         }.apply {
         setData(contactsFilter)
         }
-        rv_contact.addOnItemTouchListener(ItemTouchListenerRV(rv_contact))
+        rv_contact.addOnItemTouchListener(RvItemTouchListener(rv_contact).apply {
+            listener=object : RvItemTouchListener.RvItemClickListener {
+                override fun singleTab(position: Int, viewHolder: RecyclerView.ViewHolder) {
+                    rv_contact.adapter.notifyItemChanged(position,"$position")
+                }
 
-//        rv_contact.itemAnimator=SlideInLeftAnimator()
+                override fun longPress(position: Int) {
+                }
+            }
+        })
+
+//        rv_contact.itemAnimator= SlideInLeftAnimator()
 
     }
 //    private fun getAdapter():BaseRvAdapter<Contact>{

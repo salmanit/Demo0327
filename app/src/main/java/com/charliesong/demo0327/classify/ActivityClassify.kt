@@ -19,6 +19,7 @@ import java.util.*
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.layouter.breaker.IRowBreaker
 import android.view.Gravity
+import android.widget.TextView
 import com.beloo.widget.chipslayoutmanager.gravity.IChildGravityResolver
 
 
@@ -32,30 +33,10 @@ class ActivityClassify : BaseActivity() {
     var datas= arrayListOf<String>()
     var checkePosition = -1;
 
-        var activity=false
-        get() = isAdd
-
-    fun changeAdd(add:Boolean){
-        isAdd=add
-    }
-    var isAdd=true;
-
-
-    fun main(){
-        println("18============$activity")
-        changeAdd(false)
-        println("20===============$activity")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_classify)
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setTitle("my book")
-            setDisplayHomeAsUpEnabled(true)
-        }
-//        main()
+        defaultSetTitle("my book")
         initData()
         val chipsLayoutManager = ChipsLayoutManager.newBuilder(this)
                 //set vertical gravity for all items in a row. Default = Gravity.CENTER_VERTICAL

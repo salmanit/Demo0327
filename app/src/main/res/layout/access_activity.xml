@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="10dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include layout="@layout/include_toolbar"/>
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_go_set"
         android:text="go_set"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:textColor="?attr/dif_text_title_color"
         android:layout_width="wrap_content"
@@ -15,6 +16,7 @@
         android:id="@+id/tv_check"
         android:padding="10dp"
         android:textColor="?attr/dif_text_summary_color"
+        android:background="?attr/selectableItemBackground"
         android:hint="check if service open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

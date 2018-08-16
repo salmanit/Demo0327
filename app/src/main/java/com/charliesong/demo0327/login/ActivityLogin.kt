@@ -11,6 +11,7 @@ import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
+@Deprecated("")
 class ActivityLogin:BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

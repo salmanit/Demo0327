@@ -30,7 +30,7 @@ class AccessActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.access_activity)
-
+        defaultSetTitle("AccessibilityService")
         tv_check.setOnClickListener {
         var result=AssistUtil.isAccessibilitySettingsOn(this,AssistService::class.java)
             showToast("$result")

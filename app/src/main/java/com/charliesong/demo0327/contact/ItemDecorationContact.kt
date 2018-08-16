@@ -1,100 +1,102 @@
 package com.charliesong.demo0327.contact
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.View
 import java.util.ArrayList
 
 /**
  * Created by charlie.song on 2018/4/3.
+ * 此类只支持垂直方向的layoutmanager，不做验证，非此LayoutManager会挂掉。
  */
-class ItemDecorationContact:RecyclerView.ItemDecoration(){
+ abstract class ItemDecorationContact<T>:RecyclerView.ItemDecoration(){
 
-    var datas= ArrayList<Contact>()
+    var datas= ArrayList<T>()
+    abstract fun getDrawText(t:T):CharSequence//要画什么东西
+    abstract fun indexEqual(pre:T,t:T):Boolean//返回两者的索引是否一样
+
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-//        println("getItemOffsets==============${datas.size}")
-            var i=parent.getChildAdapterPosition(view)
+            val i=parent.getChildAdapterPosition(view)
             outRect.top=if(needDraw(i)) indexHeight else 0
-
     }
-    var colorGroup=Color.parseColor("#888888")
-    var colorGroupText=Color.RED
-    var indexHeight=40;//索引布局的高度
-    var paint=Paint()
+    var indexHeight=60;//要画的分组索引的高度
+    var paintFloatBg=Paint()//背景
+    val paintFloatBgText=Paint()//文字
+    var floatingTextLeft=20f;//要画的文字距离左边的间距
     var textHeight=0;//测量的索引字母的高度
     var floatRect=Rect()//用来画索引的布局方位
+    open fun initSomeThing(){
+        paintFloatBgText.textSize=30f
+        val bounds=Rect()
+        paintFloatBgText.getTextBounds("G",0,1,bounds)
+        textHeight=bounds.height();
+        paintFloatBgText.color=Color.RED
+        paintFloatBg.color=Color.parseColor("#888888")
+    }
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
-//        println("onDraw==============${datas.size}")
         if(datas.size==0){return}
         if(textHeight==0){
-            paint.textSize=30f
-            var bounds=Rect()
-            paint.getTextBounds("G",0,1,bounds)
-            textHeight=bounds.height();
-
+            initSomeThing()
         }
-        var count=parent.childCount;
-        for(i in 0 until count){
-            var child=parent.getChildAt(i);
+        for(i in 0 until parent.childCount){
+            val child=parent.getChildAt(i);
             if(child!=null){
-                var position=parent.getChildAdapterPosition(child)
+                val position=parent.getChildAdapterPosition(child)
                 if(needDraw(position) ){
-                    paint.color=colorGroup
-                    c.drawRect(child.left.toFloat(), (child.top-indexHeight).toFloat(), child.right.toFloat(), child.top.toFloat(),paint)
-                    var contact=datas.get(position)
-                    paint.color=colorGroupText
-                    c.drawText(contact.index,0,1,child.left+10f,child.top-(indexHeight-textHeight)/2f,paint)
+                    val rect=Rect(child.left, (child.top-indexHeight), child.right, child.top)
+                    drawFloatingBg(c, rect,paintFloatBg)
+                    drawFloatingBgText(c,getDrawText(datas.get(position)),child.left+floatingTextLeft,child.top-(indexHeight-textHeight)/2f,paintFloatBgText,rect)
                 }
             }
         }
     }
-    //第一条，或者是和自己上一条的首字母不一样，那么肯定是个新的首字母，就画出来
+
+    //画分组背景颜色
+    open fun drawFloatingBg(c:Canvas,rect: Rect,paint: Paint){
+        c.drawRect(rect,paint)
+    }
+    //话分组条上的文字,rect是分组背景的范围
+    open fun drawFloatingBgText(c:Canvas,text:CharSequence,x:Float,y:Float,paint: Paint,rect: Rect){
+        c.drawText(text,0,1,x,y,paintFloatBgText)
+    }
+    //第一条or和自己上一条的首字母不一样，那么肯定是个新的首字母，就画出来
     private fun needDraw(position:Int):Boolean{
-        if(position==0){
-            return true
-        }
         if(datas.size==0){
             return false
         }
-        var contactPre=datas.get(position-1)
-        var contact=datas.get(position)
-        return !TextUtils.equals(contact.index.substring(0,1),contactPre.index.substring(0,1))
+        if(position==0){
+            return true
+        }
+        return !indexEqual(datas.get(position-1),datas.get(position))
     }
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(c, parent, state)
         if(datas.size==0){return}
         floatRect.set(0,0,parent.width,indexHeight)
-        var layoutmanager=(parent.layoutManager as LinearLayoutManager)
-        var first=layoutmanager.findFirstVisibleItemPosition()
+        val first=(parent.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         if(first<0){
             return
         }
-        var contact=datas.get(first)
         var moveY=0;
-        var next=findNextIndex(first,parent)
+        val next=findNextIndex(first,parent)
         if(next!=first){
-            var holder=parent.findViewHolderForAdapterPosition(next)
+            val holder=parent.findViewHolderForAdapterPosition(next)
             if(holder.itemView.top<indexHeight*2){
                 moveY=holder.itemView.top-indexHeight*2;
             }
         }
         floatRect.offset(0,moveY)
-        paint.color=colorGroup
-        c.drawRect(floatRect,paint)
-        paint.color=Color.RED
-        c.drawText(contact.index,0,1,10f,floatRect.bottom-(indexHeight-textHeight)/2f,paint)
+        drawFloatingBg(c,floatRect,paintFloatBg)
+        drawFloatingBgText(c,getDrawText(datas.get(first)),floatingTextLeft,floatRect.bottom-(indexHeight-textHeight)/2f,paintFloatBgText,floatRect)
     }
 
+    //找到下一个带索引的item的position
     fun findNextIndex(position: Int,parent: RecyclerView):Int{
         for(i in position+1 until parent.adapter.itemCount){
-            if(!TextUtils.equals(datas.get(i-1).index.substring(0,1),datas.get(i).index.substring(0,1))){
+            if(!indexEqual(datas.get(i-1),datas.get(i))){
                 return i;
             }
         }

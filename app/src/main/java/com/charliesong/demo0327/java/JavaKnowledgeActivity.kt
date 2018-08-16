@@ -5,8 +5,11 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.graphics.Color
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_java_knowledge.*
@@ -24,44 +27,18 @@ class JavaKnowledgeActivity : BaseActivity() {
 
         defaultSetTitle("java action learn")
         handleNotify()
-        btn_test.setOnClickListener {
-            if (isAnimate) {
-                return@setOnClickListener
-            }
-            isAnimate = true
-            ValueAnimator.ofInt(1, 360).apply {
-                duration = 3000
-                addUpdateListener {
-                    val current = System.currentTimeMillis()
-                    val angle = it.animatedValue as Int
-                    if (current - lastTime > ValueAnimator.getFrameDelay() || angle == 360) {
-                        lastTime = current
-                        val params = btn_test.layoutParams as ConstraintLayout.LayoutParams
-                        params.circleAngle = angle.toFloat()
-                        btn_test.layoutParams = params
-                    }
-
-                }
-                addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        super.onAnimationEnd(animation)
-                        isAnimate = false
-
-                    }
-                })
-                start()
-            }
-        }
+        rotateButton()
         pattern()
-
-        liveData.observe(this,android.arch.lifecycle.Observer {
+        handleNumber()
+        liveData.observe(this, android.arch.lifecycle.Observer {
             tv_result.setText(it)
         })
     }
-    var liveData=MutableLiveData<String>()
+
+    var liveData = MutableLiveData<String>()
     var lastTime = 0L
     var isAnimate = false
-    val sb=StringBuffer()
+    val sb = StringBuffer()
     private fun handleNotify() {
         btn_start_thread.setOnClickListener {
             thread {
@@ -98,8 +75,8 @@ class JavaKnowledgeActivity : BaseActivity() {
         //以空格分割字符串
         btn_pattern.setOnClickListener {
             var originlaStr = et_pattern.text.toString().trim()
-            val pattern=Pattern.compile("\\s+")
-            tv_pattern.text=Arrays.toString(pattern.split(originlaStr))
+            val pattern = Pattern.compile("\\s+")
+            tv_pattern.text = Arrays.toString(pattern.split(originlaStr))
             check(originlaStr)
         }
 
@@ -145,6 +122,37 @@ class JavaKnowledgeActivity : BaseActivity() {
 //        }
     }
 
+    private fun rotateButton() {
+        btn_test.setOnClickListener {
+            if (isAnimate) {
+                return@setOnClickListener
+            }
+            isAnimate = true
+            ValueAnimator.ofInt(1, 360).apply {
+                duration = 3000
+                addUpdateListener {
+                    val current = System.currentTimeMillis()
+                    val angle = it.animatedValue as Int
+                    if (current - lastTime > ValueAnimator.getFrameDelay() || angle == 360) {
+                        lastTime = current
+                        val params = btn_test.layoutParams as ConstraintLayout.LayoutParams
+                        params.circleAngle = angle.toFloat()
+                        btn_test.layoutParams = params
+                    }
+
+                }
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        super.onAnimationEnd(animation)
+                        isAnimate = false
+
+                    }
+                })
+                start()
+            }
+        }
+    }
+
     private fun check(str: String) {
 //        val str="123"
         val pattern = Pattern.compile("(\\d{3})(\\d{0,4})(\\d{0,4})")
@@ -153,6 +161,18 @@ class JavaKnowledgeActivity : BaseActivity() {
             println("===========${m.group(1)}==${m.group(2)}===${m.group(3)}")
         } else {
             println("===========not match")
+        }
+    }
+
+    private fun handleNumber() {
+        btn_number.setOnClickListener {
+            val str = et_pattern.text.toString()
+            val sp = SpannableString(str)
+            val matcher = Pattern.compile("\\d+").matcher(str)
+            while (matcher.find()) {
+                sp.setSpan(ForegroundColorSpan(Color.BLUE), matcher.start(), matcher.end(), SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
+            }
+            tv_number.setText(sp)
         }
     }
 }

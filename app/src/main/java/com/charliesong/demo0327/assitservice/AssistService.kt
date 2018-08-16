@@ -12,6 +12,10 @@ import android.widget.Button
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
+import java.lang.reflect.Array.setInt
+import java.lang.reflect.AccessibleObject.setAccessible
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
 
 
 /**
@@ -36,27 +40,46 @@ open class AssistService : AccessibilityService() {
 //        serverInfo1.eventTypes=AccessibilityEvent.TYPES_ALL_MASK
 //        serverInfo1.feedbackType=AccessibilityServiceInfo.FEEDBACK_GENERIC
 //        serverInfo1.notificationTimeout=100
-//        serverInfo1.packageNames= arrayOf("com.charlie.demo0108","com.magellangps.SmartGPS")
+//        serverInfo1.packageNames= arrayOf("com.charlie.demo0108","com.charliesong.wanandroid")
 //        serviceInfo=serverInfo1
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        sysout("event=" + event.toString())
+        sysout("event=" + event.toString()+"========${event.source==null}")
         // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
         // 获取包名
         val pkgName = event.getPackageName().toString()
         var info = event.source
 
         if (info != null) {
-            println("info==========${info.toString()}")
-            handleDemo0108(info,event)
-            handleRTR(info,event)
+            reflectDebug(info)
+            println("info====${pkgName}======${info.toString()}")
+//            handleDemo0108(info,event)
+//            handleRTR(info,event)
         }
 
         //com.charlie.demo0108:id/tv_index             com.charlie.demo0108:id/lv2
     }
 
+    private fun reflectDebug(info:AccessibilityNodeInfo){
+        try {
+            var filed=info.javaClass.getDeclaredField("DEBUG")
+            filed.isAccessible=true
+            /*去除final修饰符的影响，将字段设为可修改的*/
+//            val modifiersField = Field::class.java!!.getDeclaredField("modifiers")
+//            modifiersField.setAccessible(true)
+//            modifiersField.setInt(filed, filed.getModifiers() and Modifier.FINAL.inv())
+            filed.set(info,true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
+        try {
+            info.javaClass.getDeclaredField("mError")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     fun handleRTR(info: AccessibilityNodeInfo, event: AccessibilityEvent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             println("rtr==${info.windowId}===${info.viewIdResourceName}==${info.isContentInvalid}")

@@ -2,9 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <include
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_toolbar"/>
     <EditText
         android:id="@+id/et_search"
+        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

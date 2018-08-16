@@ -12,9 +12,6 @@ class ViewModleTest:ViewModel(){
      private  var mCurrentName: MutableLiveData<String>?=null
 
      private  var mNameListData: MutableLiveData<ArrayList<String>>?=null
-
-    var data1=MutableLiveData<String>()
-    var data2=MediatorLiveData<String>()
     fun getName():MutableLiveData<String>{
         if(mCurrentName==null){
             mCurrentName= MutableLiveData()

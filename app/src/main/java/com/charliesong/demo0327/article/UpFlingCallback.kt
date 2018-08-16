@@ -11,7 +11,7 @@ import com.charliesong.demo0327.base.BaseRvAdapter
 /**
  * Created by charlie.song on 2018/5/11.
  */
-class UploadCallback : ItemTouchHelper.Callback {
+class UpFlingCallback : ItemTouchHelper.Callback {
     var articles = arrayListOf<String>()
 
     constructor(articles: ArrayList<String>) : super() {

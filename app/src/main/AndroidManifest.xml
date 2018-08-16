@@ -24,8 +24,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".base.MainActivity"
-            android:allowEmbedded="true"
-            android:label="xxxx">
+            android:label="@string/app_name"
+            android:allowEmbedded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,21 +35,6 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".assitservice.AssistService"
-            android:exported="true"
-            android:label="@string/demo_access_server_name1"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_config" />
-        </service>
-
         <activity
             android:name=".assitservice.AccessActivity"
             android:description="@string/app_name"
@@ -94,18 +79,18 @@
             android:name=".article.ArticleActivityList"
             android:label="底部上拉进入下一页layoutManager自定义 [not complete]" />
         <activity
-            android:name=".article.ArticleActivityDetail"
-            android:label="xxxx" />
+            android:label="@string/app_name"
+            android:name=".article.ArticleActivityDetail" />
         <activity
             android:name=".third.ActivityDoorSign"
             android:label="商店门口挂牌库" />
         <activity
             android:name=".classify.ActivityClassify"
             android:label="recyclerview居中显示库，以及自定义[not complete]"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".linkage.ActivityLinkageRecyeclerViews"
-            android:label="2个recyclerview联动滚动[not complete]" />
+            android:label="2个recyclerview联动滚动" />
         <activity
             android:name=".brief.ActivityBriefSamsung"
             android:label="仿三星简报首页" />
@@ -152,17 +137,6 @@
         <activity
             android:name=".behavior.ActivityBehaviorCustom"
             android:label="behavior自定义" />
-
-        <receiver android:name=".navigation.DeepLinkAppWidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/deep_link_appwidget_info" />
-        </receiver>
-
         <activity
             android:name=".bottom.ActivityBottomSheet"
             android:windowSoftInputMode="stateHidden"
@@ -174,6 +148,12 @@
             android:name=".java.JavaKnowledgeActivity"
             android:label="notify学习"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".nofity.ActivityNofity8"
+            android:launchMode="singleTask"
+            android:label="通知适配8.0" />
+
+
 
         <provider
             android:name=".base.FileProviderDif"
@@ -185,10 +165,30 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".nofity.ActivityNofity8"
-            android:launchMode="singleTask"
-            android:label="通知适配8.0" />
+        <receiver android:name=".navigation.DeepLinkAppWidgetProvider"
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/deep_link_appwidget_info" />
+        </receiver>
+
+        <service
+            android:name=".assitservice.AssistService"
+            android:exported="true"
+            android:label="@string/demo_access_server_name1"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
     </application>
 
 </manifest>

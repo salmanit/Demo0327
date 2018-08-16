@@ -44,6 +44,7 @@ class ActivityLiveDataLearn : BaseActivity() {
         modle = ViewModelProviders.of(this).get(ViewModleTest::class.java)
 
         with(modle) {
+            tv_name.text = this.getName().value+"=${modle}"
             getName().observe(this@ActivityLiveDataLearn, Observer {
 
                 tv_name.text = it
@@ -188,8 +189,8 @@ class ActivityLiveDataLearn : BaseActivity() {
         if(Build.VERSION.SDK_INT>=23){
             pw.enterTransition=android.transition.AutoTransition()
         }
-        pw.showAtLocation(v,Gravity.CENTER  ,0,0)
-
+//        pw.showAtLocation(v,Gravity.CENTER  ,0,0)
+        pw.showAsDropDown(v)
 //        testSomething(btn_bottom)
 
     }

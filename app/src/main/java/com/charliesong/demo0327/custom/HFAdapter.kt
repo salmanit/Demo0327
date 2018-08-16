@@ -10,7 +10,12 @@ class HFAdapter(val adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>):Recyc
     val footers= arrayListOf<View>()
     val HEADER_START=-100000
     val FOOTER_START=1000000
-
+    fun headsize():Int{
+        return heads.size
+    }
+    fun footersize():Int{
+        return footers.size
+    }
     fun addHeader(v:View){
         heads.add(v)
         notifyDataSetChanged()
@@ -68,5 +73,15 @@ class HFAdapter(val adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>):Recyc
            }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+
+        if(payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads)
+        }else{
+            if(position>=heads.size&&position<heads.size+adapter.itemCount){
+                adapter.onBindViewHolder(holder,position,payloads)
+            }
+        }
+    }
 
 }

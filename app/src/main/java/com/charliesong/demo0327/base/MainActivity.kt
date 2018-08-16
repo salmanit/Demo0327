@@ -1,5 +1,6 @@
 package com.charliesong.demo0327.base
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -73,8 +74,7 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
                 var iv_wifi=holder.getView<ImageView>(R.id.iv_wifi);
                 iv_wifi.setImageLevel(position%5)
 
-//                val typedValue=TypedValue();
-//                theme.resolveAttribute(R.attr.dif_item_nothing,typedValue,true)
+
 //                holder.getView<TextView>(R.id.tv_nothing).setTextColor(resources.getColor(typedValue.resourceId))
 
                 holder.getView<TextView>(R.id.tv_nothing).apply {
@@ -83,10 +83,21 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
             }
         }
 
-        hello.also {  }
+        hello.also {
+//            val typedValue=TypedValue();
+//            theme.resolveAttribute(R.attr.dif_item_nothing,typedValue,true)
+//            println("============${typedValue.type}==========${typedValue.resourceId}")
+//            theme.resolveAttribute(R.attr.dif_item_nothing,typedValue,false)
+//            println("============${typedValue.type}==========${typedValue.resourceId}")
+        }
         getActivitys()
         requestExternalStorage()
 //        UtilNormal.loadCircle(this,url,iv_test)
+        UtilNormal.loadCircleImage(url, iv_test)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         UtilNormal.loadCircleImage(url, iv_test)
     }
     var hello:Student?=null;
@@ -97,11 +108,12 @@ var url="https://upload.jianshu.io/users/upload_avatars/8706116/0df51b97-56d2-43
         return  rv.adapter as BaseRvAdapter<ActivityInfo>
     }
 
+    @SuppressLint("CheckResult")
     fun getActivitys(){
         Observable.create<List<ActivityInfo>> {
-            var packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            var result=packageInfo.activities.filter {
-                return@filter !TextUtils.equals("xxxx",it.nonLocalizedLabel)}.reversed()
+            val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            val result=packageInfo.activities.filter {
+                return@filter it.labelRes!=R.string.app_name}.reversed()
             it.onNext(result)}
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
