@@ -57,10 +57,10 @@ open abstract class FragmentPageBase:BaseFragment(){
             return  getDataSource()
         }
     }
-    public fun getPageConfig():PagedList.Config{
+     fun getPageConfig():PagedList.Config{
         return PagedList.Config.Builder()
                 .setPageSize(8) //分页数据的数量。在后面的DataSource之loadRange中，count即为每次加载的这个设定值。
-                .setPrefetchDistance(2) //提前多少数据开始继续加载数据。如果是上滑的话对应的就是离最后个item还有2个位置的时候开始记载更多数据。下拉一样的道理
+                .setPrefetchDistance(2) //提前多少数据开始继续加载数据。如果是上滑的话对应的就是离最后个item还有2个位置的时候开始加载更多数据。下拉一样的道理
                 .setInitialLoadSizeHint(8)
                 .setEnablePlaceholders(false)
                 .build()
@@ -68,7 +68,7 @@ open abstract class FragmentPageBase:BaseFragment(){
     private fun getAdapter(): MyPagingAdapter {
         return  rv_default.adapter as MyPagingAdapter
     }
-    public abstract fun getDataSource():DataSource<Int,Student>
+     abstract fun getDataSource():DataSource<Int,Student>
     var countDownLatch:CountDownLatch?=CountDownLatch(2)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

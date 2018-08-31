@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewTreeObserver
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -27,7 +28,12 @@ class ActivityLogin:BaseActivity(){
                startUIAnimator(false)
            }
        })
-
+        tv_title.getViewTreeObserver().addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                tv_title.getViewTreeObserver().removeOnGlobalLayoutListener(this)
+                tv_title.setHeight(dp2px(60).toInt() + getStatusHeight(this@ActivityLogin))
+            }
+        })
     }
 
     private fun startUIAnimator(softInputShow:Boolean){

@@ -13,14 +13,11 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.charliesong.demo0327.R;
 import com.charliesong.demo0327.base.GlideApp;
-import com.charliesong.demo0327.base.MyApplication;
+import com.charliesong.demo0327.app.MyApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

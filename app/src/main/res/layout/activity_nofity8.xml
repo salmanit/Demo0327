@@ -7,6 +7,11 @@
     tools:context=".nofity.ActivityNofity8">
 
     <include
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/include2"
         layout="@layout/include_toolbar" />
 
@@ -26,7 +31,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_read"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gl_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <Button
         android:id="@+id/btn_read"

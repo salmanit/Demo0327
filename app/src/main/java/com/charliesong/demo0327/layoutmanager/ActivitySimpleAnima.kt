@@ -16,7 +16,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.animation.LinearInterpolator
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.charliesong.demo0327.R
@@ -64,7 +66,7 @@ class ActivitySimpleAnima : BaseActivity() {
             }
             adapter = adapterRV
         }
-
+        reCalculateMargin()
         startSimulateRefresh()
 
         useTransition()
@@ -72,7 +74,17 @@ class ActivitySimpleAnima : BaseActivity() {
             wxytest()
         }
     }
-
+    fun reCalculateMargin(){
+        layout_container.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                layout_container.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                (layout_container.layoutParams as FrameLayout.LayoutParams).apply {
+                    this.topMargin=10+(supportActionBar?.height?:90)
+                    println("heigth==========${supportActionBar?.height}")
+                }
+            }
+        })
+    }
     lateinit var adapterRV: BaseRvAdapter<String>
     var messages = arrayListOf<String>()
     var colors = arrayListOf<Int>()

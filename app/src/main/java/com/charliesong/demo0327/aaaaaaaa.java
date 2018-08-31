@@ -6,6 +6,8 @@ import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.charliesong.demo0327.base.BaseRvHolder;
 import com.charliesong.demo0327.kt.Student;
@@ -13,11 +15,10 @@ import com.charliesong.demo0327.kt.Student;
 /**
  * Created by charlie.song on 2018/5/29.
  */
-
+@Deprecated
 public class aaaaaaaa {
 
     private void test(){
-
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0, 1);
         PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0, 1);
 
@@ -33,6 +34,12 @@ public class aaaaaaaa {
         ObjectAnimator.ofFloat(null, "alpha", 0f, 1f);
 
         int a=(2222*33333)>>8;
+
+        String old="hello eheh   llsl";
+        String[] arr=old.trim().split("\\s+");
+
+        EditText tv=null;
+        tv.setText("test");
     }
 
     class daa<T> extends PagedListAdapter<T,BaseRvHolder>{

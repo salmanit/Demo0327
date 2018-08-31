@@ -1,11 +1,13 @@
 package com.charliesong.demo0327.bottom
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.TabLayout
 import android.view.View
+import android.view.ViewTreeObserver
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_bottom_sheet.*
@@ -24,19 +26,34 @@ class ActivityBottomSheet : BaseActivity() {
                     ?: beginTransaction().replace(R.id.layout_container, FragmentScrollTest()).commitAllowingStateLoss()
         }
 
-
+        tab_bottom.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                tab_bottom.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                (tab_bottom.layoutParams as ConstraintLayout.LayoutParams).apply {
+                    this.topMargin=tb.bottom
+                    tab_bottom.layoutParams=this
+                }
+            }
+        })
         xml1()
     }
-
+    var expand=false;
     private fun xml1() {
         behavior = BottomSheetBehavior2.from(cstLayout_bottom)
         behavior?.apply {
+            this.isHideable=false;
             this.setBottomSheetCallback(object : BottomSheetBehavior2.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    view_hidden.visibility = if (slideOffset < 1f) View.INVISIBLE else View.VISIBLE
+//                    view_hidden.visibility = if (slideOffset < 1f) View.INVISIBLE else View.VISIBLE
+                    val newExpand=slideOffset>=1f
+                    if(newExpand!=expand){
+                        expand=newExpand;
+                        tb.setBackgroundColor(if(expand) Color.BLUE else Color.TRANSPARENT)
+                    }
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
+
                 }
             })
 

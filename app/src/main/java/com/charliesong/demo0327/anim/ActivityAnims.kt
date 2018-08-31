@@ -20,7 +20,7 @@ class ActivityAnims:BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anims)
-
+        defaultSetTitle("简单动画")
         btn_object.setOnClickListener {
           var x=  ObjectAnimator.ofFloat(iv_anim,"ScaleX",0.1f,1f).setDuration(3000)
           var y=  ObjectAnimator.ofFloat(iv_anim,"ScaleY",0.1f,1f).setDuration(2000)

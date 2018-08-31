@@ -2,6 +2,7 @@ package com.charliesong.demo0327.util
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -49,5 +50,22 @@ object NormalUtil {
         // 没有在Activity环境下启动Activity,设置下面的标签
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
+    }
+
+
+
+
+
+
+
+
+    fun isNetworkConnected(context: Context): Boolean {
+        val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (manager == null) {
+            println("ConnectivityManager is null")
+            return false
+        }
+        val activeNetwork = manager.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
 }

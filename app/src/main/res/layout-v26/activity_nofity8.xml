@@ -8,6 +8,11 @@
 
     <include
         android:id="@+id/include2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         layout="@layout/include_toolbar" />
 
     <android.support.constraint.Guideline
@@ -15,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
         app:layout_constraintGuide_begin="?attr/actionBarSize" />
 
     <Button
@@ -27,7 +33,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_read"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gl_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <Button
         android:id="@+id/btn_read"

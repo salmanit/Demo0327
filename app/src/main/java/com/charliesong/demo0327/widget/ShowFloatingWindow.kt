@@ -14,7 +14,7 @@ import android.widget.Toast
 import android.content.Intent
 import android.net.Uri
 import android.support.annotation.RequiresApi
-import com.charliesong.demo0327.base.MyApplication
+import com.charliesong.demo0327.app.MyApplication
 
 
 class ShowFloatingWindow(){

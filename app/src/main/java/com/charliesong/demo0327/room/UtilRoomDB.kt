@@ -3,7 +3,7 @@ package com.charliesong.demo0327.room
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import com.charliesong.demo0327.base.MyApplication
+import com.charliesong.demo0327.app.MyApplication
 
 
 object UtilRoomDB{

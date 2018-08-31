@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -29,13 +30,15 @@ class ActivityLogin2 : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login2)
-        screenHeight=windowManager.defaultDisplay.height
+        val point=Point()
+        windowManager.defaultDisplay.getSize(point)
+        screenHeight=point.y
         stateBarHeight=getStatusHeight(this)
         view_state.layoutParams.apply {
             height=stateBarHeight
             view_state.layoutParams=this
         }
-        contentView=findViewById<ViewGroup>(android.R.id.content)
+        contentView=window.decorView as ViewGroup
         addObserver()
         //dp261 就是图片的高度300【减去】最后要显示的radiobutton的高度40，加个1是因为像素float转化int有误差，所以多加了个1
 
@@ -89,11 +92,11 @@ class ActivityLogin2 : BaseActivity() {
     var stateBarHeight=0;
     lateinit var contentView:ViewGroup
     private fun addObserver() {
-        contentView.getChildAt(0)?.viewTreeObserver?.addOnGlobalLayoutListener(listener)
+        contentView.viewTreeObserver?.addOnGlobalLayoutListener(listener)
     }
 
     private fun removeObserver() {
-        contentView.getChildAt(0)?.viewTreeObserver?.removeOnGlobalLayoutListener(listener)
+        contentView?.viewTreeObserver?.removeOnGlobalLayoutListener(listener)
     }
 
     override fun onDestroy() {
@@ -107,14 +110,14 @@ class ActivityLogin2 : BaseActivity() {
             contentView.getWindowVisibleDisplayFrame(rect)
 
             println("onGlobalLayout======${layout_login.height}===t/b=${layout_login.top}/${layout_login.bottom}=====$stateBarHeight" +
-                    "${rect.toShortString()}==$screenHeight")
+                    "  rect===${rect.toShortString()} screenHeight==$screenHeight")
                 if (!softInputShow&&rect.bottom < screenHeight) {
                     //高度变小说明键盘弹出来了
                     println("===============键盘弹出来了==${findViewById<View>(R.id.action_mode_bar_stub)}")
                     softInputShow=true
 
                     startUIAnimator(true)
-                } else if (softInputShow&&rect.bottom == screenHeight) {
+                } else if (softInputShow&&rect.bottom >= screenHeight) {
                     //键盘消失了
                     println("===============键盘消失了")
                     softInputShow=false

@@ -3,11 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/rv_layout"
     android:layout_height="match_parent">
-<include layout="@layout/include_toolbar"/>
+<include layout="@layout/include_toolbar"
+    android:id="@+id/layout_include"/>
     <TextView
         android:id="@+id/tv_1"
         android:text="测试"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_include"
         android:gravity="center"
         android:clickable="true"
         android:background="@android:drawable/btn_default"

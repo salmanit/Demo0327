@@ -9,12 +9,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
     <application
-        android:name=".base.MyApplication"
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,8 +23,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".base.MainActivity"
-            android:label="@string/app_name"
-            android:allowEmbedded="true">
+            android:allowEmbedded="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,8 +78,8 @@
             android:name=".article.ArticleActivityList"
             android:label="底部上拉进入下一页layoutManager自定义 [not complete]" />
         <activity
-            android:label="@string/app_name"
-            android:name=".article.ArticleActivityDetail" />
+            android:name=".article.ArticleActivityDetail"
+            android:label="@string/app_name" />
         <activity
             android:name=".third.ActivityDoorSign"
             android:label="商店门口挂牌库" />
@@ -131,6 +130,10 @@
             android:label="登陆输入法改变做出的布局动画java写的"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
+            android:name=".login.ActivityLogin"
+            android:label="登陆输入法改变做出的布局动画kotlin"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name=".login.ActivityLogin2"
             android:label="登陆输入法改变做出的布局动画"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -139,8 +142,8 @@
             android:label="behavior自定义" />
         <activity
             android:name=".bottom.ActivityBottomSheet"
-            android:windowSoftInputMode="stateHidden"
-            android:label="bottom sheet 底部弹出学习" />
+            android:label="bottom sheet 底部弹出学习"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".draghelper.ActivityDragHelper"
             android:label="viewdraghelper 学习" />
@@ -150,10 +153,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".nofity.ActivityNofity8"
-            android:launchMode="singleTask"
-            android:label="通知适配8.0" />
-
-
+            android:label="通知适配8.0"
+            android:launchMode="singleTask" />
 
         <provider
             android:name=".base.FileProviderDif"
@@ -165,8 +166,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver android:name=".navigation.DeepLinkAppWidgetProvider"
-            >
+        <receiver android:name=".navigation.DeepLinkAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -189,6 +189,10 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config" />
         </service>
+
+        <activity android:name=".databind.ActivityDataBinding"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="databinding学习"/>
     </application>
 
 </manifest>

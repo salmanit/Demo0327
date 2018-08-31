@@ -1,4 +1,4 @@
-package com.charliesong.demo0327.base
+package com.charliesong.demo0327.app
 
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary

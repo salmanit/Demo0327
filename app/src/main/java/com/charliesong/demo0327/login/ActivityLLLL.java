@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import com.charliesong.demo0327.R;
 import com.charliesong.demo0327.base.BaseActivity;
@@ -31,7 +32,13 @@ public class ActivityLLLL extends BaseActivity {
                 startUIAnimator(false);
             }
         });
-
+    tvtitle.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            tvtitle.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            tvtitle.setHeight(dp2px(60)+getStatusHeight(getBaseContext()));
+        }
+    });
     }
 
     private void startUIAnimator(final boolean softinputShow) {
