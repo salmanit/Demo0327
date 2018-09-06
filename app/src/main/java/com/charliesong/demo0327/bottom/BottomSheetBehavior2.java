@@ -412,7 +412,8 @@ public class BottomSheetBehavior2<V extends View> extends CoordinatorLayout.Beha
             top = mMaxOffset;
             targetState = STATE_COLLAPSED;
         }
-        top=child.getTop();
+
+        top=child.getTop()-mLastNestedScrollDy;
         if (mViewDragHelper.smoothSlideViewTo(child, child.getLeft(), top)) {
             setStateInternal(STATE_SETTLING);
             ViewCompat.postOnAnimation(child, new SettleRunnable(child, targetState));
@@ -697,13 +698,11 @@ public class BottomSheetBehavior2<V extends View> extends CoordinatorLayout.Beha
                 top = mMaxOffset;
                 targetState = STATE_COLLAPSED;
             }
-            //重新处理
-            top=releasedChild.getTop();
-            if(yvel!=0){
 
-                overScroller.fling(releasedChild.getLeft(),top,0, (int) yvel,0,0,mMinOffset,mMaxOffset);
+            if(yvel!=0){//重新处理
+                overScroller.fling(releasedChild.getLeft(),releasedChild.getTop(),0, (int) yvel,0,0,mMinOffset,mMaxOffset);
             }
-            if (mViewDragHelper.settleCapturedViewAt(releasedChild.getLeft(), top)) {
+            if (mViewDragHelper.settleCapturedViewAt(releasedChild.getLeft(), overScroller.getFinalY())) {
                 setStateInternal(STATE_SETTLING);
                 ViewCompat.postOnAnimation(releasedChild,
                         new SettleRunnable(releasedChild, targetState));

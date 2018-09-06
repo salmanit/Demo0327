@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialog
+import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.TabLayout
 import android.view.View
 import android.view.ViewTreeObserver
@@ -12,12 +13,12 @@ import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_bottom_sheet.*
 
+/**BottomSheetBehavior2 自定义的这个有点问题，快速往上一划，就完全展开了，这时候回调方法没走。。。*/
 class ActivityBottomSheet : BaseActivity() {
     var behavior: BottomSheetBehavior2<View>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_sheet)
-
         tab_bottom.addTab(tab_bottom.newTab().setText("first"))
         tab_bottom.addTab(tab_bottom.newTab().setText("second"))
         tab_bottom.addTab(tab_bottom.newTab().setText("third"))
@@ -39,6 +40,7 @@ class ActivityBottomSheet : BaseActivity() {
     }
     var expand=false;
     private fun xml1() {
+        var originalHeight=0;
         behavior = BottomSheetBehavior2.from(cstLayout_bottom)
         behavior?.apply {
             this.isHideable=false;
@@ -48,7 +50,20 @@ class ActivityBottomSheet : BaseActivity() {
                     val newExpand=slideOffset>=1f
                     if(newExpand!=expand){
                         expand=newExpand;
-                        tb.setBackgroundColor(if(expand) Color.BLUE else Color.TRANSPARENT)
+                        tb.setBackgroundColor(if(expand) Color.WHITE else Color.TRANSPARENT)
+                    }
+                    if(originalHeight==0){
+                        originalHeight=iv_bg.height;
+                    }
+                    println("top==${iv_bg.height}======${bottomSheet.top}====$slideOffset")
+                    (iv_bg.layoutParams as CoordinatorLayout.LayoutParams).apply {
+                        if(slideOffset<0.6){
+                            this.height= (originalHeight*(1-slideOffset*0.8)).toInt()
+
+                        }else{
+                            this.height=originalHeight/2
+                        }
+                        iv_bg.layoutParams=this;
                     }
                 }
 

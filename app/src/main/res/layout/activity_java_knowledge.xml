@@ -120,6 +120,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_pattern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_open"
+        android:text="打开wan android"
+        app:layout_constraintLeft_toRightOf="@+id/btn_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_open2"
+        android:text="打开singleinstance\n navigation"
+        app:layout_constraintLeft_toRightOf="@+id/btn_open"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_open3"
+        android:text="打开search"
+        app:layout_constraintLeft_toRightOf="@+id/btn_open2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_number"
         app:layout_constraintLeft_toRightOf="@+id/btn_number"

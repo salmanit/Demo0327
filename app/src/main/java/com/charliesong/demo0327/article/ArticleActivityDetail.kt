@@ -1,5 +1,6 @@
 package com.charliesong.demo0327.article
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -9,6 +10,7 @@ import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.R
 import kotlinx.android.synthetic.main.activity_article_detail.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by charlie.song on 2018/5/11.
@@ -23,6 +25,9 @@ class ArticleActivityDetail : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article_detail)
+        toolbar.setOnClickListener {
+            startActivity(Intent(this,ArticleActivityList::class.java))
+        }
         index = intent.getIntExtra("index", 0)
         articles = intent.getStringArrayListExtra("lists")
         defaultSetTitle(articles.get(index))

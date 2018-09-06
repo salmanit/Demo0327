@@ -1,15 +1,11 @@
 package com.charliesong.demo0327.words
 
-import android.app.Service
+import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Rect
 import android.os.Bundle
-import android.os.Vibrator
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.base.BaseRvAdapter
@@ -21,134 +17,123 @@ import java.util.*
 /**
  * Created by charlie.song on 2018/4/28.
  */
-class ActivityWords: BaseActivity(){
-
+class ActivityWords : BaseActivity() {
+    var rightPosition = 3;//正确答案的位置，假设是这个。
+    var choice = -1;//这是松开手指的时候最终选择的位置索引
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_words)
+        defaultSetTitle("填空題")
 
-
-        var wordsOriginal= arrayListOf<WordBean>()
+        var wordsOriginal = arrayListOf<WordBean>()
         wordsOriginal.add(WordBean("He"))
         wordsOriginal.add(WordBean("must"))
         wordsOriginal.add(WordBean("been"))
         wordsOriginal.add(WordBean("single"))
+        wordsOriginal.add(WordBean("activity"))
+        wordsOriginal.add(WordBean("fragment"))
+        wordsOriginal.add(WordBean("honey"))
+        wordsOriginal.add(WordBean("restaurant"))
         rv_words.apply {
-            layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = WordsLayoutManager()
             addItemDecoration(ItemDecorationSpace())
-            adapter=object : BaseRvAdapter<WordBean>(wordsOriginal){
+            adapter = object : BaseRvAdapter<WordBean>(wordsOriginal) {
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_simple_word
                 }
 
                 override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
-                    var bean=getItemData(position)
-                    holder.setText(R.id.tv_word,getItemData(position).word)
-                    if(bean.inserted){
-                        holder.getView<TextView>(R.id.tv_word).apply {
-                            visibility=View.INVISIBLE
+                    holder.itemView.layoutParams = RecyclerView.LayoutParams(-2, -2)
+                    var bean = getItemData(position)
+                    holder.getView<TextView>(R.id.tv_word).apply {
+                        text = bean.word
+                        visibility = if (bean.inserted) View.INVISIBLE else View.VISIBLE
+                        if (choice == position) {//choice是我们最终选择的位置，这里处理下颜色，对的话为绿色，错的话为红色，
+                            visibility = View.VISIBLE
+                            setBackgroundColor(if (rightPosition == position) Color.GREEN else Color.RED)
                         }
                     }
                 }
             }
         }
 
-    var helper=ItemTouchHelper(object :ItemTouchHelper.Callback(){
-        //这里用来判断处理哪些情况
-        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-            var position=viewHolder.adapterPosition
-            if(position==0){
-                return 0   //这里模拟，第一个位置不允许拖动
+        var helper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            var temp = -1
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+
             }
-            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END  //这个是拖动的flag
-            val swipeFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN //这个是滑动的flag，比如滑动删除，这里说明下，如果是HORIZONTAL方向的layoutManager,那滑动删除只有上下，垂直方向的话是左右。
-            return makeMovementFlags(dragFlags,swipeFlags)
-        }
-        //拖拽的时候会不停的回掉这个方法，我们在这里做的就是交换对应的数据
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-           var oldPositioon= viewHolder.adapterPosition
-            var newPosition=target.adapterPosition
-            if(newPosition==0){
-                return false
+
+            //这里用来判断处理哪些情况
+            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+                var position = viewHolder.adapterPosition
+                if (position != 0 || wordsOriginal[position].inserted) {//
+                    return 0   //只有第一个可以拖动，另外拖动过之后也不能再次拖动了，其实第一个也就隐藏了
+                }
+                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END  //这个是拖动的flag
+                return makeMovementFlags(dragFlags, 0)
             }
-            Collections.swap(wordsOriginal,oldPositioon,newPosition)
-            recyclerView.adapter.notifyItemMoved(oldPositioon,newPosition)
-            return true
-        }
-        //使用kotlin的时候得注意，这个viewHolder是可能为空的，当state为Idle的时候
-        //滑动或者拖拽的时候都会走这里的
-        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-            super.onSelectedChanged(viewHolder, actionState)
-            viewHolder?.run {
-                if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-                    itemView.setBackgroundColor(Color.RED);
-                    var vibrator=getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
-                    vibrator.vibrate(55)
+
+            //拖拽到其他item附近的时候会不停的回掉这个方法，我们在这里做的就是交换对应的数据
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                var oldPositioon = viewHolder.adapterPosition
+                var newPosition = target.adapterPosition
+                if (temp < 0) {//首次拖动到有效范围的时候temp肯定是-1拉，这时候我们在拖动的位置添加一条选项数据，也就是第一条数据。
+                    wordsOriginal.add(newPosition, wordsOriginal.get(0).apply { inserted = true })//为啥inserted=true，是为了使这个item不可见，只用来占位
+                    recyclerView.adapter.notifyItemInserted(newPosition)
+                }
+                if (temp == newPosition) {//在同一个位置来回晃悠，啥也不干
+                    return false
+                }
+                if (temp > 0) {//这个temp其实就是我们添加的那条数据，用他来代替第一条数据来移动
+                    Collections.swap(wordsOriginal, temp, newPosition)
+                    recyclerView.adapter.notifyItemMoved(temp, newPosition)
+                }
+                temp = newPosition
+                return true
+            }
+
+            //使用kotlin的时候得注意，这个viewHolder是可能为空的，当state为Idle的时候
+            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                super.onSelectedChanged(viewHolder, actionState)
+                viewHolder?.run {
+                    if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                        itemView.setBackgroundColor(Color.RED); //正在拖动的item弄成红色
+                    }
                 }
             }
-        }
 
-        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-            super.clearView(recyclerView, viewHolder)
-            viewHolder.itemView.setBackgroundColor(0);
-        }
-        //这个就是滑动删除的时候用的，方向就是getMovementFlags（）里返回的swipeFlags，看它支持哪个方向滑动，这里返回其中一个滑动方向
-        //当划出屏幕以后会回掉这里，我们要做的就是把数据删除掉。
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            var rect=Rect()
-            viewHolder.itemView.getLocalVisibleRect(rect)
-            println("==============on swiped  direction=$direction  ${rect}")
-        }
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+                viewHolder.itemView.setBackgroundColor(0);//正在拖动的item颜色还原
+            }
 
-    })
+            //手指拖动的时候isCurrentlyActive是true，松开手指的时候成为false，可以在false的时候判断下当前item的位置是否在有效位置
+            override fun onChildDraw(c: Canvas?, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                //我们只判断y的范围是否在有效范围内，temp大于0表示曾经移动到有效范围内
+                if (temp > 0 && !isCurrentlyActive) {
+                    val firstChild = recyclerView.getChildAt(0)
+                    val secondTop = recyclerView.getChildAt(1).top
+                    val lastBottom = recyclerView.getChildAt(recyclerView.childCount - 1).bottom
+                    if (firstChild.bottom + dY < secondTop || firstChild.top + dY > lastBottom) {
+                        //有效范围之外松手，那么还原数据，不做判断
+                        wordsOriginal.removeAt(temp)
+                        recyclerView.adapter.notifyItemRemoved(temp)
+                        wordsOriginal[0].inserted = false;
+                        recyclerView.adapter.notifyItemChanged(0)
+                    } else {
+                        choice = temp
+                        recyclerView.adapter.notifyDataSetChanged()
+                        //最终的choice和正确的rightPosition比较下，对错之后要感谢啥，自己处理
+                        showToast("选择${if (choice == rightPosition) "正确" else "错误"}")
+                    }
+                    temp = -1
+                }
+            }
+
+        })
         helper.attachToRecyclerView(rv_words)
 
-
-
-//        tv_word_insert.setOnTouchListener { v, event ->
-//            when(event.action){
-//                MotionEvent.ACTION_DOWN ->{
-//                   downX=event.rawX
-//                    downY=event.rawY
-//                    v.getLocationOnScreen(oldLocation)
-//                    rv_words.getLocationOnScreen(currentLocation)
-//                    println("down x/y==$downX/$downY --${event.x}/${event.y}--- v location=${Arrays.toString(oldLocation)}  rv location==${Arrays.toString(currentLocation)}")
-//
-//                    var decorView=window.decorView as ViewGroup
-//                     copyView=ImageView(v.context).apply {
-//                        layoutParams= ViewGroup.LayoutParams(v.width,v.height)
-//                        v.isDrawingCacheEnabled=true
-//                        setImageBitmap(Bitmap.createBitmap(v.drawingCache))
-//                        v.isDrawingCacheEnabled=false
-//                        decorView.addView(this)
-//                         left=oldLocation[0]
-//                         top=oldLocation[1]
-//                    }
-//                    v.visibility=View.INVISIBLE
-//
-//
-//                }
-//                MotionEvent.ACTION_MOVE->{
-//                    copyView?.translationX=event.rawX-downX
-//                    copyView?.translationY=event.rawY-downY
-//                }
-//                MotionEvent.ACTION_UP , MotionEvent.ACTION_CANCEL
-//                ->{
-//                    var decorView=window.decorView as ViewGroup
-//                    decorView.removeView(copyView)
-//                    v.visibility=View.VISIBLE
-//                }
-//
-//            }
-//            return@setOnTouchListener true
-//        }
-
     }
-    var downX=0f
-    var downY=0f
-    var moveX=0f
-    var moveY=0f
-    var oldLocation= IntArray(2)
-    var currentLocation= IntArray(2)
-    var copyView:ImageView?=null
+
 }

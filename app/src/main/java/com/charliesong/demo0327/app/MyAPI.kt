@@ -74,8 +74,11 @@ interface MyAPI {
     @GET("/navi/json")
     fun getThirdNavigation():Observable<BaseObjData<List<ThirdNavigation>>>
 
+    @GET("/novelApi")
+    fun  getHotNovels():Observable<BaseBean<ArrayList<NovelBean>>>
 
-
+    @GET("/weather_mini?citykey=101010100")
+    fun getWeather():Observable<BaseBeanWeather<WeatherBean>>
 
     /** {"data":{"collectIds":[],"email":"","icon":"","id":7280,"password":"aaaaaa","type":0,"username":"12345678912"},"errorCode":0,"errorMsg":""}*/
     // {"data":{"collectIds":[],"email":"","icon":"","id":7280,"password":"aaaaaa","type":0,"username":"12345678912"},"errorCode":0,"errorMsg":""}

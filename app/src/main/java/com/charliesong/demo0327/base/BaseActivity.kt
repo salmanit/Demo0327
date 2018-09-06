@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
+import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.FrameLayout
 import com.charliesong.demo0327.R
@@ -89,7 +90,10 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun defaultSetTitle(title: String) {
-        setSupportActionBar(toolbar)
+        defaultSetTitle(title,toolbar)
+    }
+    fun defaultSetTitle(title: String,tb:Toolbar) {
+        setSupportActionBar(tb)
         supportActionBar?.apply {
             setTitle(title)
             setDisplayHomeAsUpEnabled(true)

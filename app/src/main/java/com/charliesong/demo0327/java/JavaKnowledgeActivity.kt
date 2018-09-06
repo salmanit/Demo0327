@@ -16,6 +16,9 @@ import kotlinx.android.synthetic.main.activity_java_knowledge.*
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.concurrent.thread
+import android.content.Intent
+import android.net.Uri
+
 
 class JavaKnowledgeActivity : BaseActivity() {
 
@@ -33,6 +36,25 @@ class JavaKnowledgeActivity : BaseActivity() {
         liveData.observe(this, android.arch.lifecycle.Observer {
             tv_result.setText(it)
         })
+
+        btn_open.setOnClickListener {
+
+          packageManager.getLaunchIntentForPackage("com.charliesong.wanandroid")?.apply {
+                startActivity(this)
+            }
+        }
+        btn_open2.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://com.test.test/abc?param=1234"))
+            intent.addCategory(Intent.CATEGORY_DEFAULT)
+            startActivity(intent)
+        }
+        btn_open3.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://com.test.test/abcd?param=1234"))
+            intent.addCategory(Intent.CATEGORY_DEFAULT)
+            startActivity(intent)
+        }
     }
 
     var liveData = MutableLiveData<String>()

@@ -40,6 +40,7 @@
             android:label="@string/access_activity_des" />
         <activity
             android:name=".rx.ActivityRx"
+
             android:label="@string/rx_learn_des" />
         <activity
             android:name=".kt.ActivityKotlinGrammar"
@@ -62,7 +63,7 @@
             android:label="仿三星天气" />
         <activity
             android:name=".words.ActivityWords"
-            android:label="选择题 [not complete]" />
+            android:label="选择题" />
         <activity
             android:name=".city.ActivityCityPick"
             android:label="城市选择库"
@@ -70,12 +71,13 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".pathanim.ActivityPathAnim"
-            android:label="path动画[没写]" />
+            android:label="path动画[not complete]" />
         <activity
             android:name=".layoutmanager.ActivityLayoutManagerCustom"
             android:label="自定义layoutManager" />
         <activity
             android:name=".article.ArticleActivityList"
+            android:launchMode="singleTask"
             android:label="底部上拉进入下一页layoutManager自定义 [not complete]" />
         <activity
             android:name=".article.ArticleActivityDetail"
@@ -149,7 +151,7 @@
             android:label="viewdraghelper 学习" />
         <activity
             android:name=".java.JavaKnowledgeActivity"
-            android:label="notify学习"
+            android:label="java notify解锁学习"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".nofity.ActivityNofity8"

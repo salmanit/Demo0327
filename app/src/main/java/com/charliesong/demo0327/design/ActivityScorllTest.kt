@@ -1,14 +1,8 @@
 package com.charliesong.demo0327.design
 
-import android.animation.LayoutTransition
-import android.animation.ObjectAnimator
-import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.WindowInsetsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
@@ -20,38 +14,35 @@ import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
 import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
-import com.charliesong.demo0327.util.NormalUtil
-import com.charliesong.demo0327.util.UtilNormal
 import kotlinx.android.synthetic.main.activity_scroll_test.*
-import kotlinx.android.synthetic.main.fragment_comment.*
-
 /**
  * Created by charlie.song on 2018/4/26.
  */
 class ActivityScorllTest : BaseActivity() {
 
-
+    var stateHeight=0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scroll_test)
-//        defaultSetTitle("game")
-        setSupportActionBar(toolbar)
-        toolbar.contentInsetStartWithNavigation
-        supportActionBar?.run {
-            setTitle("game")
-            setDisplayHomeAsUpEnabled(false)
-
-        }
+        defaultSetTitle("game",toolbar)
+        toolbar.title="title"
+        stateHeight=getStatusHeight(this@ActivityScorllTest)
         initTabs()
-        appbar2.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-//            println("addOnOffsetChangedListener=============$verticalOffset=======${layout_top.height}===${supportActionBar?.height}")
-           tab_items.visibility= if(nsv.top>tab_items.bottom) View.INVISIBLE else View.VISIBLE
-            if(top==0&&verticalOffset<0){
-                top=70
+        toolbar.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                toolbar.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                ( toolbar.layoutParams as CollapsingToolbarLayout.LayoutParams).apply {
+                    this.topMargin=stateHeight;
+                    toolbar.layoutParams=this;
+                }
                 val params=tab_items.layoutParams as FrameLayout.LayoutParams
-                params.topMargin=supportActionBar?.height?:0+getStatusHeight(this@ActivityScorllTest)
+                params.topMargin=toolbar.height+stateHeight
                 tab_items.layoutParams=params
+                println("toolbar==========${supportActionBar?.height} stateHeight===${getStatusHeight(this@ActivityScorllTest)}")
             }
+        })
+        appbar2.addOnOffsetChangedListener { _, _ ->
+           tab_items.visibility= if(nsv.top>tab_items.bottom) View.INVISIBLE else View.VISIBLE
         }
 
         fab.setOnClickListener {

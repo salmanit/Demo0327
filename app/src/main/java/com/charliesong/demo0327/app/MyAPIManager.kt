@@ -14,7 +14,12 @@ import java.util.concurrent.TimeUnit
 object MyAPIManager {
 
     private val host = "http://www.wanandroid.com"
+    private val host2 = "http://wthrcdn.etouch.cn"
+    private val host3 = "https://www.apiopen.top"
     private fun getRetrofit(): Retrofit {
+        return getRetrofit(host)
+    }
+    private fun getRetrofit(host:String): Retrofit {
         //缓存容量
         val SIZE_OF_CACHE = (50 * 1024 * 1024).toLong() // 10 MiB
         //缓存路径
@@ -45,13 +50,12 @@ object MyAPIManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //如果要用rx接口返回Observable加上这个
                 .build()
     }
-
     private var myAPI: MyAPI? = null
     fun getAPI(): MyAPI {
         return myAPI
                 ?: getRetrofit().create(MyAPI::class.java)
     }
-
+    fun getAPI2()= getRetrofit(host2).create(MyAPI::class.java)
     private val rewrite_response_interceptor = Interceptor { chain ->
         val originalResponse = chain.proceed(chain.request())
 
@@ -68,7 +72,7 @@ object MyAPIManager {
         if (cacheControl == null || cacheControl.contains("no-store") || cacheControl.contains("no-cache") ||
                 cacheControl.contains("must-revalidate") || cacheControl.contains("max-age=0")) {
             var build = originalResponse.newBuilder()
-                    .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+//                    .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                     .removeHeader("Cache-Control")
                     .header("Cache-Control", "public, max-age=" + 5)//单位是秒，就是5秒内不请求服务器
 //                    .addHeader("Accept-Encoding","identity")
@@ -100,7 +104,7 @@ object MyAPIManager {
             originalResponse.newBuilder()
                     //这里的设置的是我们的没有网络的缓存时间，想设置多少就是多少。
                     .header("Cache-Control", "public, only-if-cached, max-stale=$maxTime")
-                    .removeHeader("Pragma")
+//                    .removeHeader("Pragma")
                     .build()
 
         }

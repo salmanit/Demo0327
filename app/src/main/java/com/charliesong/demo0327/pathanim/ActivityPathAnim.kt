@@ -1,8 +1,11 @@
 package com.charliesong.demo0327.pathanim
 
+import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.view.animation.RotateAnimation
 import android.widget.LinearLayout
 import com.charliesong.demo0327.base.BaseActivity
 import com.charliesong.demo0327.R
@@ -32,9 +35,23 @@ class ActivityPathAnim: BaseActivity(){
             e.printStackTrace()
         }
 
+        iv_cover.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                iv_cover.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                rotate=RotateAnimation(0f,3600f,iv_cover.width/2f,iv_cover.height/2f).apply {
+                    repeatCount=ValueAnimator.INFINITE
+                    duration=60000
 
+                }
+                iv_cover.startAnimation(rotate)
+            }
+        })
 
     }
-
+    var rotate:RotateAnimation?=null
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        rotate?.cancel()
+    }
 
 }

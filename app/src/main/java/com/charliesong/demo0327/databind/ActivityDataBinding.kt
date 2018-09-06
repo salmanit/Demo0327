@@ -18,6 +18,8 @@ import com.charliesong.demo0327.bean.TreeBean
 import com.charliesong.demo0327.databinding.ActivityDataBindingBinding
 import com.charliesong.demo0327.databinding.ItemTreeBinding
 import com.charliesong.demo0327.app.MyAPIManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_data_binding.*
 import kotlinx.android.synthetic.main.item_contact.*
 
@@ -56,10 +58,34 @@ class ActivityDataBinding : BaseActivity() {
                 .compose(BaseFunction.handle())
                 .subscribe({
                     initRvTree(it)
+                    println("success===============${it.size}")
                 }, {
                     println("failed=============${it}")
                     it.printStackTrace()
                 })
+
+//        MyAPIManager.getAPI2().getHotNovels().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//
+//                    println("result=================${it.code}===${it.data?.size}")
+//                }
+//                ,{
+//                    println("error=============$it")
+//                }
+//                ,{
+//                    println("complete=============")
+//                })
+//        MyAPIManager.getAPI2().getWeather().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//
+//                    println("result=================${it.status}==${it.data.city}")
+//                }
+//                ,{
+//                    println("error=============$it")
+//                }
+//                ,{
+//                    println("complete=============")
+//                })
     }
 
     fun initRvTree(list: List<TreeBean>) {
@@ -92,6 +118,7 @@ class ActivityDataBinding : BaseActivity() {
 //                    }
 //                println("$position===================${holder.itemView.tag}")
                     ItemTreeBinding.bind(holder.itemView).apply {
+
                         when(position%2){
                             0->{
                                 this.tree=getItemData(position)

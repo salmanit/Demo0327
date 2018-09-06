@@ -15,6 +15,7 @@ import java.util.*
 /**
  * Created by charlie.song on 2018/4/28.
  */
+@Deprecated("")
 class LinearLayoutDrag:LinearLayout{
     constructor(context: Context?) : super(context){
         initDrag()
@@ -40,13 +41,13 @@ class LinearLayoutDrag:LinearLayout{
         viewDragHelper= ViewDragHelper.create(this,object : ViewDragHelper.Callback(){
             override fun tryCaptureView(child: View, pointerId: Int): Boolean {
                 println("try capture  ${child}  pointer id=$pointerId")
-                if(child.id== R.id.tv_word_insert){
-                    oldLeft=child.left
-                    oldTop=child.top
-                    lastInser=-1
-                    rv_words=findViewById(R.id.rv_words)
-                    return true
-                }
+//                if(child.id== R.id.tv_word_insert){
+//                    oldLeft=child.left
+//                    oldTop=child.top
+//                    lastInser=-1
+//                    rv_words=findViewById(R.id.rv_words)
+//                    return true
+//                }
                 return false
             }
             //返回值用来限制控件可以移动的范围的

@@ -58,15 +58,18 @@
                     app:layout_collapseMode="pin"
                     app:contentInsetLeft="0dp"
                     app:contentInsetStart="0dp"
+                    android:paddingLeft="0dp"
+                    android:fitsSystemWindows="true"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
                     <TextView
                         android:id="@+id/tv_title"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_horizontal"
                         android:gravity="center"
+                        android:layout_marginLeft="40dp"
                         android:text="title"
-                        android:background="#44000000"
+                        android:background="#44ec3636"
                         android:textColor="#fff" />
 
                     <ImageView
