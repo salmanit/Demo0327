@@ -32,7 +32,6 @@ class SwipCardLayoutManger:RecyclerView.LayoutManager(){
             child.translationY=17f*position
             child.scaleY=1f-position*0.05f
             child.scaleX=1f-position*0.05f
-
         }
     }
 }

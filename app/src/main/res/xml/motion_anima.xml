@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <StateSet app:defaultState="@+id/init_set">
+        <State android:id="@+id/state_temp" app:constraints="@+id/init_set" >
+            <Variant app:region_heightLessThan="100dp" app:region_heightMoreThan="200dp" app:region_widthLessThan="100dp" app:region_widthMoreThan="200dp" app:constraints="@layout/activity_constraint_anim2"/>
+        </State>
+    </StateSet>
+    <Transition
+        android:id="@+id/my_transition"
+        app:constraintSetEnd="@+id/ending_set"
+        app:constraintSetStart="@+id/starting_set"
+        app:duration="4000">
+        <KeyFrameSet android:id="@+id/frameSet1">
+            <KeyPosition
+
+                app:curveFit="linear"
+                app:drawPath="path"
+                app:framePosition="30"
+                app:percentX="0.85"
+                app:target="@+id/btn_test"
+
+                app:type="deltaRelative" />
+            <KeyPosition
+
+                app:framePosition="60"
+
+                app:percentX="1"
+
+                app:target="@+id/btn_test"
+
+                app:type="deltaRelative" />
+            <KeyCycle
+
+                android:rotation="50"
+                app:framePosition="50"
+                app:target="@+id/btn_test"
+
+                app:wavePeriod="1"
+
+                app:waveShape="square" />
+        </KeyFrameSet>
+        <OnClick
+            app:mode="toggle"
+            app:target="@+id/btn_test" />
+        <OnSwipe app:dragDirection="dragDown"
+            app:touchAnchorId="@+id/btn_test"
+            app:touchAnchorSide="left"/>
+    </Transition>
+    <ConstraintSet android:id="@+id/init_set">
+        <Constraint
+            android:id="@+id/btn_test"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/starting_set">
+        <Constraint
+            android:id="@+id/btn_test"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/ending_set">
+        <Constraint
+            android:id="@+id/btn_test"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+
+</MotionScene>

@@ -20,12 +20,13 @@ import java.util.*
 class ActivityWords : BaseActivity() {
     var rightPosition = 3;//正确答案的位置，假设是这个。
     var choice = -1;//这是松开手指的时候最终选择的位置索引
+    var wordsOriginal = arrayListOf<WordBean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_words)
         defaultSetTitle("填空題")
 
-        var wordsOriginal = arrayListOf<WordBean>()
+        wordsOriginal.clear()
         wordsOriginal.add(WordBean("He"))
         wordsOriginal.add(WordBean("must"))
         wordsOriginal.add(WordBean("been"))
@@ -105,6 +106,9 @@ class ActivityWords : BaseActivity() {
             override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, viewHolder)
                 viewHolder.itemView.setBackgroundColor(0);//正在拖动的item颜色还原
+                if(!wordsOriginal[0].inserted){
+                    recyclerView.adapter.notifyItemChanged(0)
+                }
             }
 
             //手指拖动的时候isCurrentlyActive是true，松开手指的时候成为false，可以在false的时候判断下当前item的位置是否在有效位置
@@ -120,7 +124,7 @@ class ActivityWords : BaseActivity() {
                         wordsOriginal.removeAt(temp)
                         recyclerView.adapter.notifyItemRemoved(temp)
                         wordsOriginal[0].inserted = false;
-                        recyclerView.adapter.notifyItemChanged(0)
+                        //更新操作放到clearView里，因为这时候第一个view正在进行回到原始位置的动画。
                     } else {
                         choice = temp
                         recyclerView.adapter.notifyDataSetChanged()

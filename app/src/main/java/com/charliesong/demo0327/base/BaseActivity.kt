@@ -155,14 +155,27 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
+        if (requestCode == 1||requestCode==2) {
             for (i in permissions.indices) {
                 if (grantResults[i] == PERMISSION_GRANTED) {
                     Toast.makeText(this, "" + "权限" + permissions[i] + "申请成功", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "" + "权限" + permissions[i] + "申请失败", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
+        }
+    }
+
+    fun requestCamera(){
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.CAMERA)) {
+
+            }
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CAMERA), 2)
         }
     }
 }

@@ -18,6 +18,7 @@ import com.charliesong.demo0327.base.BaseRvAdapter
 import com.charliesong.demo0327.base.BaseRvHolder
 import com.charliesong.demo0327.base.RvItemTouchListener
 import com.charliesong.demo0327.custom.HFAdapter
+import com.charliesong.demo0327.layoutmanager.net.VegaLayoutManager
 import kotlinx.android.synthetic.main.activity_article_detail.*
 
 /**
@@ -41,21 +42,21 @@ class ArticleActivityList: BaseActivity(){
         btn.setOnClickListener {
             articles.add(0,"article "+articles.size)
             (rv_detail.adapter as HFAdapter).apply {
-                notifyItemInserted(this.heads.size)
+                notifyItemInserted(this.headsize())
             }
         }
         (window.decorView as FrameLayout).addView(btn)
         rv_detail.apply {
-            layoutManager=LinearLayoutManager(this@ArticleActivityList)
-//            addItemDecoration(object :RecyclerView.ItemDecoration(){
-//                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
-//                    var position=parent.getChildAdapterPosition(view)
-//                    if(position==0){
-//                        outRect.top=300
-//
-//                    }
-//                }
-//            })
+//            layoutManager=LinearLayoutManager(this@ArticleActivityList)
+//            layoutManager=VegaLayoutManager()
+            layoutManager=LayoutManagerScaleFirst(this@ArticleActivityList)
+            addItemDecoration(object :RecyclerView.ItemDecoration(){
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+                   outRect.bottom=10
+                    outRect.left=10
+                    outRect.right=10
+                }
+            })
             val ad=object : BaseRvAdapter<String>(articles){
                 override fun getLayoutID(viewType: Int): Int {
                     return R.layout.item_article_title
@@ -75,10 +76,10 @@ class ArticleActivityList: BaseActivity(){
 
             adapter=HFAdapter(ad as RecyclerView.Adapter<RecyclerView.ViewHolder>).apply {
                 val inflater=LayoutInflater.from(this@ArticleActivityList)
-                addHeader(inflater.inflate(R.layout.item_classify,rv_detail,false))
-                addHeader(inflater.inflate(R.layout.item_contact,rv_detail,false))
-                addFooter(inflater.inflate(R.layout.item_contact,rv_detail,false))
-                addFooter(inflater.inflate(R.layout.item_classify,rv_detail,false))
+//                addHeader(inflater.inflate(R.layout.item_classify,rv_detail,false))
+//                addHeader(inflater.inflate(R.layout.item_contact,rv_detail,false))
+//                addFooter(inflater.inflate(R.layout.item_contact,rv_detail,false))
+//                addFooter(inflater.inflate(R.layout.item_classify,rv_detail,false))
             }
         }
     }

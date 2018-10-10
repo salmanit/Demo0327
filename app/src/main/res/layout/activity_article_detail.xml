@@ -8,7 +8,8 @@
 <include layout="@layout/include_toolbar"/>
 
     <android.support.v7.widget.RecyclerView
+        android:background="#cbcbcbcb"
         android:id="@+id/rv_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 </LinearLayout>

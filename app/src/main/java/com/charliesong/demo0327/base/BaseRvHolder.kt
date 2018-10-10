@@ -26,19 +26,22 @@ class BaseRvHolder : RecyclerView.ViewHolder {
         }
         return view!! as T
     }
-    fun setText(id:Int,strRes:Int){
-
+    fun setText(id:Int,strRes:Int):BaseRvHolder{
         setText(id,root.context.getString(strRes))
+        return this
     }
-    fun setText(id:Int,str:CharSequence){
+    fun setText(id:Int,str:CharSequence):BaseRvHolder{
         (getView<TextView>(id)).setText(str)
+        return this
     }
-    fun setImageRes(id:Int,iconRes:Int){
+    fun setImageRes(id:Int,iconRes:Int):BaseRvHolder{
         (getView<ImageView>(id)).setImageResource(iconRes)
+        return this
     }
-    fun setImageUrl(id:Int,url:String){
+    fun setImageUrl(id:Int,url:String):BaseRvHolder{
         var iv=(getView<ImageView>(id))
     Glide.with(iv).load(url)
             .into(iv)
+        return this
     }
 }

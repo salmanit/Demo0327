@@ -42,4 +42,13 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+
+    <style name="dialog_bottom_show">
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_show</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom_hidden</item>
+    </style>
+    <style name="dialog_top_show">
+        <item name="android:windowEnterAnimation">@anim/slide_top_show</item>
+        <item name="android:windowExitAnimation">@anim/slide_top_hidden</item>
+    </style>
 </resources>

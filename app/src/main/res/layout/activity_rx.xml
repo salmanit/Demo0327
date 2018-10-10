@@ -17,10 +17,16 @@
     android:textColor="@color/rx_button1_txt_color"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
-
+<Button
+    android:id="@+id/btn_create"
+    android:text="创建Observerable"
+    android:onClick="observerCreate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn_install"
-        android:text="安装"
+        android:text="change state"
+        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

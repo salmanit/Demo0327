@@ -1,12 +1,16 @@
 package com.charliesong.demo0327.databind
 
 import android.annotation.SuppressLint
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import android.databinding.DataBindingUtil
+import android.databinding.ObservableField
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import com.charliesong.demo0327.BR
 import com.charliesong.demo0327.R
@@ -25,22 +29,34 @@ import kotlinx.android.synthetic.main.item_contact.*
 
 class ActivityDataBinding : BaseActivity() {
 
-    data class LoginParams(var phone:String?=null,var psw:String?=null)
+    data class LoginParams( var phone:String?=null, var psw:String?=null):BaseObservable()
 
-    var loginParams=LoginParams()
+    var loginParams=LoginParams().apply {
+        phone="111"
+        psw="password"
+    }
+    var testMethod2=TestMethod().apply {
+        name="test"
+    }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       DataBindingUtil.setContentView<ActivityDataBindingBinding>(this,R.layout.activity_data_binding).apply {
 
+       DataBindingUtil.setContentView<ActivityDataBindingBinding>(this,R.layout.activity_data_binding).apply {
            cbAgree.setOnCheckedChangeListener { buttonView, isChecked ->
                state=isChecked
+               loginParams.phone="change"
+               this.notifyPropertyChanged(BR.params)
+               println("test==${testMethod?.name}============${loginParams}")
+               this.notifyPropertyChanged(BR.testMethod)
            }
            cbAgree.isChecked=true;
            this.buttonText="submit"
            params=loginParams
+            testMethod=testMethod2
        }
+
         btn_go.setOnClickListener {
             showToast("${loginParams}")
         }

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.MyApplication"
@@ -21,6 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
         <activity
             android:name=".base.MainActivity"
             android:allowEmbedded="true"
@@ -40,7 +45,6 @@
             android:label="@string/access_activity_des" />
         <activity
             android:name=".rx.ActivityRx"
-
             android:label="@string/rx_learn_des" />
         <activity
             android:name=".kt.ActivityKotlinGrammar"
@@ -77,8 +81,8 @@
             android:label="自定义layoutManager" />
         <activity
             android:name=".article.ArticleActivityList"
-            android:launchMode="singleTask"
-            android:label="底部上拉进入下一页layoutManager自定义 [not complete]" />
+            android:label="底部上拉进入下一页layoutManager自定义 [not complete]"
+            android:launchMode="singleTask" />
         <activity
             android:name=".article.ArticleActivityDetail"
             android:label="@string/app_name" />
@@ -192,9 +196,28 @@
                 android:resource="@xml/accessibility_config" />
         </service>
 
-        <activity android:name=".databind.ActivityDataBinding"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:label="databinding学习"/>
+        <activity
+            android:name=".databind.ActivityDataBinding"
+            android:label="databinding学习"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".camera.ActivityCapturePic"
+            android:label="拍照带地点" />
+        <activity
+            android:name=".camera.ActivityCustomCamera"
+            android:label="自定义拍照页面" />
+        <activity
+            android:name=".camera.ActivityCamera2"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:label="camera2 学习 api21可用" />
+        <activity
+            android:name=".step.ActivityStep"
+            android:label="samsung step show learn" />
+        <activity
+            android:name=".motion.ActivityConstraintAnim"
+            android:label="MotionLayout学习" />
+        <activity android:name=".rv.ActivityRV"
+            android:label="RV的listAdapter学习"/>
     </application>
 
 </manifest>
