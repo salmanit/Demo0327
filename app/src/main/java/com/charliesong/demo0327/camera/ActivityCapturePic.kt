@@ -27,7 +27,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 
 
 
-
+/***use system camera app*/
 class ActivityCapturePic : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +76,9 @@ class ActivityCapturePic : BaseActivity() {
 
     }
 
+    fun startCamera3(v:View){
+        startActivityForResult(Intent(this,ActivityCamera21::class.java),22)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         println("request=====$requestCode====result=${resultCode}=====${data}")
@@ -107,6 +110,11 @@ class ActivityCapturePic : BaseActivity() {
 
                 }
 
+            }
+            22->{
+                val file=data?.getSerializableExtra("file") as File
+
+                showToast("拍摄成功===========${file.name}")
             }
         }
 

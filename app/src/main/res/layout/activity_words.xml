@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/include_toolbar"/>
+    <TextView
+        android:text="TIP:
+        长按上方的单词，拖动到你认为正确的地方，松手即可"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_words"
         android:padding="10dp"

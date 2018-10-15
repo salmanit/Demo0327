@@ -6,6 +6,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.graphics.ImageFormat
 import android.util.AttributeSet
+import android.view.View
 import java.io.File
 import java.io.FileOutputStream
 
@@ -42,14 +43,21 @@ class CameraSurface : SurfaceView, SurfaceHolder.Callback2 {
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
         println("=================surfaceDestroyed")
         theCamera?.stopPreview()
+        theCamera?.release()
         theCamera = null;
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         println("====================surfaceCreated")
-        if (theCamera == null) {
-            theCamera = Camera.open(1)
+        if(theCamera==null){
+            val count=Camera.getNumberOfCameras()
+            if(count==0){
+                return
+            }
+            println("====================camera count====$count")
+            theCamera = Camera.open(cameraId)
         }
+
         theCamera?.apply {
             val myParameters = getParameters();
             val supportPicSize = myParameters.supportedPictureSizes
@@ -67,19 +75,49 @@ class CameraSurface : SurfaceView, SurfaceHolder.Callback2 {
             myParameters.set("jpeg-quality", 85);
             //需要注意下边2个size的大小不能随便改，需要是上边打印的support的值才可以。
             //而且宽高也是当前屏幕方向的值，如果屏幕旋转了，宽高值就反过来了。
-            myParameters.setPreviewSize(640, 480)//如果要改预览图片大小也可以改
-            myParameters.setPictureSize(saveSize.width, saveSize.height);
-            myParameters.setGpsLongitude(131.123456)
-            myParameters.setGpsLatitude(34.5555)
-            myParameters.setGpsTimestamp(System.currentTimeMillis())
-            myParameters.setGpsAltitude(521.125)
-            myParameters.setGpsProcessingMethod("gps")
+            var sizeWidth=saveSize.width;
+            var sizeHeight=saveSize.height;
+
+//            myParameters.setPreviewSize(saveSize.width, saveSize.height)//如果要改预览图片大小也可以改
+            myParameters.setPictureSize(sizeWidth, sizeHeight);
+            if(width<height){
+
+                myParameters.setRotation(90)
+            }
+            gpsInfo?.apply {
+                myParameters.setGpsLongitude(longtitude)
+                myParameters.setGpsLatitude(latitude)
+                myParameters.setGpsTimestamp(System.currentTimeMillis())
+                myParameters.setGpsAltitude(altitude)
+                myParameters.setGpsProcessingMethod(method)
+            }
             parameters = myParameters
+            this.lock()
             setPreviewDisplay(holder);
             startPreview()
         }
     }
 
+    data class GPSInfo(val longtitude:Double,val latitude:Double,val altitude:Double,val method:String="gps")
+    private var  gpsInfo:GPSInfo?=null
+    fun setnewGpsInfo(gpsInfo2:GPSInfo){
+        gpsInfo=gpsInfo2
+        if(theCamera!=null){
+            resetThis()
+        }
+    }
+    var cameraId=0
+    fun changeCamera(v: View?){
+        val count=Camera.getNumberOfCameras()
+        if(count<2){
+            v?.visibility=View.GONE
+            return
+        }
+        cameraId=(cameraId+1)%count
+        surfaceDestroyed(holder)
+        surfaceCreated(holder)
+
+    }
     fun resetThis() {
         surfaceCreated(holder)
     }
@@ -96,10 +134,16 @@ class CameraSurface : SurfaceView, SurfaceHolder.Callback2 {
                     fos.write(data)
                     fos.close()
                     println("f===============${desFile.absolutePath}")
+                    captureSuccess?.savePictureSuccess(desFile)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         })
     }
+
+    interface  CaptureSuccessIML{
+        fun savePictureSuccess(desFile: File)
+    }
+    var captureSuccess:CaptureSuccessIML?=null
 }

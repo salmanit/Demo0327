@@ -159,14 +159,25 @@ open class BaseActivity : AppCompatActivity() {
             for (i in permissions.indices) {
                 if (grantResults[i] == PERMISSION_GRANTED) {
                     Toast.makeText(this, "" + "权限" + permissions[i] + "申请成功", Toast.LENGTH_SHORT).show()
+                    if(i==0){
+                        requestPermissionSuccess()
+                    }
                 } else {
                     Toast.makeText(this, "" + "权限" + permissions[i] + "申请失败", Toast.LENGTH_SHORT).show()
+                    if(i==0){
+                        requestPermissionFailed()
+                    }
                     finish()
                 }
             }
         }
     }
+    open fun requestPermissionSuccess(){
 
+    }
+    open fun requestPermissionFailed(){
+
+    }
     fun requestCamera(){
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -176,6 +187,22 @@ open class BaseActivity : AppCompatActivity() {
             }
             ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.CAMERA), 2)
+        }else{
+            requestPermissionSuccess()
+        }
+    }
+
+    fun requestRecordAudio(){
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.RECORD_AUDIO)) {
+
+            }
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.RECORD_AUDIO), 3)
+        }else{
+            requestPermissionSuccess()
         }
     }
 }

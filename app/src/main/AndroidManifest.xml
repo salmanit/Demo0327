@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.charliesong.demo0327">
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -12,7 +13,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-sdk tools:overrideLibrary="com.cktim.camera2library"/>
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -207,7 +210,7 @@
             android:name=".camera.ActivityCustomCamera"
             android:label="自定义拍照页面" />
         <activity
-            android:name=".camera.ActivityCamera2"
+            android:name=".camera.ActivityCamera21"
             android:configChanges="orientation|keyboard|screenSize"
             android:label="camera2 学习 api21可用" />
         <activity

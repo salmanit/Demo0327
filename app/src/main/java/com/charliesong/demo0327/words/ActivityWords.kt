@@ -128,7 +128,7 @@ class ActivityWords : BaseActivity() {
                     } else {
                         choice = temp
                         recyclerView.adapter.notifyDataSetChanged()
-                        //最终的choice和正确的rightPosition比较下，对错之后要感谢啥，自己处理
+                        //最终的choice和正确的rightPosition比较下，对错之后要干啥，自己处理
                         showToast("选择${if (choice == rightPosition) "正确" else "错误"}")
                     }
                     temp = -1
